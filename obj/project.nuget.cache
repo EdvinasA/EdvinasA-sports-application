@@ -1,9 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "j54KbsuzJE+1hkf2SXFeZhNFR/pK66O7nl+eMEm60knZ8K8NyjtYDLxeV1hsHwWz+GQeqwM2A/Ta0yiBhQPUHA==",
+  "dgSpecHash": "Z5IwUnByU3kJNeflFmbYAdhFJPJlh1yO39eNAQjY1qXkKzTqU+C2ZRiOYL1DzJcSI1TIMYiBNh6qOgYmJjoVhg==",
   "success": true,
   "projectFilePath": "C:\\Users\\Beast\\Desktop\\Programavimas\\NET-apps\\SaveApp\\SaveApp.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Beast\\.nuget\\packages\\automapper\\12.0.0\\automapper.12.0.0.nupkg.sha512",
+    "C:\\Users\\Beast\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\Beast\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
     "C:\\Users\\Beast\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
     "C:\\Users\\Beast\\.nuget\\packages\\swashbuckle.aspnetcore\\6.2.3\\swashbuckle.aspnetcore.6.2.3.nupkg.sha512",
