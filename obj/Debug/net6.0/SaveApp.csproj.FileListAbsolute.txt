@@ -25,3 +25,5 @@ C:\Users\Beast\Desktop\Programavimas\NET-apps\SaveApp\obj\Debug\net6.0\refint\Sa
 C:\Users\Beast\Desktop\Programavimas\NET-apps\SaveApp\obj\Debug\net6.0\SaveApp.pdb
 C:\Users\Beast\Desktop\Programavimas\NET-apps\SaveApp\obj\Debug\net6.0\SaveApp.genruntimeconfig.cache
 C:\Users\Beast\Desktop\Programavimas\NET-apps\SaveApp\obj\Debug\net6.0\ref\SaveApp.dll
+C:\Users\Beast\Desktop\Programavimas\NET-apps\SaveApp\bin\Debug\net6.0\AutoMapper.dll
+C:\Users\Beast\Desktop\Programavimas\NET-apps\SaveApp\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
