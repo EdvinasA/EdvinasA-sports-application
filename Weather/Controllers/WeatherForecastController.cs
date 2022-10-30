@@ -1,5 +1,5 @@
-using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using SaveApp.Weather.Services;
 
 namespace SaveApp.Controllers;
 
@@ -13,21 +13,17 @@ public class WeatherForecastController : ControllerBase
     };
 
     private readonly ILogger<WeatherForecastController> _logger;
+    private readonly IWeatherService _weatherService;
 
-    public WeatherForecastController(ILogger<WeatherForecastController> logger)
+    public WeatherForecastController(ILogger<WeatherForecastController> logger, IWeatherService weatherService)
     {
         _logger = logger;
+        _weatherService = weatherService;
     }
 
-    [HttpGet(Name = "get-weather-forecast")]
-    public IEnumerable<WeatherForecast> Get()
+    [HttpGet(Name = "other")]
+    public List<WeatherForecast> Other() 
     {
-        return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-        {
-            Date = DateTime.Now.AddDays(index),
-            TemperatureC = Random.Shared.Next(-20, 55),
-            Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-        })
-        .ToArray();
+        return _weatherService.GetAllForecasts();
     }
 }
