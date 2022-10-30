@@ -21,7 +21,7 @@ public class WeatherForecastController : ControllerBase
         _weatherService = weatherService;
     }
 
-    [HttpGet("other")]
+    [HttpGet("get-all")]
     public List<WeatherForecast> Other() 
     {
         return _weatherService.GetAllForecasts();
@@ -30,5 +30,10 @@ public class WeatherForecastController : ControllerBase
     [HttpPost("create")]
     public void Create() {
         _weatherService.SaveWeather();
+    }
+
+    [HttpPut("update")]
+    public void Update(WeatherForecast weatherForecast) {
+        _weatherService.UpdateWeather(weatherForecast);
     }
 }

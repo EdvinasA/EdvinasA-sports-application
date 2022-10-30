@@ -4,5 +4,6 @@ namespace SaveApp.Weather.Services
     {
         public List<WeatherForecast> GetAllForecasts();
         public void SaveWeather();
+        void UpdateWeather(WeatherForecast weatherForecast);
     }
 }

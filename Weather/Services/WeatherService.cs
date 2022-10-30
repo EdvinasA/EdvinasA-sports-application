@@ -20,5 +20,9 @@ namespace SaveApp.Weather.Services
         public void SaveWeather() {
             _queryRepository.SaveWeather();
         }
+
+        public void UpdateWeather(WeatherForecast weatherForecast) {
+            _queryRepository.UpdateWeather(weatherForecast);
+        }
     }
 }

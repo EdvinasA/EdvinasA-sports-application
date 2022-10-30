@@ -21,5 +21,23 @@ namespace SaveApp.Weather.Repositories
             _context.Weather.Add(forecast);
             _context.SaveChanges();
         }
+
+        public void UpdateWeather(WeatherForecast weatherForecast) {
+
+            try {
+
+                var weather = _context.Weather.FirstOrDefault<WeatherForecast>(entity => entity.Id == weatherForecast.Id);
+
+                weather!.Date = weatherForecast.Date;
+                weather!.TemperatureC = weatherForecast.TemperatureC;
+                weather!.Summary = weatherForecast.Summary;
+
+                _context.SaveChanges();
+
+            } 
+            catch (Exception ex) {
+                Console.WriteLine(ex);
+            }
+        }
     }
 }
