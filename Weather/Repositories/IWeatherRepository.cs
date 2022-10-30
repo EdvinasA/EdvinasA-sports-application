@@ -5,5 +5,6 @@ namespace SaveApp.Weather.Repositories
          public List<WeatherForecast> GetAll();
          void SaveWeather();
          void UpdateWeather(WeatherForecast weatherForecast);
+         public void DeleteWeather(int id);
     }
 }

@@ -24,5 +24,9 @@ namespace SaveApp.Weather.Services
         public void UpdateWeather(WeatherForecast weatherForecast) {
             _queryRepository.UpdateWeather(weatherForecast);
         }
+
+        public void DeleteWeather(int id) {
+            _queryRepository.DeleteWeather(id);
+        }
     }
 }

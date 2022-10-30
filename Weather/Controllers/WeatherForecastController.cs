@@ -4,7 +4,7 @@ using SaveApp.Weather.Services;
 namespace SaveApp.Controllers;
 
 [ApiController]
-[Route("weather")]
+[Route("api/weather")]
 public class WeatherForecastController : ControllerBase
 {
     private static readonly string[] Summaries = new[]
@@ -35,5 +35,10 @@ public class WeatherForecastController : ControllerBase
     [HttpPut("update")]
     public void Update(WeatherForecast weatherForecast) {
         _weatherService.UpdateWeather(weatherForecast);
+    }
+
+    [HttpDelete("{id}")]
+    public void Delete(int id) {
+        _weatherService.DeleteWeather(id);
     }
 }

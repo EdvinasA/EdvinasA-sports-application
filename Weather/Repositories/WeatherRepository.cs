@@ -34,8 +34,19 @@ namespace SaveApp.Weather.Repositories
 
                 _context.SaveChanges();
 
-            } 
-            catch (Exception ex) {
+            } catch (Exception ex) {
+                Console.WriteLine(ex);
+            }
+        }
+
+        public void DeleteWeather(int id) {
+            try {
+
+                WeatherForecast weatherForecast = _context.Weather.First<WeatherForecast>(entity => entity.Id == id);
+
+                _context.Weather.Remove(weatherForecast);
+                _context.SaveChanges();
+            } catch (Exception ex) {
                 Console.WriteLine(ex);
             }
         }
