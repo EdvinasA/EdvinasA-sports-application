@@ -1,6 +1,7 @@
-using SaveApp.Weather.Models;
+using SaveApp.App.Weather.Repositories.Context;
+using SaveApp.App.Weather.Models;
 
-namespace SaveApp.Weather.Repositories
+namespace SaveApp.App.Weather.Repositories
 {
     public class WeatherRepository : IWeatherRepository
     {

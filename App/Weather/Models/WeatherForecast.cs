@@ -1,6 +1,4 @@
-using System.Numerics;
-
-namespace SaveApp;
+namespace SaveApp.App.Weather.Models;
 
 public class WeatherForecast
 {

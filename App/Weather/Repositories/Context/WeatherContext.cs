@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 
-namespace SaveApp.Weather.Models;
+namespace SaveApp.App.Weather.Repositories.Context;
 
 public class WeatherContext : DbContext 
 {

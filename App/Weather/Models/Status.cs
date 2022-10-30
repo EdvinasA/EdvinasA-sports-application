@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace SaveApp.Weather.Models
+namespace SaveApp.App.Weather.Models;
 {
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum Status

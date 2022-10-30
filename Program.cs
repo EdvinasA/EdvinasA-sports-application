@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using SaveApp.Weather.Models;
+using SaveApp.Weather.Repositories.Context;
 using SaveApp.Weather.Repositories;
 using SaveApp.Weather.Services;
 

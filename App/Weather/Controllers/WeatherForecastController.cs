@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using SaveApp.Weather.Services;
+using SaveApp.App.Weather.Services;
 
-namespace SaveApp.Controllers;
+namespace SaveApp.App.Weather;
 
 [ApiController]
 [Route("api/weather")]
