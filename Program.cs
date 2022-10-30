@@ -1,13 +1,15 @@
 using Microsoft.EntityFrameworkCore;
-using SaveApp.Weather.Repositories.Context;
-using SaveApp.Weather.Repositories;
-using SaveApp.Weather.Services;
+using SaveApp.App.Weather.Repositories.Context;
+using SaveApp.App.Workout.Repositories.Contexts;
+using SaveApp.App.Weather.Repositories;
+using SaveApp.App.Weather.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddDbContext<WeatherContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddDbContext<ExerciseContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

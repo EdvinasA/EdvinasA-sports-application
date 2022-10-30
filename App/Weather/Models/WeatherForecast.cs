@@ -2,7 +2,6 @@ namespace SaveApp.App.Weather.Models;
 
 public class WeatherForecast
 {
-
     public int Id { get; set; }
     public DateTime? Date { get; set; }
 

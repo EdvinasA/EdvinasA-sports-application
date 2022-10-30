@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using SaveApp.App.Weather.Services;
+using SaveApp.App.Weather.Models;
 
 namespace SaveApp.App.Weather;
 
