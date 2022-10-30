@@ -4,7 +4,7 @@ using SaveApp.Weather.Services;
 namespace SaveApp.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("weather")]
 public class WeatherForecastController : ControllerBase
 {
     private static readonly string[] Summaries = new[]
@@ -21,9 +21,14 @@ public class WeatherForecastController : ControllerBase
         _weatherService = weatherService;
     }
 
-    [HttpGet(Name = "other")]
+    [HttpGet("other")]
     public List<WeatherForecast> Other() 
     {
         return _weatherService.GetAllForecasts();
+    }
+
+    [HttpPost("create")]
+    public void Create() {
+        _weatherService.SaveWeather();
     }
 }

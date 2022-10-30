@@ -9,5 +9,5 @@ public class WeatherContext : DbContext
         
     }
 
-    public DbSet<WeatherForecast> WeatherSave { get; set; }
+    public DbSet<WeatherForecast> Weather { get; set; }
 }

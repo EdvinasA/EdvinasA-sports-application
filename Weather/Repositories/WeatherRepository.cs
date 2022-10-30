@@ -11,7 +11,15 @@ namespace SaveApp.Weather.Repositories
         }
 
         public List<WeatherForecast> GetAll() {
-            return _context.WeatherSave.ToList();
+            return _context.Weather.ToList();
+        }
+
+        public void SaveWeather() {
+            WeatherForecast forecast = new WeatherForecast();
+            forecast.TemperatureC = 123;
+
+            _context.Weather.Add(forecast);
+            _context.SaveChanges();
         }
     }
 }

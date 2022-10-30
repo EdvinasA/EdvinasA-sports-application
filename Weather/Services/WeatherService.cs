@@ -16,5 +16,9 @@ namespace SaveApp.Weather.Services
         public List<WeatherForecast> GetAllForecasts() {
             return _queryRepository.GetAll();
         }
+
+        public void SaveWeather() {
+            _queryRepository.SaveWeather();
+        }
     }
 }

@@ -12,7 +12,7 @@ using SaveApp.Weather.Models;
 namespace SaveApp.Migrations
 {
     [DbContext(typeof(WeatherContext))]
-    [Migration("20221030081454_InitialCreate")]
+    [Migration("20221030085320_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -32,18 +32,18 @@ namespace SaveApp.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<DateTime>("Date")
+                    b.Property<DateTime?>("Date")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Summary")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TemperatureC")
-                        .HasColumnType("int");
+                    b.Property<double?>("TemperatureC")
+                        .HasColumnType("float");
 
                     b.HasKey("Id");
 
-                    b.ToTable("WeatherSave");
+                    b.ToTable("Weather");
                 });
 #pragma warning restore 612, 618
         }
