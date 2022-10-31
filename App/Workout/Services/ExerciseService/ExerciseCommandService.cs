@@ -1,21 +1,22 @@
+using AutoMapper;
 using SaveApp.App.Workout.Models;
-using SaveApp.App.Workout.Repositories.Converters;
+using SaveApp.App.Workout.Repositories.Entities;
 
 namespace SaveApp.App.Workout.Services
 {
     public class ExerciseCommandService : IExerciseCommandService
     {
-        private readonly ExerciseConverter _converter;
+        private readonly IMapper _mapper;
 
-        public ExerciseCommandService(ExerciseConverter converter) {
-        _converter = converter;
+        public ExerciseCommandService(IMapper mapper) {
+            _mapper = mapper;
         }
 
         public void CreateExercise(Exercise exercise) 
         {
-            var result = _converter.ConvertToEntity(exercise);
+            var result = _mapper.Map<ExerciseSetEntity>(exercise.ExerciseSets);
 
-            Console.WriteLine(result);
+            Console.WriteLine(exercise.Name);
         }
 
         public void UpdateExercise(Exercise exercise) 

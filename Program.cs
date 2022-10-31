@@ -3,6 +3,7 @@ using SaveApp.App.Weather.Repositories.Context;
 using SaveApp.App.Workout.Repositories.Contexts;
 using SaveApp.App.Weather.Repositories;
 using SaveApp.App.Weather.Services;
+using SaveApp.App.Workout.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,7 +16,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IWeatherService, WeatherService>();
+builder.Services.AddScoped<IExerciseCommandService, ExerciseCommandService>();
 builder.Services.AddTransient<IWeatherRepository, WeatherRepository>();
+builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
 var app = builder.Build();
 
