@@ -1,15 +1,14 @@
-FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build-env
-# WORKDIR /
-
-# # Copy everything
-# COPY . ./
-# # Restore as distinct layers
-# RUN dotnet restore
-# # Build and publish a release
-# RUN dotnet publish -c Release -o out
-
-# Build runtime image
-FROM mcr.microsoft.com/dotnet/aspnet:6.0
+# https://hub.docker.com/_/microsoft-dotnet
+FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /
-COPY /out .
-ENTRYPOINT ["dotnet", "DotNet.Docker.dll"]
+
+# copy everything else and build app
+COPY / .
+WORKDIR /
+RUN dotnet publish -c release -o /out --no-restore
+
+# final stage/image
+FROM mcr.microsoft.com/dotnet/aspnet:6.0
+WORKDIR /bin/Release/net6.0
+COPY /bin/Release/net6.0 ./
+ENTRYPOINT ["dotnet", "SaveApp.dll"]
