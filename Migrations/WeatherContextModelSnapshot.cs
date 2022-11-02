@@ -22,7 +22,7 @@ namespace SaveApp.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("SaveApp.WeatherForecast", b =>
+            modelBuilder.Entity("SaveApp.App.Weather.Models.WeatherForecast", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()

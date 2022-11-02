@@ -2,7 +2,9 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SaveApp.App.Weather.Repositories.Context;
 
 #nullable disable
@@ -10,8 +12,8 @@ using SaveApp.App.Weather.Repositories.Context;
 namespace SaveApp.Migrations
 {
     [DbContext(typeof(WeatherContext))]
-    [Migration("20221030085320_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20221102100536_InitialWeatherContext")]
+    partial class InitialWeatherContext
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -22,7 +24,7 @@ namespace SaveApp.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("SaveApp.WeatherForecast", b =>
+            modelBuilder.Entity("SaveApp.App.Weather.Models.WeatherForecast", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
