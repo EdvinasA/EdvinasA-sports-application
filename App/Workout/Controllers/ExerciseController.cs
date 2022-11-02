@@ -1,8 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
 using SaveApp.App.Workout.Models;
+using SaveApp.App.Workout.Repositories.Entities;
 using SaveApp.App.Workout.Services;
+using System.Web.Http.Cors;
 
 namespace SaveApp.App.Workout.Controllers;
+
 
 [ApiController]
 [Route("api/exercise")]
@@ -17,5 +20,10 @@ public class ExerciseController : ControllerBase
     [HttpPost("create")]
     public void Create(WorkoutDetails workoutDetails) {
         // _commandService.CreateExercise(exercise);
+    }
+
+    [HttpGet]
+    public List<ExerciseEntity> GetExercises() {
+        return _commandService.GetAllExercises();
     }
 }

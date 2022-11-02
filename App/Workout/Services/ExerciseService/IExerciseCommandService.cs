@@ -1,4 +1,5 @@
 using SaveApp.App.Workout.Models;
+using SaveApp.App.Workout.Repositories.Entities;
 
 namespace SaveApp.App.Workout.Services
 {
@@ -6,5 +7,6 @@ namespace SaveApp.App.Workout.Services
     {
          void CreateExercise(Exercise exercise);
          void UpdateExercise(Exercise exercise);
+         List<ExerciseEntity> GetAllExercises();
     }
 }

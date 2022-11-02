@@ -126,3 +126,9 @@ C:\Users\Beast\Desktop\Programavimas\NET-apps\sports-application\obj\Debug\net6.
 C:\Users\Beast\Desktop\Programavimas\NET-apps\sports-application\obj\Debug\net6.0\SaveApp.pdb
 C:\Users\Beast\Desktop\Programavimas\NET-apps\sports-application\obj\Debug\net6.0\SaveApp.genruntimeconfig.cache
 C:\Users\Beast\Desktop\Programavimas\NET-apps\sports-application\obj\Debug\net6.0\ref\SaveApp.dll
+C:\Users\Beast\Desktop\Programavimas\NET-apps\sports-application\bin\Debug\net6.0\System.Web.Cors.dll
+C:\Users\Beast\Desktop\Programavimas\NET-apps\sports-application\bin\Debug\net6.0\System.Net.Http.Formatting.dll
+C:\Users\Beast\Desktop\Programavimas\NET-apps\sports-application\bin\Debug\net6.0\System.Web.Http.dll
+C:\Users\Beast\Desktop\Programavimas\NET-apps\sports-application\bin\Debug\net6.0\System.Web.Http.Cors.dll
+C:\Users\Beast\Desktop\Programavimas\NET-apps\sports-application\bin\Debug\net6.0\Newtonsoft.Json.dll
+C:\Users\Beast\Desktop\Programavimas\NET-apps\sports-application\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll

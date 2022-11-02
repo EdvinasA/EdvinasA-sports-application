@@ -44,5 +44,9 @@ namespace SaveApp.App.Workout.Repositories.ExerciseRepository
 
             // Console.WriteLine(ListOfExerciseSets.Count);
         }
+
+        public List<ExerciseEntity> GetExercises() {
+            return _context.Exercise.ToList();
+        }
     }
 }

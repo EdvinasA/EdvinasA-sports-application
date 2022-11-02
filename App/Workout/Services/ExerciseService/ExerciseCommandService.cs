@@ -26,5 +26,9 @@ namespace SaveApp.App.Workout.Services
         {
 
         }
+
+        public List<ExerciseEntity> GetAllExercises() {
+            return _exerciseCommandRepository.GetExercises();
+        }
     }
 }

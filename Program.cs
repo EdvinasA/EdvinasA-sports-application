@@ -23,6 +23,13 @@ builder.Services.AddTransient<IWeatherRepository, WeatherRepository>();
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 builder.Services.AddHttpContextAccessor();
 
+builder.Services.AddCors(options => {
+    options.AddPolicy(name: "origins",
+    policy  =>
+                      {
+                          policy.WithOrigins("http://localhost:3000");
+                      });
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -31,6 +38,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors("origins");
 
 app.UseHttpsRedirection();
 
