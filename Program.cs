@@ -21,6 +21,7 @@ builder.Services.AddScoped<IExerciseCommandService, ExerciseCommandService>();
 builder.Services.AddTransient<IExerciseCommandRepository, ExerciseCommandRepository>();
 builder.Services.AddTransient<IWeatherRepository, WeatherRepository>();
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
+builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 

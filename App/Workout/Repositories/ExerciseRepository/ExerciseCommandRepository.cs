@@ -9,33 +9,40 @@ namespace SaveApp.App.Workout.Repositories.ExerciseRepository
     {
         private readonly ExerciseContext _context;
         private readonly IMapper _mapper;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public ExerciseCommandRepository(ExerciseContext context, IMapper mapper) {
+        public ExerciseCommandRepository(ExerciseContext context, IMapper mapper, IHttpContextAccessor httpContextAccessor) {
             _context = context;
             _mapper = mapper;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public void Create(Exercise input) {
-            var listOfExerciseSets = input.ExerciseSets
-            .Select(set => _mapper.Map<ExerciseSetEntity>(set))
-            .ToList();
-
-            // var userEntity = new UserEntity();
-            // userEntity.Email = "edvinasalimas98@gmail.com";
-            // userEntity.FirstName = "Edvinas";
-            // userEntity.LastName = "Alimas";
-
-            // _context.User.Add(UserEntity);
-            // _context.ExerciseSetEntity.AddRange(listOfExerciseSets);
-            // _context.SaveChanges();
 
             var exerciseEntity = new ExerciseEntity();
-            exerciseEntity.ExerciseSetsEntities = listOfExerciseSets;
-            
-
-            Console.WriteLine(listOfExerciseSets.Count);
+            exerciseEntity.Name = input.Name;
+            exerciseEntity.User = _context.User.Find(1);
             _context.Exercise.Add(exerciseEntity);
             _context.SaveChanges();
+
+            var ListOfExerciseSets = input.ExerciseSets
+            .Select(set => new ExerciseSetEntity() 
+                { Weigth = set.Weigth,
+                  Reps = set.Reps,
+                  Notes = set.Notes,
+                  ExerciseType = set.ExerciseType,
+                  UserEntity = _context.User.Find(1),
+                  ExerciseEntity = exerciseEntity })
+            .ToList();
+            _context.ExerciseSet.AddRange(ListOfExerciseSets);
+            _context.SaveChanges();
+            
+            // _context.User.Add(UserEntity);
+            // _context.ExerciseSetEntity.AddRange(ListOfExerciseSets);
+            // _context.SaveChanges();
+            
+
+            // Console.WriteLine(ListOfExerciseSets.Count);
         }
     }
 }
