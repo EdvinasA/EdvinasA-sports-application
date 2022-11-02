@@ -5,6 +5,8 @@ using SaveApp.App.Workout.Repositories.ExerciseRepository;
 using SaveApp.App.Weather.Repositories;
 using SaveApp.App.Weather.Services;
 using SaveApp.App.Workout.Services;
+using sports_application.App.Workout.Repositories.WorkoutRepository;
+using sports_application.App.Workout.Services.WorkoutService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,7 +20,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IWeatherService, WeatherService>();
 builder.Services.AddScoped<IExerciseCommandService, ExerciseCommandService>();
+builder.Services.AddScoped<IWorkoutCommandService, WorkoutCommandService>();
 builder.Services.AddTransient<IExerciseCommandRepository, ExerciseCommandRepository>();
+builder.Services.AddTransient<IWorkoutCommandRepository, WorkoutCommandRepository>();
 builder.Services.AddTransient<IWeatherRepository, WeatherRepository>();
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 builder.Services.AddHttpContextAccessor();
@@ -27,7 +31,7 @@ builder.Services.AddCors(options => {
     options.AddPolicy(name: "origins",
     policy  =>
                       {
-                          policy.WithOrigins("http://localhost:3000");
+                          policy.WithOrigins("*");
                       });
 });
 var app = builder.Build();

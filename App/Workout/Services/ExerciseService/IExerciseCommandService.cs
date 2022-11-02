@@ -5,8 +5,8 @@ namespace SaveApp.App.Workout.Services
 {
     public interface IExerciseCommandService
     {
-         void CreateExercise(Exercise exercise);
-         void UpdateExercise(Exercise exercise);
-         List<ExerciseEntity> GetAllExercises();
+         void CreateExercise(int userId, Exercise exercise);
+         void UpdateExercise(int userId, Exercise exercise);
+         List<ExerciseEntity> GetAllExercises(int userId);
     }
 }

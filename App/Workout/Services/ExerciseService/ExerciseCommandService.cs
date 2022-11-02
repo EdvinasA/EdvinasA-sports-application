@@ -15,20 +15,20 @@ namespace SaveApp.App.Workout.Services
             _exerciseCommandRepository = exerciseCommandRepository;
         }
 
-        public void CreateExercise(Exercise exercise) 
+        public void CreateExercise(int userId, Exercise exercise) 
         {
-            _exerciseCommandRepository.Create(exercise);
+            _exerciseCommandRepository.Create(userId, exercise);
 
             Console.WriteLine(exercise.Name);
         }
 
-        public void UpdateExercise(Exercise exercise) 
+        public void UpdateExercise(int userId, Exercise exercise) 
         {
 
         }
 
-        public List<ExerciseEntity> GetAllExercises() {
-            return _exerciseCommandRepository.GetExercises();
+        public List<ExerciseEntity> GetAllExercises(int userId) {
+            return _exerciseCommandRepository.GetExercises(userId);
         }
     }
 }

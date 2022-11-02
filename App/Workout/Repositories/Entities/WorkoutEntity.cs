@@ -11,6 +11,7 @@ namespace SaveApp.App.Workout.Repositories.Entities
         public DateTime? StartTime { get; set; }
         public DateTime? EndTime { get; set; }
         public String? Notes { get; set; }
-        public List<ExerciseEntity>? ExerciseEntity { get; set; }
+        public List<ExerciseEntity>? Exercises { get; set; }
+        public UserEntity? UserEntity { get; set; }
     }
 }

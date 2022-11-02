@@ -11,28 +11,32 @@ namespace SaveApp.App.Workout.Repositories.ExerciseRepository
         private readonly IMapper _mapper;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public ExerciseCommandRepository(ExerciseContext context, IMapper mapper, IHttpContextAccessor httpContextAccessor) {
+        public ExerciseCommandRepository(ExerciseContext context, IMapper mapper, IHttpContextAccessor httpContextAccessor)
+        {
             _context = context;
             _mapper = mapper;
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public void Create(Exercise input) {
+        public void Create(int userId, Exercise input)
+        {
 
             var exerciseEntity = new ExerciseEntity();
             exerciseEntity.Name = input.Name;
-            exerciseEntity.User = _context.User.Find(input.User.Id);
+            exerciseEntity.User = _context.User.Find(userId);
             _context.Exercise.Add(exerciseEntity);
             _context.SaveChanges();
 
             var ListOfExerciseSets = input.ExerciseSets
-            .Select(set => new ExerciseSetEntity() 
-                { Weigth = set.Weigth,
-                  Reps = set.Reps,
-                  Notes = set.Notes,
-                  ExerciseType = set.ExerciseType,
-                  UserEntity = _context.User.Find(input.User.Id),
-                  ExerciseEntity = exerciseEntity })
+            .Select(set => new ExerciseSetEntity()
+            {
+                Weigth = set.Weigth,
+                Reps = set.Reps,
+                Notes = set.Notes,
+                ExerciseType = set.ExerciseType,
+                UserEntity = _context.User.Find(userId),
+                ExerciseEntity = exerciseEntity
+            })
             .ToList();
             _context.ExerciseSet.AddRange(ListOfExerciseSets);
             _context.SaveChanges();
@@ -40,13 +44,14 @@ namespace SaveApp.App.Workout.Repositories.ExerciseRepository
             // _context.User.Add(UserEntity);
             // _context.ExerciseSetEntity.AddRange(ListOfExerciseSets);
             // _context.SaveChanges();
-            
+
 
             // Console.WriteLine(ListOfExerciseSets.Count);
         }
 
-        public List<ExerciseEntity> GetExercises() {
-            return _context.Exercise.ToList();
+        public List<ExerciseEntity> GetExercises(int userId)
+        {
+            return _context.Exercise.Where(c => c.User.Id == userId).ToList();
         }
     }
 }
