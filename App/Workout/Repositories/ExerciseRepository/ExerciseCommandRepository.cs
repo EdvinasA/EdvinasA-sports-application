@@ -21,7 +21,7 @@ namespace SaveApp.App.Workout.Repositories.ExerciseRepository
 
             var exerciseEntity = new ExerciseEntity();
             exerciseEntity.Name = input.Name;
-            exerciseEntity.User = _context.User.Find(1);
+            exerciseEntity.User = _context.User.Find(input.User.Id);
             _context.Exercise.Add(exerciseEntity);
             _context.SaveChanges();
 
@@ -31,12 +31,12 @@ namespace SaveApp.App.Workout.Repositories.ExerciseRepository
                   Reps = set.Reps,
                   Notes = set.Notes,
                   ExerciseType = set.ExerciseType,
-                  UserEntity = _context.User.Find(1),
+                  UserEntity = _context.User.Find(input.User.Id),
                   ExerciseEntity = exerciseEntity })
             .ToList();
             _context.ExerciseSet.AddRange(ListOfExerciseSets);
             _context.SaveChanges();
-            
+
             // _context.User.Add(UserEntity);
             // _context.ExerciseSetEntity.AddRange(ListOfExerciseSets);
             // _context.SaveChanges();
