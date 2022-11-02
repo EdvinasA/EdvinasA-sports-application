@@ -1,8 +1,6 @@
-using System.Numerics;
-
 namespace SaveApp.App.Workout.Models
 {
-    public class Workout
+    public class WorkoutDetails
     {
         public int Id { get; set; }
         public String? Name { get; set; }

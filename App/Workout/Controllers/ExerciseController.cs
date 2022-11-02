@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using SaveApp.App.Workout.Repositories.Entities;
+using SaveApp.App.Workout.Models;
 using SaveApp.App.Workout.Services;
 
 namespace SaveApp.App.Workout.Controllers;
@@ -15,7 +15,7 @@ public class ExerciseController : ControllerBase
     }
 
     [HttpPost("create")]
-    public void Create(WorkoutEntity workout) {
+    public void Create(WorkoutDetails workoutDetails) {
         // _commandService.CreateExercise(exercise);
     }
 }
