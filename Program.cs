@@ -1,9 +1,9 @@
 using Microsoft.EntityFrameworkCore;
+using SaveApp.App.Weather.Repositories;
 using SaveApp.App.Weather.Repositories.Context;
+using SaveApp.App.Weather.Services;
 using SaveApp.App.Workout.Repositories.Contexts;
 using SaveApp.App.Workout.Repositories.ExerciseRepository;
-using SaveApp.App.Weather.Repositories;
-using SaveApp.App.Weather.Services;
 using SaveApp.App.Workout.Services;
 using sports_application.App.Workout.Repositories.WorkoutRepository;
 using sports_application.App.Workout.Services.WorkoutService;
@@ -27,9 +27,10 @@ builder.Services.AddTransient<IWeatherRepository, WeatherRepository>();
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 builder.Services.AddHttpContextAccessor();
 
-builder.Services.AddCors(options => {
+builder.Services.AddCors(options =>
+{
     options.AddPolicy(name: "origins",
-    policy  =>
+    policy =>
                       {
                           policy.WithOrigins("*");
                       });
