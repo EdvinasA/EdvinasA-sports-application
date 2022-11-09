@@ -3,19 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SaveApp.App.Workout.Repositories.Contexts;
 
 #nullable disable
 
-namespace SaveApp.Migrations.Exercise
+namespace SaveApp.Migrations
 {
     [DbContext(typeof(ExerciseContext))]
-    [Migration("20221102110100_UpdateEntities")]
-    partial class UpdateEntities
+    partial class ExerciseContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -23,21 +21,6 @@ namespace SaveApp.Migrations.Exercise
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
-
-            modelBuilder.Entity("ExerciseEntityWorkoutEntity", b =>
-                {
-                    b.Property<int>("ExerciseEntityId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("WorkoutEntityId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ExerciseEntityId", "WorkoutEntityId");
-
-                    b.HasIndex("WorkoutEntityId");
-
-                    b.ToTable("ExerciseEntityWorkoutEntity");
-                });
 
             modelBuilder.Entity("SaveApp.App.Workout.Repositories.Entities.ExerciseEntity", b =>
                 {
@@ -53,7 +36,7 @@ namespace SaveApp.Migrations.Exercise
                     b.Property<int>("RowNumber")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserId")
+                    b.Property<int?>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -89,11 +72,16 @@ namespace SaveApp.Migrations.Exercise
                     b.Property<int?>("Weigth")
                         .HasColumnType("int");
 
+                    b.Property<int>("WorkoutExerciseEntityId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ExerciseEntityId");
 
                     b.HasIndex("UserEntityId");
+
+                    b.HasIndex("WorkoutExerciseEntityId");
 
                     b.ToTable("ExerciseSet");
                 });
@@ -156,28 +144,37 @@ namespace SaveApp.Migrations.Exercise
                     b.ToTable("Workout");
                 });
 
-            modelBuilder.Entity("ExerciseEntityWorkoutEntity", b =>
+            modelBuilder.Entity("SaveApp.App.Workout.Repositories.Entities.WorkoutExerciseEntity", b =>
                 {
-                    b.HasOne("SaveApp.App.Workout.Repositories.Entities.ExerciseEntity", null)
-                        .WithMany()
-                        .HasForeignKey("ExerciseEntityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
-                    b.HasOne("SaveApp.App.Workout.Repositories.Entities.WorkoutEntity", null)
-                        .WithMany()
-                        .HasForeignKey("WorkoutEntityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("ExerciseId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RowNumber")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("WorkoutId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ExerciseId");
+
+                    b.HasIndex("WorkoutId");
+
+                    b.ToTable("WorkoutExercise");
                 });
 
             modelBuilder.Entity("SaveApp.App.Workout.Repositories.Entities.ExerciseEntity", b =>
                 {
                     b.HasOne("SaveApp.App.Workout.Repositories.Entities.UserEntity", "User")
                         .WithMany("ExerciseEntity")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId");
 
                     b.Navigation("User");
                 });
@@ -192,16 +189,43 @@ namespace SaveApp.Migrations.Exercise
                         .WithMany("ExerciseSetEntity")
                         .HasForeignKey("UserEntityId");
 
+                    b.HasOne("SaveApp.App.Workout.Repositories.Entities.WorkoutExerciseEntity", "WorkoutExerciseEntity")
+                        .WithMany("ExerciseSets")
+                        .HasForeignKey("WorkoutExerciseEntityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("ExerciseEntity");
 
                     b.Navigation("UserEntity");
+
+                    b.Navigation("WorkoutExerciseEntity");
                 });
 
             modelBuilder.Entity("SaveApp.App.Workout.Repositories.Entities.WorkoutEntity", b =>
                 {
-                    b.HasOne("SaveApp.App.Workout.Repositories.Entities.UserEntity", null)
+                    b.HasOne("SaveApp.App.Workout.Repositories.Entities.UserEntity", "UserEntity")
                         .WithMany("WorkoutEntity")
                         .HasForeignKey("UserEntityId");
+
+                    b.Navigation("UserEntity");
+                });
+
+            modelBuilder.Entity("SaveApp.App.Workout.Repositories.Entities.WorkoutExerciseEntity", b =>
+                {
+                    b.HasOne("SaveApp.App.Workout.Repositories.Entities.ExerciseEntity", "Exercise")
+                        .WithMany()
+                        .HasForeignKey("ExerciseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SaveApp.App.Workout.Repositories.Entities.WorkoutEntity", "Workout")
+                        .WithMany("Exercises")
+                        .HasForeignKey("WorkoutId");
+
+                    b.Navigation("Exercise");
+
+                    b.Navigation("Workout");
                 });
 
             modelBuilder.Entity("SaveApp.App.Workout.Repositories.Entities.ExerciseEntity", b =>
@@ -216,6 +240,16 @@ namespace SaveApp.Migrations.Exercise
                     b.Navigation("ExerciseSetEntity");
 
                     b.Navigation("WorkoutEntity");
+                });
+
+            modelBuilder.Entity("SaveApp.App.Workout.Repositories.Entities.WorkoutEntity", b =>
+                {
+                    b.Navigation("Exercises");
+                });
+
+            modelBuilder.Entity("SaveApp.App.Workout.Repositories.Entities.WorkoutExerciseEntity", b =>
+                {
+                    b.Navigation("ExerciseSets");
                 });
 #pragma warning restore 612, 618
         }

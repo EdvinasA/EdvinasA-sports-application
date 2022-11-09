@@ -19,10 +19,12 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IWeatherService, WeatherService>();
-builder.Services.AddScoped<IExerciseCommandService, ExerciseCommandService>();
-builder.Services.AddScoped<IWorkoutCommandService, WorkoutCommandService>();
-builder.Services.AddTransient<IExerciseCommandRepository, ExerciseCommandRepository>();
 builder.Services.AddTransient<IWorkoutCommandRepository, WorkoutCommandRepository>();
+builder.Services.AddScoped<IWorkoutCommandService, WorkoutCommandService>();
+builder.Services.AddScoped<IExerciseCommandService, ExerciseCommandService>();
+builder.Services.AddTransient<IExerciseCommandRepository, ExerciseCommandRepository>();
+builder.Services.AddScoped<IWorkoutQueryService, WorkoutQueryService>();
+builder.Services.AddTransient<IWorkoutQueryRepository, WorkoutQueryRepository>();
 builder.Services.AddTransient<IWeatherRepository, WeatherRepository>();
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 builder.Services.AddHttpContextAccessor();
@@ -32,7 +34,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: "origins",
     policy =>
                       {
-                          policy.WithOrigins("*");
+                          policy.WithOrigins("*").AllowAnyHeader().AllowAnyMethod();
                       });
 });
 var app = builder.Build();

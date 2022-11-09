@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace SaveApp.Migrations.Exercise
+namespace SaveApp.Migrations
 {
-    public partial class InitialExerciseContext : Migration
+    public partial class CreateExerciseForWorkoutAndRemove : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -31,7 +31,8 @@ namespace SaveApp.Migrations.Exercise
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UserId = table.Column<int>(type: "int", nullable: false)
+                    RowNumber = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -40,8 +41,7 @@ namespace SaveApp.Migrations.Exercise
                         name: "FK_Exercise_User_UserId",
                         column: x => x.UserId,
                         principalTable: "User",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -50,13 +50,12 @@ namespace SaveApp.Migrations.Exercise
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ExerciseName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     BodyWeight = table.Column<int>(type: "int", nullable: true),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: true),
                     StartTime = table.Column<DateTime>(type: "datetime2", nullable: true),
                     EndTime = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Notes = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    RowNumber = table.Column<int>(type: "int", nullable: false),
                     UserEntityId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -66,6 +65,32 @@ namespace SaveApp.Migrations.Exercise
                         name: "FK_Workout_User_UserEntityId",
                         column: x => x.UserEntityId,
                         principalTable: "User",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "WorkoutExercise",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ExerciseId = table.Column<int>(type: "int", nullable: false),
+                    WorkoutId = table.Column<int>(type: "int", nullable: true),
+                    RowNumber = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_WorkoutExercise", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_WorkoutExercise_Exercise_ExerciseId",
+                        column: x => x.ExerciseId,
+                        principalTable: "Exercise",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_WorkoutExercise_Workout_WorkoutId",
+                        column: x => x.WorkoutId,
+                        principalTable: "Workout",
                         principalColumn: "Id");
                 });
 
@@ -80,6 +105,7 @@ namespace SaveApp.Migrations.Exercise
                     Notes = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ExerciseType = table.Column<int>(type: "int", nullable: false),
                     ExerciseEntityId = table.Column<int>(type: "int", nullable: true),
+                    WorkoutExerciseEntityId = table.Column<int>(type: "int", nullable: false),
                     UserEntityId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -95,28 +121,10 @@ namespace SaveApp.Migrations.Exercise
                         column: x => x.UserEntityId,
                         principalTable: "User",
                         principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ExerciseEntityWorkoutEntity",
-                columns: table => new
-                {
-                    ExerciseEntityId = table.Column<int>(type: "int", nullable: false),
-                    WorkoutEntityId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ExerciseEntityWorkoutEntity", x => new { x.ExerciseEntityId, x.WorkoutEntityId });
                     table.ForeignKey(
-                        name: "FK_ExerciseEntityWorkoutEntity_Exercise_ExerciseEntityId",
-                        column: x => x.ExerciseEntityId,
-                        principalTable: "Exercise",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ExerciseEntityWorkoutEntity_Workout_WorkoutEntityId",
-                        column: x => x.WorkoutEntityId,
-                        principalTable: "Workout",
+                        name: "FK_ExerciseSet_WorkoutExercise_WorkoutExerciseEntityId",
+                        column: x => x.WorkoutExerciseEntityId,
+                        principalTable: "WorkoutExercise",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -125,11 +133,6 @@ namespace SaveApp.Migrations.Exercise
                 name: "IX_Exercise_UserId",
                 table: "Exercise",
                 column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ExerciseEntityWorkoutEntity_WorkoutEntityId",
-                table: "ExerciseEntityWorkoutEntity",
-                column: "WorkoutEntityId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ExerciseSet_ExerciseEntityId",
@@ -142,24 +145,39 @@ namespace SaveApp.Migrations.Exercise
                 column: "UserEntityId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ExerciseSet_WorkoutExerciseEntityId",
+                table: "ExerciseSet",
+                column: "WorkoutExerciseEntityId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Workout_UserEntityId",
                 table: "Workout",
                 column: "UserEntityId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_WorkoutExercise_ExerciseId",
+                table: "WorkoutExercise",
+                column: "ExerciseId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_WorkoutExercise_WorkoutId",
+                table: "WorkoutExercise",
+                column: "WorkoutId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "ExerciseEntityWorkoutEntity");
-
-            migrationBuilder.DropTable(
                 name: "ExerciseSet");
 
             migrationBuilder.DropTable(
-                name: "Workout");
+                name: "WorkoutExercise");
 
             migrationBuilder.DropTable(
                 name: "Exercise");
+
+            migrationBuilder.DropTable(
+                name: "Workout");
 
             migrationBuilder.DropTable(
                 name: "User");

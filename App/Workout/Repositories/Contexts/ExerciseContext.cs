@@ -11,4 +11,5 @@ public class ExerciseContext : DbContext
     public DbSet<ExerciseSetEntity>? ExerciseSet { get; set; }
     public DbSet<UserEntity>? User { get; set; }
     public DbSet<WorkoutEntity>? Workout { get; set; }
+    public DbSet<WorkoutExerciseEntity>? WorkoutExercise { get; set; }
 }

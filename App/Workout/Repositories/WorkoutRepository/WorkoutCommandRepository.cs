@@ -16,8 +16,8 @@ namespace sports_application.App.Workout.Repositories.WorkoutRepository
             _mapper = mapper;
         }
 
-        public void Create(int userId, WorkoutDetails workoutDetails) {
-            WorkoutEntity workoutEntity = _mapper.Map<WorkoutEntity>(workoutDetails);
+        public void Create(int userId, WorkoutDetailsCreateInput input) {
+            WorkoutEntity workoutEntity = _mapper.Map<WorkoutEntity>(input);
             workoutEntity.UserEntity = _context.User.First(user => user.Id == userId);
 
             _context.Workout.Add(workoutEntity);

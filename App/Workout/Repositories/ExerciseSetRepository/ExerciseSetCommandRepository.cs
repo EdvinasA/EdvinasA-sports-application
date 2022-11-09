@@ -9,7 +9,7 @@ namespace sports_application.App.Workout.Repositories.ExerciseSetRepository
         private readonly ExerciseContext _context;
         private readonly IMapper _mapper;
 
-        public ExerciseSetCommandRepository(ExerciseContext context, IMapper mapper)
+        public ExerciseSetCommandRepository(ExerciseContext context, IMapper mapper) 
         {
             _context = context;
             _mapper = mapper;

@@ -2,8 +2,9 @@ using SaveApp.App.Workout.Models;
 
 namespace sports_application.App.Workout.Services.WorkoutService
 {
-    public interface IWorkoutCommandService
+    public interface IWorkoutQueryService
     {
-         void Create(int userId);
+        List<WorkoutDetails> GetAllByUserId(int UserId);
+        
     }
 }

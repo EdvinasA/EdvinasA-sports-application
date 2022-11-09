@@ -1,5 +1,6 @@
 using AutoMapper;
 using SaveApp.App.Workout.Models;
+using sports_application.App.Workout.Models;
 using SaveApp.App.Workout.Repositories.Entities;
 
 namespace SaveApp
@@ -15,7 +16,7 @@ namespace SaveApp
             CreateMap<UserEntity, User>();
             CreateMap<User, UserEntity>();
             CreateMap<WorkoutEntity, WorkoutDetails>();
-            CreateMap<WorkoutDetails, WorkoutEntity>();
+            CreateMap<WorkoutDetailsCreateInput, WorkoutEntity>();
         }
     }
 }

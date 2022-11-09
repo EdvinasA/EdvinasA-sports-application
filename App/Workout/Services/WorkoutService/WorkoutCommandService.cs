@@ -10,8 +10,11 @@ namespace sports_application.App.Workout.Services.WorkoutService
         public WorkoutCommandService(IWorkoutCommandRepository commandRepository) {
             _commandRepository = commandRepository;
         }
-        public void Create(int userId, WorkoutDetails workoutDetails) {
-            _commandRepository.Create(userId, workoutDetails);
+        public void Create(int userId) {
+            _commandRepository.Create(userId, new WorkoutDetailsCreateInput() {
+                Date = DateTime.Now,
+                StartTime = DateTime.Now
+            });
         }
         
     }

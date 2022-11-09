@@ -1,3 +1,5 @@
+using SaveApp.App.Workout.Repositories.Entities;
+
 namespace SaveApp.App.Workout.Models
 {
     public class WorkoutDetails
@@ -9,6 +11,6 @@ namespace SaveApp.App.Workout.Models
         public DateTime? StartTime { get; set; }
         public DateTime? EndTime { get; set; }
         public String? Notes { get; set; }
-        public List<Exercise>? Exercises { get; set; }
+        public List<WorkoutExerciseEntity>? Exercises { get; set; }
     }
 }

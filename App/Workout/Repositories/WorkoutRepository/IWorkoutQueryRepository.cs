@@ -2,8 +2,8 @@ using SaveApp.App.Workout.Models;
 
 namespace sports_application.App.Workout.Repositories.WorkoutRepository
 {
-    public interface IWorkoutCommandRepository
+    public interface IWorkoutQueryRepository
     {
-         void Create(int userId, WorkoutDetailsCreateInput input);
+        List<WorkoutDetails> GetWorkouts(int UserId);
     }
 }
