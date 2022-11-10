@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Beast\\Desktop\\Programavimas\\NET-apps\\sports-application\\SaveApp.csproj": {}
+    "C:\\Users\\edvinas.alimas\\Downloads\\EdvinasA-sports-application\\SaveApp.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Beast\\Desktop\\Programavimas\\NET-apps\\sports-application\\SaveApp.csproj": {
+    "C:\\Users\\edvinas.alimas\\Downloads\\EdvinasA-sports-application\\SaveApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Beast\\Desktop\\Programavimas\\NET-apps\\sports-application\\SaveApp.csproj",
+        "projectUniqueName": "C:\\Users\\edvinas.alimas\\Downloads\\EdvinasA-sports-application\\SaveApp.csproj",
         "projectName": "SaveApp",
-        "projectPath": "C:\\Users\\Beast\\Desktop\\Programavimas\\NET-apps\\sports-application\\SaveApp.csproj",
-        "packagesPath": "C:\\Users\\Beast\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Beast\\Desktop\\Programavimas\\NET-apps\\sports-application\\obj\\",
+        "projectPath": "C:\\Users\\edvinas.alimas\\Downloads\\EdvinasA-sports-application\\SaveApp.csproj",
+        "packagesPath": "C:\\Users\\edvinas.alimas\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\edvinas.alimas\\Downloads\\EdvinasA-sports-application\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Beast\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\edvinas.alimas\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -69,7 +69,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -81,7 +82,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.403\\RuntimeIdentifierGraph.json"
         }
       }
     }
