@@ -31,7 +31,7 @@ public class ExerciseController : ControllerBase
     }
 
     [HttpGet("set")]
-    public List<ExerciseSet> GetExerciseSets(int userId) {
+    public List<ExerciseSet>? GetExerciseSets(int userId) {
         return null;
     }
 }

@@ -17,10 +17,10 @@ namespace SaveApp.App.Workout.Repositories.WorkoutRepository
             _mapper = mapper;
         }
         public List<WorkoutDetails> GetWorkouts(int UserId) {
-            List<WorkoutEntity> entities = _context.Workout
+            List<WorkoutEntity> entities = _context.Workout!
             .Include("Exercises.Exercise")
             .Include("Exercises.ExerciseSets")
-            .Where(workout => workout.UserEntity.Id == UserId).ToList();
+            .Where(workout => workout.UserEntity!.Id == UserId).ToList();
             
             return entities.Select(entity => _mapper.Map<WorkoutDetails>(entity)).ToList();
         }

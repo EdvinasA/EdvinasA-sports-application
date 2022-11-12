@@ -18,9 +18,9 @@ namespace SaveApp.App.Workout.Repositories.WorkoutRepository
 
         public void Create(int userId, WorkoutDetailsCreateInput input) {
             WorkoutEntity workoutEntity = _mapper.Map<WorkoutEntity>(input);
-            workoutEntity.UserEntity = _context.User.First(user => user.Id == userId);
+            workoutEntity.UserEntity = _context.User!.First(user => user.Id == userId);
 
-            _context.Workout.Add(workoutEntity);
+            _context.Workout!.Add(workoutEntity);
             _context.SaveChanges();
         }
     }
