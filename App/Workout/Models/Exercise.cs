@@ -1,5 +1,3 @@
-using Microsoft.IdentityModel.Tokens;
-
 namespace SaveApp.App.Workout.Models
 {
     public class Exercise

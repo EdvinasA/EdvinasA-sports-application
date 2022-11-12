@@ -1,6 +1,7 @@
 using AutoMapper;
 using SaveApp.App.Workout.Models;
 using SaveApp.App.Workout.Repositories.Contexts;
+using SaveApp.App.Workout.Repositories.Entities;
 
 namespace SaveApp.App.Workout.Repositories.ExerciseSetRepository
 {
@@ -15,8 +16,16 @@ namespace SaveApp.App.Workout.Repositories.ExerciseSetRepository
             _mapper = mapper;
         }
 
-        public void Create(WorkoutDetailsCreateInput input) {
-            
+        public ExerciseSet Create(ExerciseSetCreateInput input) {
+            ExerciseSetEntity entity = _mapper.Map<ExerciseSetEntity>(input);
+            entity.ExerciseEntity = _context.Exercise?.Find(input.ExerciseId);
+            entity.WorkoutExerciseEntity = _context.WorkoutExercise?.Find(input.WorkoutExerciseId);
+            entity.UserEntity = _context.User?.Find(input.UserId);
+
+            _context.ExerciseSet?.Add(entity);
+            _context.SaveChanges();
+
+            return _mapper.Map<ExerciseSet>(entity);
         }
     }
 }

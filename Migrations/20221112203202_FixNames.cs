@@ -1,11 +1,12 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
 namespace SaveApp.Migrations
 {
-    public partial class CreateExerciseForWorkoutAndRemove : Migration
+    public partial class FixNames : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,11 +14,11 @@ namespace SaveApp.Migrations
                 name: "User",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    FirstName = table.Column<string>(type: "text", nullable: true),
+                    LastName = table.Column<string>(type: "text", nullable: true),
+                    Email = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -28,11 +29,11 @@ namespace SaveApp.Migrations
                 name: "Exercise",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    RowNumber = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: true)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: true),
+                    RowNumber = table.Column<int>(type: "integer", nullable: false),
+                    UserId = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -48,15 +49,15 @@ namespace SaveApp.Migrations
                 name: "Workout",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    BodyWeight = table.Column<int>(type: "int", nullable: true),
-                    Date = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    StartTime = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    EndTime = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Notes = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UserEntityId = table.Column<int>(type: "int", nullable: true)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: true),
+                    BodyWeight = table.Column<int>(type: "integer", nullable: true),
+                    Date = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    StartTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    EndTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    Notes = table.Column<string>(type: "text", nullable: true),
+                    UserEntityId = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -72,11 +73,11 @@ namespace SaveApp.Migrations
                 name: "WorkoutExercise",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ExerciseId = table.Column<int>(type: "int", nullable: false),
-                    WorkoutId = table.Column<int>(type: "int", nullable: true),
-                    RowNumber = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    ExerciseId = table.Column<int>(type: "integer", nullable: true),
+                    RowNumber = table.Column<int>(type: "integer", nullable: false),
+                    WorkoutEntityId = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -85,11 +86,10 @@ namespace SaveApp.Migrations
                         name: "FK_WorkoutExercise_Exercise_ExerciseId",
                         column: x => x.ExerciseId,
                         principalTable: "Exercise",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_WorkoutExercise_Workout_WorkoutId",
-                        column: x => x.WorkoutId,
+                        name: "FK_WorkoutExercise_Workout_WorkoutEntityId",
+                        column: x => x.WorkoutEntityId,
                         principalTable: "Workout",
                         principalColumn: "Id");
                 });
@@ -98,15 +98,15 @@ namespace SaveApp.Migrations
                 name: "ExerciseSet",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Weigth = table.Column<int>(type: "int", nullable: true),
-                    Reps = table.Column<int>(type: "int", nullable: true),
-                    Notes = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ExerciseType = table.Column<int>(type: "int", nullable: false),
-                    ExerciseEntityId = table.Column<int>(type: "int", nullable: true),
-                    WorkoutExerciseEntityId = table.Column<int>(type: "int", nullable: false),
-                    UserEntityId = table.Column<int>(type: "int", nullable: true)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Weight = table.Column<int>(type: "integer", nullable: true),
+                    Reps = table.Column<int>(type: "integer", nullable: true),
+                    Notes = table.Column<string>(type: "text", nullable: true),
+                    ExerciseType = table.Column<int>(type: "integer", nullable: false),
+                    ExerciseEntityId = table.Column<int>(type: "integer", nullable: true),
+                    WorkoutExerciseEntityId = table.Column<int>(type: "integer", nullable: true),
+                    UserEntityId = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -125,8 +125,7 @@ namespace SaveApp.Migrations
                         name: "FK_ExerciseSet_WorkoutExercise_WorkoutExerciseEntityId",
                         column: x => x.WorkoutExerciseEntityId,
                         principalTable: "WorkoutExercise",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
@@ -160,9 +159,9 @@ namespace SaveApp.Migrations
                 column: "ExerciseId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_WorkoutExercise_WorkoutId",
+                name: "IX_WorkoutExercise_WorkoutEntityId",
                 table: "WorkoutExercise",
-                column: "WorkoutId");
+                column: "WorkoutEntityId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

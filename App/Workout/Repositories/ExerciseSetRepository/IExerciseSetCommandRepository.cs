@@ -4,6 +4,6 @@ namespace SaveApp.App.Workout.Repositories.ExerciseSetRepository
 {
     public interface IExerciseSetCommandRepository
     {
-        void Create(WorkoutDetailsCreateInput input);
+        ExerciseSet Create(ExerciseSetCreateInput input);
     }
 }
