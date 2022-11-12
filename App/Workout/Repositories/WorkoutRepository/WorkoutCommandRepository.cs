@@ -3,7 +3,7 @@ using SaveApp.App.Workout.Models;
 using SaveApp.App.Workout.Repositories.Contexts;
 using SaveApp.App.Workout.Repositories.Entities;
 
-namespace sports_application.App.Workout.Repositories.WorkoutRepository
+namespace SaveApp.App.Workout.Repositories.WorkoutRepository
 {
     public class WorkoutCommandRepository : IWorkoutCommandRepository
     {

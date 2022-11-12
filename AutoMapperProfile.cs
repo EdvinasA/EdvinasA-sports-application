@@ -1,6 +1,5 @@
 using AutoMapper;
 using SaveApp.App.Workout.Models;
-using sports_application.App.Workout.Models;
 using SaveApp.App.Workout.Repositories.Entities;
 
 namespace SaveApp

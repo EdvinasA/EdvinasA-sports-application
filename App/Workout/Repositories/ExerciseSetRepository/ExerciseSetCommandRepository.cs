@@ -2,7 +2,7 @@ using AutoMapper;
 using SaveApp.App.Workout.Models;
 using SaveApp.App.Workout.Repositories.Contexts;
 
-namespace sports_application.App.Workout.Repositories.ExerciseSetRepository
+namespace SaveApp.App.Workout.Repositories.ExerciseSetRepository
 {
     public class ExerciseSetCommandRepository : IExerciseSetCommandRepository
     {

@@ -1,4 +1,4 @@
-namespace sports_application.App.Workout.Models
+namespace SaveApp.App.Workout.Models
 {
     public class ExerciseCreateInput
     {

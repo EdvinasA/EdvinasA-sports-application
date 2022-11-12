@@ -1,6 +1,6 @@
 using SaveApp.App.Workout.Models;
 
-namespace sports_application.App.Workout.Services.WorkoutService
+namespace SaveApp.App.Workout.Services.WorkoutService
 {
     public interface IWorkoutQueryService
     {

@@ -1,4 +1,4 @@
-namespace sports_application.App.Workout.Controllers
+namespace SaveApp.App.Workout.Controllers
 {
     public class ExerciseSetController
     {

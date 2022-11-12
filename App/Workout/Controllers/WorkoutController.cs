@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using SaveApp.App.Workout.Models;
-using sports_application.App.Workout.Services.WorkoutService;
+using SaveApp.App.Workout.Services.WorkoutService;
 
 namespace SaveApp.App.Workout.Controllers;
 

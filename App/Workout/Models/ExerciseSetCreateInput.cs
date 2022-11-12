@@ -1,6 +1,6 @@
 using SaveApp.App.Workout.Models;
 
-namespace sports_application.App.Workout.Models
+namespace SaveApp.App.Workout.Models
 {
     public class ExerciseSetCreateInput
     {

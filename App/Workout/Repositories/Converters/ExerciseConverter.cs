@@ -1,6 +1,6 @@
 using SaveApp.App.Workout.Models;
 using SaveApp.App.Workout.Repositories.Entities;
-using sports_application.App.Workout.Repositories.Converters;
+using SaveApp.App.Workout.Repositories.Converters;
 
 namespace SaveApp.App.Workout.Repositories.Converters
 {

@@ -1,7 +1,7 @@
 using SaveApp.App.Workout.Models;
-using sports_application.App.Workout.Repositories.WorkoutRepository;
+using SaveApp.App.Workout.Repositories.WorkoutRepository;
 
-namespace sports_application.App.Workout.Services.WorkoutService
+namespace SaveApp.App.Workout.Services.WorkoutService
 {
     public class WorkoutQueryService : IWorkoutQueryService
     {

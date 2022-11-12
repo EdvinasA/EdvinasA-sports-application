@@ -6,8 +6,8 @@ using SaveApp.App.Weather.Services;
 using SaveApp.App.Workout.Repositories.Contexts;
 using SaveApp.App.Workout.Repositories.ExerciseRepository;
 using SaveApp.App.Workout.Services;
-using sports_application.App.Workout.Repositories.WorkoutRepository;
-using sports_application.App.Workout.Services.WorkoutService;
+using SaveApp.App.Workout.Repositories.WorkoutRepository;
+using SaveApp.App.Workout.Services.WorkoutService;
 
 var builder = WebApplication.CreateBuilder(args);
 
