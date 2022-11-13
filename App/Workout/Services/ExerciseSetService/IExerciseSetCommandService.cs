@@ -1,7 +1,10 @@
+using SaveApp.App.Workout.Models;
+
 namespace SaveApp.App.Workout.Services.ExerciseSetService
 {
-    public class IExerciseSetCommandService
+    public interface IExerciseSetCommandService
     {
-        
+        ExerciseSet Create(ExerciseSetCreateInput input);
+        void Delete(int ExerciseSetId);
     }
 }

@@ -8,6 +8,8 @@ using SaveApp.App.Workout.Repositories.ExerciseRepository;
 using SaveApp.App.Workout.Services;
 using SaveApp.App.Workout.Repositories.WorkoutRepository;
 using SaveApp.App.Workout.Services.WorkoutService;
+using SaveApp.App.Workout.Services.ExerciseSetService;
+using SaveApp.App.Workout.Repositories.ExerciseSetRepository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,6 +29,8 @@ builder.Services.AddTransient<IExerciseCommandRepository, ExerciseCommandReposit
 builder.Services.AddScoped<IWorkoutQueryService, WorkoutQueryService>();
 builder.Services.AddTransient<IWorkoutQueryRepository, WorkoutQueryRepository>();
 builder.Services.AddTransient<IWeatherRepository, WeatherRepository>();
+builder.Services.AddScoped<IExerciseSetCommandService, ExerciseSetCommandService>();
+builder.Services.AddTransient<IExerciseSetCommandRepository, ExerciseSetCommandRepository>();
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 builder.Services.AddHttpContextAccessor();
 

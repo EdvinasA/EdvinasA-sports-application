@@ -7,15 +7,20 @@ namespace SaveApp.App.Workout.Controllers;
 [Route("api/exercise-set/{userId}")]
 public class ExerciseSetController
 {
-    private readonly ExerciseSetCommandService _commandService;
+    private readonly IExerciseSetCommandService _commandService;
 
-    public ExerciseSetController(ExerciseSetCommandService commandService) 
+    public ExerciseSetController(IExerciseSetCommandService commandService) 
     {
         _commandService = commandService;
     }
 
     [HttpPost]
     public ExerciseSet Create(ExerciseSetCreateInput input) {
-        return new ExerciseSet();
+        return _commandService.Create(input);
+    }
+
+    [HttpDelete("{exerciseSetId}")]
+    public void Delete(int exerciseSetId) {
+        _commandService.Delete(exerciseSetId);
     }
 }

@@ -1,5 +1,4 @@
 using SaveApp.App.Workout.Models;
-using SaveApp.App.Workout.Repositories.Entities;
 using SaveApp.App.Workout.Repositories.WorkoutRepository;
 
 namespace SaveApp.App.Workout.Services.WorkoutService

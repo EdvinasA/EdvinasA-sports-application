@@ -10,13 +10,13 @@ namespace SaveApp.App.Workout.Repositories.ExerciseSetRepository
         private readonly ExerciseContext _context;
         private readonly IMapper _mapper;
 
-        public ExerciseSetCommandRepository(ExerciseContext context, IMapper mapper) 
-        {
+        public ExerciseSetCommandRepository(ExerciseContext context, IMapper mapper) {
             _context = context;
             _mapper = mapper;
         }
 
-        public ExerciseSet Create(ExerciseSetCreateInput input) {
+        public ExerciseSet Create(ExerciseSetCreateInput input)
+        {
             ExerciseSetEntity entity = _mapper.Map<ExerciseSetEntity>(input);
             entity.ExerciseEntity = _context.Exercise?.Find(input.ExerciseId);
             entity.WorkoutExerciseEntity = _context.WorkoutExercise?.Find(input.WorkoutExerciseId);
@@ -26,6 +26,12 @@ namespace SaveApp.App.Workout.Repositories.ExerciseSetRepository
             _context.SaveChanges();
 
             return _mapper.Map<ExerciseSet>(entity);
+        }
+
+        public void Delete(int exerciseSetId) {
+            ExerciseSetEntity? entity = _context.ExerciseSet?.Find(exerciseSetId);
+
+            _context.ExerciseSet.Remove(entity);
         }
     }
 }
