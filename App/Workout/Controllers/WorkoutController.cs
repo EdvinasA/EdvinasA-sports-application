@@ -27,7 +27,7 @@ public class WorkoutController : ControllerBase
     }
 
     [HttpGet("{workoutId}")]
-    public List<ExerciseSet> GetWorkoutById(int userId, int workoutId) {
-        return null;
+    public WorkoutDetails GetWorkoutById(int userId, int workoutId) {
+        return _workoutQueryService.GetByWorkoutId(userId, workoutId);
     }
 }

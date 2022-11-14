@@ -14,6 +14,10 @@ namespace SaveApp.App.Workout.Services.WorkoutService
         public List<WorkoutDetails> GetAllByUserId(int UserId) {
             return _queryRepository.GetWorkouts(UserId);
         }
+
+        public WorkoutDetails GetByWorkoutId(int userId, int workoutId) {
+            return _queryRepository.GetWorkout(userId, workoutId);
+        }
         
     }
 }

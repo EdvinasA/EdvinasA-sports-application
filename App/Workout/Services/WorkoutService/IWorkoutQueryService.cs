@@ -5,6 +5,7 @@ namespace SaveApp.App.Workout.Services.WorkoutService
     public interface IWorkoutQueryService
     {
         List<WorkoutDetails> GetAllByUserId(int UserId);
+        WorkoutDetails GetByWorkoutId(int userId, int workoutId);
         
     }
 }

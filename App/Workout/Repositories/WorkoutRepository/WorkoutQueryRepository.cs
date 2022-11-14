@@ -1,3 +1,4 @@
+using System.Threading;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using SaveApp.App.Workout.Models;
@@ -16,13 +17,21 @@ namespace SaveApp.App.Workout.Repositories.WorkoutRepository
             _context = context;
             _mapper = mapper;
         }
-        public List<WorkoutDetails> GetWorkouts(int UserId) {
+        public List<WorkoutDetails> GetWorkouts(int userId) {
             List<WorkoutEntity> entities = _context.Workout!
             .Include("Exercises.Exercise")
             .Include("Exercises.ExerciseSets")
-            .Where(workout => workout.UserEntity!.Id == UserId).ToList();
+            .Where(workout => workout.UserEntity!.Id == userId).ToList();
             
             return entities.Select(entity => _mapper.Map<WorkoutDetails>(entity)).ToList();
+        }
+
+        public WorkoutDetails GetWorkout(int userId, int workoutId) {
+            return _mapper.Map<WorkoutDetails>(
+            _context.Workout
+            .Include("Exercises.Exercise")
+            .Include("Exercises.ExerciseSets")
+            .Where(workout => workout.Id == workoutId).Single());
         }
     }
 }
