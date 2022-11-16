@@ -29,9 +29,10 @@ namespace SaveApp.App.Workout.Repositories.ExerciseSetRepository
         }
 
         public void Delete(int exerciseSetId) {
-            ExerciseSetEntity? entity = _context.ExerciseSet?.Find(exerciseSetId);
+            ExerciseSetEntity entity = _context.ExerciseSet.FirstOrDefault(dc => dc.Id == exerciseSetId);
 
             _context.ExerciseSet.Remove(entity);
+            _context.SaveChanges();
         }
     }
 }

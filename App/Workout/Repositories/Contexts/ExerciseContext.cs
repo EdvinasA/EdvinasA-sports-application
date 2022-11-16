@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using SaveApp.App.Workout.Models;
 using SaveApp.App.Workout.Repositories.Entities;
 
 namespace SaveApp.App.Workout.Repositories.Contexts;
@@ -6,6 +7,16 @@ public class ExerciseContext : DbContext
 {
     public ExerciseContext(DbContextOptions<ExerciseContext> options) : base(options)
     {
+    }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder) {
+        modelBuilder
+            .Entity<ExerciseEntity>()
+            .Property(e => e.ExerciseBodyPart)
+            .HasConversion(
+                v => v.ToString(),
+                v => (ExerciseBodyPart)Enum.Parse(typeof(ExerciseBodyPart), v)
+            );
     }
     public DbSet<ExerciseEntity>? Exercise { get; set; }
     public DbSet<ExerciseSetEntity>? ExerciseSet { get; set; }

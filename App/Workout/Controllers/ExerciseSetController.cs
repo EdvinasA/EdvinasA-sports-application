@@ -15,12 +15,12 @@ public class ExerciseSetController
     }
 
     [HttpPost]
-    public ExerciseSet Create(ExerciseSetCreateInput input) {
+    public ExerciseSet Create(int userId, ExerciseSetCreateInput input) {
         return _commandService.Create(input);
     }
 
     [HttpDelete("{exerciseSetId}")]
-    public void Delete(int exerciseSetId) {
+    public void Delete(int userId, int exerciseSetId) {
         _commandService.Delete(exerciseSetId);
     }
 }
