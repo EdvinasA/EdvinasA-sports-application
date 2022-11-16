@@ -33,7 +33,7 @@ public class ExerciseController : ControllerBase
         return _commandService.GetAllExercises(userId);
     }
 
-    [HttpGet("body-part")]
+    [HttpGet("body-part/{exerciseBodyPart}")]
     public List<Exercise> GetExercisesByBodyPart(int userId, ExerciseBodyPart exerciseBodyPart) {
         return _queryService.GetExercisesByBodyPart(userId, exerciseBodyPart);
     }
