@@ -26,27 +26,6 @@ namespace SaveApp.App.Workout.Repositories.ExerciseRepository
             exerciseEntity.User = _context.User!.Find(userId);
             _context.Exercise!.Add(exerciseEntity);
             _context.SaveChanges();
-
-            // var ListOfExerciseSets = input.ExerciseSets
-            // .Select(set => new ExerciseSetEntity()
-            // {
-            //     Weigth = set.Weigth,
-            //     Reps = set.Reps,
-            //     Notes = set.Notes,
-            //     ExerciseType = set.ExerciseType,
-            //     UserEntity = _context.User.Find(userId),
-            //     ExerciseEntity = exerciseEntity
-            // })
-            // .ToList();
-            // _context.ExerciseSet.AddRange(ListOfExerciseSets);
-            _context.SaveChanges();
-
-            // _context.User.Add(UserEntity);
-            // _context.ExerciseSetEntity.AddRange(ListOfExerciseSets);
-            // _context.SaveChanges();
-
-
-            // Console.WriteLine(ListOfExerciseSets.Count);
         }
 
         public List<ExerciseEntity> GetExercises(int userId)

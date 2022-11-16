@@ -10,6 +10,7 @@ using SaveApp.App.Workout.Repositories.WorkoutRepository;
 using SaveApp.App.Workout.Services.WorkoutService;
 using SaveApp.App.Workout.Services.ExerciseSetService;
 using SaveApp.App.Workout.Repositories.ExerciseSetRepository;
+using SaveApp.App.Workout.Services.ExerciseService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,6 +25,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IWeatherService, WeatherService>();
 builder.Services.AddTransient<IWorkoutCommandRepository, WorkoutCommandRepository>();
 builder.Services.AddScoped<IWorkoutCommandService, WorkoutCommandService>();
+builder.Services.AddTransient<IExerciseQueryRepository, ExerciseQueryRepository>();
+builder.Services.AddScoped<IExerciseQueryService, ExerciseQueryService>();
 builder.Services.AddScoped<IExerciseCommandService, ExerciseCommandService>();
 builder.Services.AddTransient<IExerciseCommandRepository, ExerciseCommandRepository>();
 builder.Services.AddScoped<IWorkoutQueryService, WorkoutQueryService>();
