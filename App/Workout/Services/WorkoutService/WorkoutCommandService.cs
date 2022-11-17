@@ -18,5 +18,8 @@ namespace SaveApp.App.Workout.Services.WorkoutService
             });
         }
         
+        public WorkoutExercise AddExerciseToWorkout(int userId, AddExerciseToWorkoutInput exercise) {
+            return _commandRepository.AddExerciseToWorkout(userId, exercise);
+        }
     }
 }

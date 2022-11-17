@@ -6,5 +6,6 @@ namespace SaveApp.App.Workout.Repositories.Entities
         public ExerciseEntity? Exercise { get; set; }
         public List<ExerciseSetEntity>? ExerciseSets { get; set; }
         public int RowNumber { get; set; }
+        public UserEntity? User { get; set; }
     }
 }

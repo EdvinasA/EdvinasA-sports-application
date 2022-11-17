@@ -18,13 +18,8 @@ public class ExerciseController : ControllerBase
         _queryService = queryService;
     }
 
-    [HttpPost("create-exercise")]
+    [HttpPost]
     public void CreateExercise(int userId, Exercise exercise) {
-        _commandService.CreateExercise(userId, exercise);
-    }
-
-    [HttpPost("create-exercise-set")]
-    public void CreateExerciseSet(int userId, Exercise exercise) {
         _commandService.CreateExercise(userId, exercise);
     }
 
