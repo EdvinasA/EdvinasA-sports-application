@@ -23,4 +23,9 @@ public class ExerciseSetController
     public void Delete(int userId, int exerciseSetId) {
         _commandService.Delete(exerciseSetId);
     }
+
+    [HttpPut]
+    public void UpdateSet(int userId, ExerciseSet exerciseSet) {
+        _commandService.Update(userId, exerciseSet);
+    }
 }

@@ -29,6 +29,7 @@ namespace SaveApp.App.Workout.Repositories.WorkoutRepository
             entity.Exercise = _context.Exercise.Find(exercise.Exercise.Id);
             entity.RowNumber = exercise.RowNumber;
             entity.User = _context.User.Find(userId);
+            entity.WorkoutEntity = _context.Workout.Find(exercise.WorkoutId);
 
             _context.WorkoutExercise.Add(entity);
             _context.SaveChanges();

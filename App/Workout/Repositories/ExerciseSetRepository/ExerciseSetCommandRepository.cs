@@ -34,5 +34,17 @@ namespace SaveApp.App.Workout.Repositories.ExerciseSetRepository
             _context.ExerciseSet.Remove(entity);
             _context.SaveChanges();
         }
+
+        public void Update(int userId, ExerciseSet exerciseSet) {
+            ExerciseSetEntity entity = _context.ExerciseSet.Find(exerciseSet.Id);
+
+            entity.ExerciseType = (ExerciseType)exerciseSet.ExerciseType;
+            entity.Notes = exerciseSet.Notes;
+            entity.Weight = exerciseSet.Weight;
+            entity.Reps = exerciseSet.Reps;
+
+            _context.ExerciseSet.Update(entity);
+            _context.SaveChanges();
+        }
     }
 }

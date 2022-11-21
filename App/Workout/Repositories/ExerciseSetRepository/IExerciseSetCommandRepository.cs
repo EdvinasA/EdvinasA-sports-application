@@ -6,5 +6,6 @@ namespace SaveApp.App.Workout.Repositories.ExerciseSetRepository
     {
          ExerciseSet Create(ExerciseSetCreateInput input);
          void Delete(int exerciseSetId);
+         void Update(int userId, ExerciseSet exerciseSet);
     }
 }

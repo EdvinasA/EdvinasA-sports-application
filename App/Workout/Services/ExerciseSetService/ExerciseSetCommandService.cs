@@ -18,5 +18,9 @@ namespace SaveApp.App.Workout.Services.ExerciseSetService
         public void Delete(int exerciseSetId) {
             _commandRepository.Delete(exerciseSetId);
         }
+
+        public void Update(int userId, ExerciseSet exerciseSet) {
+            _commandRepository.Update(userId, exerciseSet);
+        }
     }
 }

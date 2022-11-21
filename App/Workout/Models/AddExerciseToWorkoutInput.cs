@@ -4,5 +4,6 @@ namespace SaveApp.App.Workout.Models
     {
         public Exercise Exercise { get; set; }
         public int RowNumber { get; set; }
+        public int WorkoutId { get; set; }
     }
 }
