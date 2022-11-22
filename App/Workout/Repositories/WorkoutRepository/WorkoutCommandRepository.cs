@@ -36,5 +36,18 @@ namespace SaveApp.App.Workout.Repositories.WorkoutRepository
 
             return _mapper.Map<WorkoutExercise>(entity);
         }
+
+        public void Update(int userId, WorkoutDetailsUpdateInput workoutDetails) {
+            WorkoutEntity entity = _context.Workout.Find(workoutDetails.Id);
+            entity.BodyWeight = workoutDetails.BodyWeight;
+            entity.Date = workoutDetails.Date;
+            entity.StartTime = workoutDetails.StartTime;
+            entity.EndTime = workoutDetails.EndTime;
+            entity.Name = workoutDetails.Name;
+            entity.Notes = workoutDetails.Notes;
+
+            _context.Workout.Update(entity);
+            _context.SaveChanges();
+        }
     }
 }

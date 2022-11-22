@@ -31,6 +31,11 @@ public class WorkoutController : ControllerBase
         return _workoutQueryService.GetByWorkoutId(userId, workoutId);
     }
 
+    [HttpPut("update")]
+    public void UpdateWorkout(int userId, WorkoutDetailsUpdateInput workoutDetails) {
+        _workoutCommandService.Update(userId, workoutDetails);
+    }
+
     [HttpPut]
     public WorkoutExercise AddExerciseToWorkout(int userId, AddExerciseToWorkoutInput exercise) {
         return _workoutCommandService.AddExerciseToWorkout(userId, exercise);

@@ -21,5 +21,9 @@ namespace SaveApp.App.Workout.Services.WorkoutService
         public WorkoutExercise AddExerciseToWorkout(int userId, AddExerciseToWorkoutInput exercise) {
             return _commandRepository.AddExerciseToWorkout(userId, exercise);
         }
+
+        public void Update(int userId, WorkoutDetailsUpdateInput workoutDetails) {
+            _commandRepository.Update(userId, workoutDetails);
+        }
     }
 }

@@ -6,5 +6,6 @@ namespace SaveApp.App.Workout.Services.WorkoutService
     {
          void Create(int userId);
          WorkoutExercise AddExerciseToWorkout(int userId, AddExerciseToWorkoutInput exercise);
+         void Update(int userId, WorkoutDetailsUpdateInput workoutDetails);
     }
 }
