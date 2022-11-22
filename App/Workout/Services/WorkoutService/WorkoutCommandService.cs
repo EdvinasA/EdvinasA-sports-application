@@ -25,5 +25,9 @@ namespace SaveApp.App.Workout.Services.WorkoutService
         public void Update(int userId, WorkoutDetailsUpdateInput workoutDetails) {
             _commandRepository.Update(userId, workoutDetails);
         }
+
+        public void DeleteWorkoutExercise(int userId, int workoutExerciseId) {
+            _commandRepository.DeleteWorkoutExercise(userId, workoutExerciseId);
+        }
     }
 }

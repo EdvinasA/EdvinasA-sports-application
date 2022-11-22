@@ -40,4 +40,9 @@ public class WorkoutController : ControllerBase
     public WorkoutExercise AddExerciseToWorkout(int userId, AddExerciseToWorkoutInput exercise) {
         return _workoutCommandService.AddExerciseToWorkout(userId, exercise);
     }
+
+    [HttpDelete("{workoutExerciseId}")]
+    public void DeleteExerciseFromWorkout(int userId, int workoutExerciseId) {
+        _workoutCommandService.DeleteWorkoutExercise(userId, workoutExerciseId);
+    }
 }

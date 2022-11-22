@@ -1,4 +1,5 @@
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using SaveApp.App.Workout.Models;
 using SaveApp.App.Workout.Repositories.Contexts;
 using SaveApp.App.Workout.Repositories.Entities;
@@ -47,6 +48,17 @@ namespace SaveApp.App.Workout.Repositories.WorkoutRepository
             entity.Notes = workoutDetails.Notes;
 
             _context.Workout.Update(entity);
+            _context.SaveChanges();
+        }
+
+        public void DeleteWorkoutExercise(int userId, int workoutExerciseId) {
+            WorkoutExerciseEntity entity = _context.WorkoutExercise!
+            .Include("ExerciseSets")
+            .FirstOrDefault(e => e.Id == workoutExerciseId);
+
+            _context.ExerciseSet.RemoveRange(entity.ExerciseSets);
+            _context.SaveChanges();
+            _context.WorkoutExercise.Remove(entity);
             _context.SaveChanges();
         }
     }
