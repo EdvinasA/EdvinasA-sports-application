@@ -7,6 +7,7 @@ namespace SaveApp.App.Workout.Repositories.Entities
         public int Id { get; set; }
         public String? Name { get; set; }
         public ExerciseBodyPart ExerciseBodyPart { get; set; }
+        public String? Note { get; set; }
         public UserEntity? User { get; set; }
     }
 }
