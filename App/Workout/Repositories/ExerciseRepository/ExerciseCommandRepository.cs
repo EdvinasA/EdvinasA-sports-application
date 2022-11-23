@@ -27,10 +27,5 @@ namespace SaveApp.App.Workout.Repositories.ExerciseRepository
             _context.Exercise!.Add(exerciseEntity);
             _context.SaveChanges();
         }
-
-        public List<ExerciseEntity> GetExercises(int userId)
-        {
-            return _context.Exercise!.Where(c => c.User!.Id == userId).ToList();
-        }
     }
 }

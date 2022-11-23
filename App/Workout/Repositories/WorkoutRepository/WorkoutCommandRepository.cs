@@ -52,13 +52,12 @@ namespace SaveApp.App.Workout.Repositories.WorkoutRepository
         }
 
         public void DeleteWorkoutExercise(int userId, int workoutExerciseId) {
-            WorkoutExerciseEntity entity = _context.WorkoutExercise!
-            .Include("ExerciseSets")
-            .FirstOrDefault(e => e.Id == workoutExerciseId);
+            WorkoutExerciseEntity entity = _context.WorkoutExercise
+            .Include("ExerciseSets").FirstOrDefault(e => e.Id == workoutExerciseId);
 
-            _context.ExerciseSet.RemoveRange(entity.ExerciseSets);
+            _context.ExerciseSet!.RemoveRange(entity.ExerciseSets);
             _context.SaveChanges();
-            _context.WorkoutExercise.Remove(entity);
+            _context.WorkoutExercise!.Remove(entity);
             _context.SaveChanges();
         }
     }

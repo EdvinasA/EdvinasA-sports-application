@@ -15,6 +15,14 @@ namespace SaveApp.App.Workout.Repositories.ExerciseRepository
             _mapper = mapper;
         }
 
+        public List<Exercise> GetExercises(int userId) {
+            List<ExerciseEntity> entities = _context.Exercise
+            .Where(e => e.User.Id == userId)
+            .ToList();
+
+            return entities.Select(e => _mapper.Map<Exercise>(e)).ToList();
+        }
+
         public List<Exercise> GetExercisesByBodyPart(int userId, ExerciseBodyPart exerciseBodyPart) {
             List<ExerciseEntity> entities = _context.Exercise
             .Where(e => e.ExerciseBodyPart == exerciseBodyPart)

@@ -24,8 +24,8 @@ public class ExerciseController : ControllerBase
     }
 
     [HttpGet]
-    public List<ExerciseEntity> GetExercises(int userId) {
-        return _commandService.GetAllExercises(userId);
+    public List<Exercise> GetExercises(int userId) {
+        return _queryService.GetAllExercises(userId);
     }
 
     [HttpGet("body-part/{exerciseBodyPart}")]

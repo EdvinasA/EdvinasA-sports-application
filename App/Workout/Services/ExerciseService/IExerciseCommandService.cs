@@ -7,6 +7,5 @@ namespace SaveApp.App.Workout.Services
     {
          void CreateExercise(int userId, Exercise exercise);
          void UpdateExercise(int userId, Exercise exercise);
-         List<ExerciseEntity> GetAllExercises(int userId);
     }
 }
