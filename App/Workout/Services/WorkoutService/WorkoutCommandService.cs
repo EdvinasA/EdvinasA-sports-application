@@ -13,8 +13,8 @@ namespace SaveApp.App.Workout.Services.WorkoutService
         }
         public void Create(int userId) {
             _commandRepository.Create(userId, new WorkoutDetailsCreateInput() {
-                Date = DateTime.Now,
-                StartTime = DateTime.Now
+                Date = DateTime.UtcNow,
+                StartTime = DateTime.UtcNow
             });
         }
         

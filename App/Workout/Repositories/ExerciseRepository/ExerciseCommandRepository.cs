@@ -27,5 +27,14 @@ namespace SaveApp.App.Workout.Repositories.ExerciseRepository
             _context.Exercise!.Add(exerciseEntity);
             _context.SaveChanges();
         }
+
+        public void Update(int userId, Exercise input) {
+            var exerciseEntity = _context.Exercise.Find(input.Id);
+            exerciseEntity.Name = input.Name;
+            // exerciseEntity.ExerciseBodyPart = input.ExerciseBodyPart;
+            exerciseEntity.User = _context.User!.Find(userId);
+            _context.Exercise!.Add(exerciseEntity);
+            _context.SaveChanges();
+        }
     }
 }

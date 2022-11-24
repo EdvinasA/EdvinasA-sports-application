@@ -25,7 +25,7 @@ namespace SaveApp.App.Workout.Repositories.ExerciseRepository
 
         public List<Exercise> GetExercisesByBodyPart(int userId, ExerciseBodyPart exerciseBodyPart) {
             List<ExerciseEntity> entities = _context.Exercise
-            .Where(e => e.ExerciseBodyPart == exerciseBodyPart)
+            // .Where(e => e.ExerciseBodyPart == exerciseBodyPart)
             .Where(e => e.User.Id == userId)
             .ToList();
 

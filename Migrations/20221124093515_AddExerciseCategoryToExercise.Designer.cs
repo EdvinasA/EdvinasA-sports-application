@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SaveApp.App.Workout.Repositories.Contexts;
@@ -11,9 +12,10 @@ using SaveApp.App.Workout.Repositories.Contexts;
 namespace SaveApp.Migrations
 {
     [DbContext(typeof(ExerciseContext))]
-    partial class ExerciseContextModelSnapshot : ModelSnapshot
+    [Migration("20221124093515_AddExerciseCategoryToExercise")]
+    partial class AddExerciseCategoryToExercise
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -39,12 +41,7 @@ namespace SaveApp.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
-                    b.Property<int?>("UserId")
-                        .HasColumnType("integer");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("ExerciseCategories");
                 });
@@ -205,15 +202,6 @@ namespace SaveApp.Migrations
                     b.HasIndex("WorkoutEntityId");
 
                     b.ToTable("WorkoutExercise");
-                });
-
-            modelBuilder.Entity("SaveApp.App.Workout.Repositories.Entities.ExerciseCategoryEntity", b =>
-                {
-                    b.HasOne("SaveApp.App.Workout.Repositories.Entities.UserEntity", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("SaveApp.App.Workout.Repositories.Entities.ExerciseEntity", b =>

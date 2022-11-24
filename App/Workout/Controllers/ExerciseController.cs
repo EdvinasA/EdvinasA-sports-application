@@ -23,6 +23,11 @@ public class ExerciseController : ControllerBase
         _commandService.CreateExercise(userId, exercise);
     }
 
+    [HttpPut]
+    public void UpdateExercise(int userId, Exercise exercise) {
+        _commandService.CreateExercise(userId, exercise);
+    }
+
     [HttpGet]
     public List<Exercise> GetExercises(int userId) {
         return _queryService.GetAllExercises(userId);

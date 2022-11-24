@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SaveApp.App.Workout.Repositories.Contexts;
@@ -11,9 +12,10 @@ using SaveApp.App.Workout.Repositories.Contexts;
 namespace SaveApp.Migrations
 {
     [DbContext(typeof(ExerciseContext))]
-    partial class ExerciseContextModelSnapshot : ModelSnapshot
+    [Migration("20221124091138_AddExerciseCategories")]
+    partial class AddExerciseCategories
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -22,7 +24,7 @@ namespace SaveApp.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("SaveApp.App.Workout.Repositories.Entities.ExerciseCategoryEntity", b =>
+            modelBuilder.Entity("SaveApp.App.Workout.Repositories.Entities.ExerciseCategory", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -39,12 +41,7 @@ namespace SaveApp.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
-                    b.Property<int?>("UserId")
-                        .HasColumnType("integer");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("ExerciseCategories");
                 });
@@ -57,8 +54,9 @@ namespace SaveApp.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("ExerciseCategoryId")
-                        .HasColumnType("integer");
+                    b.Property<string>("ExerciseBodyPart")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<string>("Name")
                         .HasColumnType("text");
@@ -70,8 +68,6 @@ namespace SaveApp.Migrations
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ExerciseCategoryId");
 
                     b.HasIndex("UserId");
 
@@ -207,26 +203,11 @@ namespace SaveApp.Migrations
                     b.ToTable("WorkoutExercise");
                 });
 
-            modelBuilder.Entity("SaveApp.App.Workout.Repositories.Entities.ExerciseCategoryEntity", b =>
-                {
-                    b.HasOne("SaveApp.App.Workout.Repositories.Entities.UserEntity", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("SaveApp.App.Workout.Repositories.Entities.ExerciseEntity", b =>
                 {
-                    b.HasOne("SaveApp.App.Workout.Repositories.Entities.ExerciseCategoryEntity", "ExerciseCategory")
-                        .WithMany("Exercise")
-                        .HasForeignKey("ExerciseCategoryId");
-
                     b.HasOne("SaveApp.App.Workout.Repositories.Entities.UserEntity", "User")
                         .WithMany("ExerciseEntity")
                         .HasForeignKey("UserId");
-
-                    b.Navigation("ExerciseCategory");
 
                     b.Navigation("User");
                 });
@@ -280,11 +261,6 @@ namespace SaveApp.Migrations
                     b.Navigation("User");
 
                     b.Navigation("WorkoutEntity");
-                });
-
-            modelBuilder.Entity("SaveApp.App.Workout.Repositories.Entities.ExerciseCategoryEntity", b =>
-                {
-                    b.Navigation("Exercise");
                 });
 
             modelBuilder.Entity("SaveApp.App.Workout.Repositories.Entities.UserEntity", b =>
