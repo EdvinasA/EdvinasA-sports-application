@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SaveApp.App.Workout.Repositories.Contexts;
@@ -11,9 +12,10 @@ using SaveApp.App.Workout.Repositories.Contexts;
 namespace SaveApp.Migrations
 {
     [DbContext(typeof(ExerciseContext))]
-    partial class ExerciseContextModelSnapshot : ModelSnapshot
+    [Migration("20221124114002_UpdateExerciseCategoryEntity")]
+    partial class UpdateExerciseCategoryEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -29,6 +31,9 @@ namespace SaveApp.Migrations
                         .HasColumnType("integer");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("IsSinglePartExercise")
+                        .HasColumnType("boolean");
 
                     b.Property<string>("Name")
                         .HasColumnType("text");
@@ -53,13 +58,6 @@ namespace SaveApp.Migrations
 
                     b.Property<int?>("ExerciseCategoryId")
                         .HasColumnType("integer");
-
-                    b.Property<string>("ExerciseType")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<bool>("IsSingleBodyPartExercise")
-                        .HasColumnType("boolean");
 
                     b.Property<string>("Name")
                         .HasColumnType("text");

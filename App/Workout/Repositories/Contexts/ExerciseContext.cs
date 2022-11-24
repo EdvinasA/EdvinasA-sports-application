@@ -9,6 +9,16 @@ public class ExerciseContext : DbContext
     {
     }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder) {
+        modelBuilder
+            .Entity<ExerciseEntity>()
+            .Property(e => e.ExerciseType)
+            .HasConversion(
+                v => v.ToString(),
+                v => (ExerciseType)Enum.Parse(typeof(ExerciseType), v)
+            );
+    }
+
     public DbSet<ExerciseEntity>? Exercise { get; set; }
     public DbSet<ExerciseSetEntity>? ExerciseSet { get; set; }
     public DbSet<UserEntity>? User { get; set; }

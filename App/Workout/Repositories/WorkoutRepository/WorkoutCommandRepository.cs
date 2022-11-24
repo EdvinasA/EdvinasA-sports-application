@@ -27,19 +27,19 @@ namespace SaveApp.App.Workout.Repositories.WorkoutRepository
 
         public WorkoutExercise AddExerciseToWorkout(int userId, AddExerciseToWorkoutInput exercise) {
             WorkoutExerciseEntity entity = new WorkoutExerciseEntity();
-            entity.Exercise = _context.Exercise.Find(exercise.Exercise.Id);
+            entity.Exercise = _context.Exercise!.Find(exercise.Exercise.Id);
             entity.RowNumber = exercise.RowNumber;
-            entity.User = _context.User.Find(userId);
-            entity.WorkoutEntity = _context.Workout.Find(exercise.WorkoutId);
+            entity.User = _context.User!.Find(userId);
+            entity.WorkoutEntity = _context.Workout!.Find(exercise.WorkoutId);
 
-            _context.WorkoutExercise.Add(entity);
+            _context.WorkoutExercise!.Add(entity);
             _context.SaveChanges();
 
             return _mapper.Map<WorkoutExercise>(entity);
         }
 
         public void Update(int userId, WorkoutDetailsUpdateInput workoutDetails) {
-            WorkoutEntity entity = _context.Workout.Find(workoutDetails.Id);
+            WorkoutEntity entity = _context.Workout!.Find(workoutDetails.Id);
             entity.BodyWeight = workoutDetails.BodyWeight;
             entity.Date = workoutDetails.Date;
             entity.StartTime = workoutDetails.StartTime;
@@ -52,13 +52,16 @@ namespace SaveApp.App.Workout.Repositories.WorkoutRepository
         }
 
         public void DeleteWorkoutExercise(int userId, int workoutExerciseId) {
-            WorkoutExerciseEntity entity = _context.WorkoutExercise
-            .Include("ExerciseSets").FirstOrDefault(e => e.Id == workoutExerciseId);
+            try {
+                WorkoutExerciseEntity entity = _context.WorkoutExercise!.Include("ExerciseSets")!.FirstOrDefault(e => e.Id == workoutExerciseId);
 
-            _context.ExerciseSet!.RemoveRange(entity.ExerciseSets);
-            _context.SaveChanges();
-            _context.WorkoutExercise!.Remove(entity);
-            _context.SaveChanges();
+                _context.ExerciseSet!.RemoveRange(entity.ExerciseSets);
+                _context.SaveChanges();
+                _context.WorkoutExercise!.Remove(entity);
+                _context.SaveChanges();
+            } catch (Exception e) {
+                Console.WriteLine(e);
+            }
         }
     }
 }

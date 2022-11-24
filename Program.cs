@@ -8,6 +8,8 @@ using SaveApp.App.Workout.Services.WorkoutService;
 using SaveApp.App.Workout.Services.ExerciseSetService;
 using SaveApp.App.Workout.Repositories.ExerciseSetRepository;
 using SaveApp.App.Workout.Services.ExerciseService;
+using SaveApp.App.Workout.Services.ExerciseCategoryService;
+using SaveApp.App.Workout.Repositories.ExerciseCategoryRepository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,16 +19,28 @@ builder.Services.AddControllers().AddJsonOptions(x => x.JsonSerializerOptions.Re
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
 builder.Services.AddTransient<IWorkoutCommandRepository, WorkoutCommandRepository>();
 builder.Services.AddScoped<IWorkoutCommandService, WorkoutCommandService>();
+
 builder.Services.AddTransient<IExerciseQueryRepository, ExerciseQueryRepository>();
 builder.Services.AddScoped<IExerciseQueryService, ExerciseQueryService>();
+
 builder.Services.AddScoped<IExerciseCommandService, ExerciseCommandService>();
 builder.Services.AddTransient<IExerciseCommandRepository, ExerciseCommandRepository>();
+
 builder.Services.AddScoped<IWorkoutQueryService, WorkoutQueryService>();
 builder.Services.AddTransient<IWorkoutQueryRepository, WorkoutQueryRepository>();
+
 builder.Services.AddScoped<IExerciseSetCommandService, ExerciseSetCommandService>();
 builder.Services.AddTransient<IExerciseSetCommandRepository, ExerciseSetCommandRepository>();
+
+builder.Services.AddScoped<IExerciseCategoryCommandService, ExerciseCategoryCommandService>();
+builder.Services.AddTransient<IExerciseCategoryCommandRepository, ExerciseCategoryCommandRepository>();
+
+builder.Services.AddScoped<IExerciseCategoryQueryService, ExerciseCategoryQueryService>();
+builder.Services.AddTransient<IExerciseCategoryQueryRepository, ExerciseCategoryQueryRepository>();
+
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 builder.Services.AddHttpContextAccessor();
 
