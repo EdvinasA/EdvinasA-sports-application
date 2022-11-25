@@ -22,6 +22,8 @@ namespace SaveApp
             CreateMap<ExerciseSetEntity, ExerciseSetCreateInput>();
             CreateMap<ExerciseCategory, ExerciseCategoryEntity>();
             CreateMap<ExerciseCategoryEntity, ExerciseCategory>();
+            CreateMap<ExerciseCreateInput, ExerciseEntity>();
+            CreateMap<ExerciseEntity, ExerciseCreateInput>();
         }
     }
 }

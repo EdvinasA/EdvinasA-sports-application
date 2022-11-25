@@ -5,7 +5,7 @@ namespace SaveApp.App.Workout.Repositories.ExerciseRepository
 {
     public interface IExerciseCommandRepository
     {
-         void Create(int userId, Exercise input);
+         Exercise Create(int userId, ExerciseCreateInput input);
          void Update(int userId, Exercise input);
     }
 }

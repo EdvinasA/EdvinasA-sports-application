@@ -15,10 +15,5 @@ namespace SaveApp.App.Workout.Services.ExerciseService
         public List<Exercise> GetAllExercises(int userId) {
             return _queryRepository.GetExercises(userId);
         }
-
-        public List<Exercise> GetExercisesByBodyPart(int userId, ExerciseBodyPart exerciseBodyPart) {
-            return _queryRepository.GetExercisesByBodyPart(userId, exerciseBodyPart);
-        }
-        
     }
 }

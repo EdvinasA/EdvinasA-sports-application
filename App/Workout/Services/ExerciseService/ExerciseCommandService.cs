@@ -15,11 +15,9 @@ namespace SaveApp.App.Workout.Services
             _exerciseCommandRepository = exerciseCommandRepository;
         }
 
-        public void CreateExercise(int userId, Exercise exercise) 
+        public Exercise CreateExercise(int userId, ExerciseCreateInput exercise) 
         {
-            _exerciseCommandRepository.Create(userId, exercise);
-
-            Console.WriteLine(exercise.Name);
+            return _exerciseCommandRepository.Create(userId, exercise);
         }
 
         public void UpdateExercise(int userId, Exercise exercise) 

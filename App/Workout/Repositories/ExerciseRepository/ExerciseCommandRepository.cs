@@ -18,14 +18,16 @@ namespace SaveApp.App.Workout.Repositories.ExerciseRepository
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public void Create(int userId, Exercise input)
+        public Exercise Create(int userId, ExerciseCreateInput input)
         {
 
-            var exerciseEntity = new ExerciseEntity();
-            exerciseEntity.Name = input.Name;
+            var exerciseEntity = _mapper.Map<ExerciseEntity>(input);
+            exerciseEntity.ExerciseCategory = _context.ExerciseCategories!.Find(input.ExerciseCategoryId);
             exerciseEntity.User = _context.User!.Find(userId);
             _context.Exercise!.Add(exerciseEntity);
             _context.SaveChanges();
+
+            return _mapper.Map<Exercise>(exerciseEntity);
         }
 
         public void Update(int userId, Exercise input) {

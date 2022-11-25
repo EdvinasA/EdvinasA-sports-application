@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using SaveApp.App.Workout.Models;
-using SaveApp.App.Workout.Repositories.Entities;
 using SaveApp.App.Workout.Services;
 using SaveApp.App.Workout.Services.ExerciseService;
 
@@ -19,22 +18,17 @@ public class ExerciseController : ControllerBase
     }
 
     [HttpPost]
-    public void CreateExercise(int userId, Exercise exercise) {
-        _commandService.CreateExercise(userId, exercise);
+    public Exercise CreateExercise(int userId, ExerciseCreateInput exercise) {
+        return _commandService.CreateExercise(userId, exercise);
     }
 
     [HttpPut]
     public void UpdateExercise(int userId, Exercise exercise) {
-        _commandService.CreateExercise(userId, exercise);
+        _commandService.UpdateExercise(userId, exercise);
     }
 
     [HttpGet]
     public List<Exercise> GetExercises(int userId) {
         return _queryService.GetAllExercises(userId);
-    }
-
-    [HttpGet("body-part/{exerciseBodyPart}")]
-    public List<Exercise> GetExercisesByBodyPart(int userId, ExerciseBodyPart exerciseBodyPart) {
-        return _queryService.GetExercisesByBodyPart(userId, exerciseBodyPart);
     }
 }
