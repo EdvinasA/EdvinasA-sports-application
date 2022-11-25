@@ -24,5 +24,8 @@ namespace SaveApp.App.Workout.Services
         {
 
         }
+        public void Delete(int userId, int exerciseId) {
+            _exerciseCommandRepository.Delete(userId, exerciseId);
+        }
     }
 }

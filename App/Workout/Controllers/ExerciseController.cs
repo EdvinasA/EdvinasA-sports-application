@@ -31,4 +31,9 @@ public class ExerciseController : ControllerBase
     public List<Exercise> GetExercises(int userId) {
         return _queryService.GetAllExercises(userId);
     }
+
+    [HttpDelete("{exerciseId}")]
+    public void DeleteExercise(int userId, int exerciseId) {
+        _commandService.Delete(userId, exerciseId);
+    }
 }

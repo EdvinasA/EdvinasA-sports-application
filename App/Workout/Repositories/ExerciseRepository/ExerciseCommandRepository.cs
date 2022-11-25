@@ -20,7 +20,7 @@ namespace SaveApp.App.Workout.Repositories.ExerciseRepository
 
         public Exercise Create(int userId, ExerciseCreateInput input)
         {
-
+            Console.WriteLine(input.Name);
             var exerciseEntity = _mapper.Map<ExerciseEntity>(input);
             exerciseEntity.ExerciseCategory = _context.ExerciseCategories!.Find(input.ExerciseCategoryId);
             exerciseEntity.User = _context.User!.Find(userId);
@@ -33,9 +33,15 @@ namespace SaveApp.App.Workout.Repositories.ExerciseRepository
         public void Update(int userId, Exercise input) {
             var exerciseEntity = _context.Exercise.Find(input.Id);
             exerciseEntity.Name = input.Name;
-            // exerciseEntity.ExerciseBodyPart = input.ExerciseBodyPart;
             exerciseEntity.User = _context.User!.Find(userId);
             _context.Exercise!.Add(exerciseEntity);
+            _context.SaveChanges();
+        }
+
+        public void Delete(int userId, int exerciseId) {
+            ExerciseEntity entity = _context.Exercise.FirstOrDefault(obj => obj.Id == exerciseId);
+
+            _context.Exercise.Remove(entity);
             _context.SaveChanges();
         }
     }
