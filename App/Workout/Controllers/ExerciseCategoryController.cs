@@ -21,6 +21,11 @@ public class ExerciseCategoryController
         return _commandService.Create(userId, input);
      }
 
+     [HttpPut]
+     public void Update(int userId, ExerciseCategory input) {
+        _commandService.Update(userId, input);
+     }
+
      [HttpGet]
      public List<ExerciseCategory> GetByUserId(int userId) {
         return _queryService.GetByUserId(userId);

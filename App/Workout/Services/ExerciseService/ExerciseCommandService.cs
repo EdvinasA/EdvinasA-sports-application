@@ -22,7 +22,7 @@ namespace SaveApp.App.Workout.Services
 
         public void UpdateExercise(int userId, Exercise exercise) 
         {
-
+            _exerciseCommandRepository.Update(userId, exercise);
         }
         public void Delete(int userId, int exerciseId) {
             _exerciseCommandRepository.Delete(userId, exerciseId);

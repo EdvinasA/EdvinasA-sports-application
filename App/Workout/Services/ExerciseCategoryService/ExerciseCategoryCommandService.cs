@@ -14,5 +14,9 @@ namespace SaveApp.App.Workout.Services.ExerciseCategoryService
         public ExerciseCategory Create(int userId, ExerciseCategory input) {
             return _commandRepository.Create(userId, input);
         }
+        
+        public void Update(int userId, ExerciseCategory input) {
+            _commandRepository.Update(userId, input);
+        }
     }
 }

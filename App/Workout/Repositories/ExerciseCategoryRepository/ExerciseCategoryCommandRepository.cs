@@ -24,5 +24,13 @@ namespace SaveApp.App.Workout.Repositories.ExerciseCategoryRepository
 
             return _mapper.Map<ExerciseCategory>(entity);
         }
+
+        public void Update(int userId, ExerciseCategory input) {
+            ExerciseCategoryEntity entity = _mapper.Map<ExerciseCategoryEntity>(input);
+            entity.User = _context.User!.Find(userId);
+
+            _context.ExerciseCategories!.Update(entity);
+            _context.SaveChanges();
+        }
     }
 }
