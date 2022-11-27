@@ -1,15 +1,18 @@
 using SaveApp.App.Workout.Models;
 using SaveApp.App.Workout.Repositories.ExerciseSetRepository;
 using SaveApp.App.Workout.Repositories.WorkoutRepository;
+using SaveApp.App.Workout.Services.ExerciseSetService;
 
 namespace SaveApp.App.Workout.Services.WorkoutService
 {
     public class WorkoutCommandService : IWorkoutCommandService
     {
         private readonly IWorkoutCommandRepository _commandRepository;
+        private readonly IExerciseSetCommandService _exerciseSetCommandService;
     
-        public WorkoutCommandService(IWorkoutCommandRepository commandRepository) {
+        public WorkoutCommandService(IWorkoutCommandRepository commandRepository, IExerciseSetCommandService exerciseSetCommandService) {
             _commandRepository = commandRepository;
+            _exerciseSetCommandService = exerciseSetCommandService;
         }
         public int Create(int userId) {
             return _commandRepository.Create(userId, new WorkoutDetailsCreateInput() {
@@ -19,7 +22,20 @@ namespace SaveApp.App.Workout.Services.WorkoutService
         }
         
         public WorkoutExercise AddExerciseToWorkout(int userId, AddExerciseToWorkoutInput exercise) {
-            return _commandRepository.AddExerciseToWorkout(userId, exercise);
+            WorkoutExercise addedExercise = _commandRepository.AddExerciseToWorkout(userId, exercise);
+
+            ExerciseSetCreateInput set = new ExerciseSetCreateInput();
+            set.Weight = 0;
+            set.Reps = 0;
+            set.ExerciseId = exercise.Exercise.Id;
+            set.WorkoutExerciseId = addedExercise.Id;
+            set.UserId = userId;
+
+            ExerciseSet createdSet =_exerciseSetCommandService.Create(set);
+
+            addedExercise.ExerciseSets!.Add(createdSet);
+            
+            return addedExercise;
         }
 
         public void Update(int userId, WorkoutDetailsUpdateInput workoutDetails) {

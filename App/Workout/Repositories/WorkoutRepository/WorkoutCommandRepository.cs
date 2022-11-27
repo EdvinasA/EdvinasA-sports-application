@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using SaveApp.App.Workout.Models;
 using SaveApp.App.Workout.Repositories.Contexts;
 using SaveApp.App.Workout.Repositories.Entities;
+using SaveApp.App.Workout.Repositories.ExerciseSetRepository;
 
 namespace SaveApp.App.Workout.Repositories.WorkoutRepository
 {
