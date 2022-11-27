@@ -11,8 +11,8 @@ namespace SaveApp.App.Workout.Services.WorkoutService
         public WorkoutCommandService(IWorkoutCommandRepository commandRepository) {
             _commandRepository = commandRepository;
         }
-        public void Create(int userId) {
-            _commandRepository.Create(userId, new WorkoutDetailsCreateInput() {
+        public int Create(int userId) {
+            return _commandRepository.Create(userId, new WorkoutDetailsCreateInput() {
                 Date = DateTime.UtcNow,
                 StartTime = DateTime.UtcNow
             });
@@ -28,6 +28,10 @@ namespace SaveApp.App.Workout.Services.WorkoutService
 
         public void DeleteWorkoutExercise(int userId, int workoutExerciseId) {
             _commandRepository.DeleteWorkoutExercise(userId, workoutExerciseId);
+        }
+
+        public void DeleteWorkout(int userId, int workoutId) {
+            _commandRepository.DeleteWorkout(userId, workoutId);
         }
     }
 }

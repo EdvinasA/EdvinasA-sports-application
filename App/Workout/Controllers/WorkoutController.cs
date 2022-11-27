@@ -17,8 +17,8 @@ public class WorkoutController : ControllerBase
     }
 
     [HttpPost]
-    public void CreateWorkout(int userId) {
-        _workoutCommandService.Create(userId);
+    public int CreateWorkout(int userId) {
+        return _workoutCommandService.Create(userId);
     }
 
     [HttpGet]
@@ -44,5 +44,10 @@ public class WorkoutController : ControllerBase
     [HttpDelete("{workoutExerciseId}")]
     public void DeleteExerciseFromWorkout(int userId, int workoutExerciseId) {
         _workoutCommandService.DeleteWorkoutExercise(userId, workoutExerciseId);
+    }
+
+    [HttpDelete("workout/{workoutId}")]
+    public void DeleteWorkout(int userId, int workoutId) {
+        _workoutCommandService.DeleteWorkout(userId, workoutId);
     }
 }

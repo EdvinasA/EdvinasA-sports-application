@@ -17,12 +17,14 @@ namespace SaveApp.App.Workout.Repositories.WorkoutRepository
             _mapper = mapper;
         }
 
-        public void Create(int userId, WorkoutDetailsCreateInput input) {
+        public int Create(int userId, WorkoutDetailsCreateInput input) {
             WorkoutEntity workoutEntity = _mapper.Map<WorkoutEntity>(input);
             workoutEntity.UserEntity = _context.User!.First(user => user.Id == userId);
 
             _context.Workout!.Add(workoutEntity);
             _context.SaveChanges();
+
+            return workoutEntity.Id;
         }
 
         public WorkoutExercise AddExerciseToWorkout(int userId, AddExerciseToWorkoutInput exercise) {
@@ -62,6 +64,20 @@ namespace SaveApp.App.Workout.Repositories.WorkoutRepository
             } catch (Exception e) {
                 Console.WriteLine(e);
             }
+        }
+
+        public void DeleteWorkout(int userId, int workoutId) {
+            WorkoutEntity entity = _context.Workout
+            .Include("Exercises.ExerciseSets")
+            .FirstOrDefault(e => e.Id == workoutId);
+
+            foreach (var item in entity.Exercises)
+            {
+                DeleteWorkoutExercise(userId, item.Id);
+            }
+
+            _context.Workout.Remove(entity);
+            _context.SaveChanges();
         }
     }
 }
