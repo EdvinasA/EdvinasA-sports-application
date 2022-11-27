@@ -32,6 +32,11 @@ public class ExerciseController : ControllerBase
         return _queryService.GetAllExercises(userId);
     }
 
+    [HttpGet("category/{categoryId}")]
+    public List<Exercise> GetExercisesByCategory(int userId, int categoryId) {
+        return _queryService.GetExercisesByCategory(userId, categoryId);
+    }
+
     [HttpDelete("{exerciseId}")]
     public void DeleteExercise(int userId, int exerciseId) {
         _commandService.Delete(userId, exerciseId);

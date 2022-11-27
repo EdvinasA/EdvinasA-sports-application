@@ -22,5 +22,14 @@ namespace SaveApp.App.Workout.Repositories.ExerciseRepository
 
             return entities.Select(e => _mapper.Map<Exercise>(e)).ToList();
         }
+
+        public List<Exercise> GetExercisesByCategory(int userId, int categoryId) {
+            List<ExerciseEntity> entities = _context.Exercise
+            .Where(e => e.User.Id == userId)
+            .Where(e => e.ExerciseCategoryId == categoryId)
+            .ToList();
+
+            return entities.Select(e => _mapper.Map<Exercise>(e)).ToList();
+        }
     }
 }
