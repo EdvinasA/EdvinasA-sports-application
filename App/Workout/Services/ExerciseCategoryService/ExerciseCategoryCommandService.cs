@@ -18,5 +18,9 @@ namespace SaveApp.App.Workout.Services.ExerciseCategoryService
         public void Update(int userId, ExerciseCategory input) {
             _commandRepository.Update(userId, input);
         }
+
+        public void Delete(int userId, int categoryId) {
+            _commandRepository.Delete(userId, categoryId);
+        }
     }
 }

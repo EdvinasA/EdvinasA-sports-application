@@ -30,4 +30,9 @@ public class ExerciseCategoryController
      public List<ExerciseCategory> GetByUserId(int userId) {
         return _queryService.GetByUserId(userId);
      }
+
+     [HttpDelete("{categoryId}")]
+     public void Delete(int userId, int categoryId) {
+        _commandService.Delete(userId, categoryId);
+     }
 }

@@ -6,5 +6,6 @@ namespace SaveApp.App.Workout.Services.ExerciseCategoryService
     {
          ExerciseCategory Create(int userId, ExerciseCategory input);
          void Update(int userId, ExerciseCategory input);
+         void Delete(int userId, int categoryId);
     }
 }

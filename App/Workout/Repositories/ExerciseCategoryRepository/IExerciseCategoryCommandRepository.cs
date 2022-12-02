@@ -6,6 +6,7 @@ namespace SaveApp.App.Workout.Repositories.ExerciseCategoryRepository
     {
         ExerciseCategory Create(int userId, ExerciseCategory input);
         void Update(int userId, ExerciseCategory input);
+        void Delete(int userId, int categoryId);
          
     }
 }
