@@ -21,7 +21,8 @@ namespace SaveApp.App.Workout.Repositories.WorkoutRepository
             List<WorkoutEntity> entities = _context.Workout!
             .Include("Exercises.Exercise")
             .Include("Exercises.ExerciseSets")
-            .Where(workout => workout.UserEntity!.Id == userId).ToList();
+            .Where(workout => workout.UserEntity!.Id == userId)
+            .OrderByDescending(workout => workout.Date).ToList();
             
             return entities.Select(entity => _mapper.Map<WorkoutDetails>(entity)).ToList();
         }
