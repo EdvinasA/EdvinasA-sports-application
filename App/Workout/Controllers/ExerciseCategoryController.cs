@@ -8,31 +8,39 @@ namespace SaveApp.App.Workout.Controllers;
 [Route("api/exercise-category/{userId}")]
 public class ExerciseCategoryController
 {
-     private readonly IExerciseCategoryCommandService _commandService;
-     private readonly IExerciseCategoryQueryService _queryService;
+    private readonly IExerciseCategoryCommandService _commandService;
+    private readonly IExerciseCategoryQueryService _queryService;
 
-     public ExerciseCategoryController(IExerciseCategoryCommandService commandService, IExerciseCategoryQueryService queryService) {
+    public ExerciseCategoryController(
+        IExerciseCategoryCommandService commandService,
+        IExerciseCategoryQueryService queryService
+    )
+    {
         _commandService = commandService;
         _queryService = queryService;
-     }
+    }
 
-     [HttpPost]
-     public ExerciseCategory Create(int userId, ExerciseCategory input) {
+    [HttpPost]
+    public ExerciseCategory Create(int userId, ExerciseCategory input)
+    {
         return _commandService.Create(userId, input);
-     }
+    }
 
-     [HttpPut]
-     public void Update(int userId, ExerciseCategory input) {
+    [HttpPut]
+    public void Update(int userId, ExerciseCategory input)
+    {
         _commandService.Update(userId, input);
-     }
+    }
 
-     [HttpGet]
-     public List<ExerciseCategory> GetByUserId(int userId) {
+    [HttpGet]
+    public List<ExerciseCategory> GetByUserId(int userId)
+    {
         return _queryService.GetByUserId(userId);
-     }
+    }
 
-     [HttpDelete("{categoryId}")]
-     public void Delete(int userId, int categoryId) {
+    [HttpDelete("{categoryId}")]
+    public void Delete(int userId, int categoryId)
+    {
         _commandService.Delete(userId, categoryId);
-     }
+    }
 }

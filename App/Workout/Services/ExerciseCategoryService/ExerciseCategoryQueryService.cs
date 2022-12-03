@@ -7,11 +7,13 @@ namespace SaveApp.App.Workout.Services.ExerciseCategoryService
     {
         private readonly IExerciseCategoryQueryRepository _queryRepository;
 
-        public ExerciseCategoryQueryService(IExerciseCategoryQueryRepository queryRepository) {
+        public ExerciseCategoryQueryService(IExerciseCategoryQueryRepository queryRepository)
+        {
             _queryRepository = queryRepository;
         }
 
-        public List<ExerciseCategory> GetByUserId(int userId) {
+        public List<ExerciseCategory> GetByUserId(int userId)
+        {
             return _queryRepository.GetByUserId(userId);
         }
     }

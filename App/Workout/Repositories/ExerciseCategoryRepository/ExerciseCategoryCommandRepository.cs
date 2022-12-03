@@ -14,13 +14,19 @@ namespace SaveApp.App.Workout.Repositories.ExerciseCategoryRepository
         private readonly IMapper _mapper;
         private readonly IExerciseCommandRepository _exerciseCommandRepository;
 
-        public ExerciseCategoryCommandRepository(ExerciseContext context, IMapper mapper, IExerciseCommandRepository exerciseCommandRepository) {
+        public ExerciseCategoryCommandRepository(
+            ExerciseContext context,
+            IMapper mapper,
+            IExerciseCommandRepository exerciseCommandRepository
+        )
+        {
             _context = context;
             _mapper = mapper;
             _exerciseCommandRepository = exerciseCommandRepository;
         }
 
-        public ExerciseCategory Create(int userId, ExerciseCategory input) {
+        public ExerciseCategory Create(int userId, ExerciseCategory input)
+        {
             ExerciseCategoryEntity entity = _mapper.Map<ExerciseCategoryEntity>(input);
             entity.User = _context.User!.Find(userId);
 
@@ -30,7 +36,8 @@ namespace SaveApp.App.Workout.Repositories.ExerciseCategoryRepository
             return _mapper.Map<ExerciseCategory>(entity);
         }
 
-        public void Update(int userId, ExerciseCategory input) {
+        public void Update(int userId, ExerciseCategory input)
+        {
             ExerciseCategoryEntity entity = _mapper.Map<ExerciseCategoryEntity>(input);
             entity.User = _context.User!.Find(userId);
 
@@ -38,10 +45,11 @@ namespace SaveApp.App.Workout.Repositories.ExerciseCategoryRepository
             _context.SaveChanges();
         }
 
-        public void Delete(int userId, int categoryId) {
+        public void Delete(int userId, int categoryId)
+        {
             ExerciseCategoryEntity entity = _context.ExerciseCategories!
-            .Include("Exercise")
-            .FirstOrDefault(o => o.Id == categoryId);
+                .Include("Exercise")
+                .FirstOrDefault(o => o.Id == categoryId);
 
             foreach (var item in entity.Exercise)
             {

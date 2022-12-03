@@ -11,7 +11,11 @@ namespace SaveApp.App.Workout.Repositories.ExerciseRepository
         private readonly IMapper _mapper;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public ExerciseCommandRepository(ExerciseContext context, IMapper mapper, IHttpContextAccessor httpContextAccessor)
+        public ExerciseCommandRepository(
+            ExerciseContext context,
+            IMapper mapper,
+            IHttpContextAccessor httpContextAccessor
+        )
         {
             _context = context;
             _mapper = mapper;
@@ -22,7 +26,9 @@ namespace SaveApp.App.Workout.Repositories.ExerciseRepository
         {
             Console.WriteLine(input.Name);
             var exerciseEntity = _mapper.Map<ExerciseEntity>(input);
-            exerciseEntity.ExerciseCategory = _context.ExerciseCategories!.Find(input.ExerciseCategoryId);
+            exerciseEntity.ExerciseCategory = _context.ExerciseCategories!.Find(
+                input.ExerciseCategoryId
+            );
             exerciseEntity.User = _context.User!.Find(userId);
             _context.Exercise!.Add(exerciseEntity);
             _context.SaveChanges();
@@ -30,17 +36,21 @@ namespace SaveApp.App.Workout.Repositories.ExerciseRepository
             return _mapper.Map<Exercise>(exerciseEntity);
         }
 
-        public void Update(int userId, Exercise input) {
+        public void Update(int userId, Exercise input)
+        {
             var exerciseEntity = _context.Exercise.Find(input.Id);
             exerciseEntity.Name = input.Name;
             exerciseEntity.User = _context.User!.Find(userId);
-            exerciseEntity.ExerciseCategory = _context.ExerciseCategories.Find(input.ExerciseCategoryId);
+            exerciseEntity.ExerciseCategory = _context.ExerciseCategories.Find(
+                input.ExerciseCategoryId
+            );
             exerciseEntity.ExerciseCategoryId = input.ExerciseCategoryId;
             _context.Exercise!.Update(exerciseEntity);
             _context.SaveChanges();
         }
 
-        public void Delete(int userId, int exerciseId) {
+        public void Delete(int userId, int exerciseId)
+        {
             ExerciseEntity entity = _context.Exercise.FirstOrDefault(obj => obj.Id == exerciseId);
 
             _context.Exercise.Remove(entity);

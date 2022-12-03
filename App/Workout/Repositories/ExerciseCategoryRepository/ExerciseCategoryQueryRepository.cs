@@ -10,15 +10,19 @@ namespace SaveApp.App.Workout.Repositories.ExerciseCategoryRepository
         private readonly ExerciseContext _context;
         private readonly IMapper _mapper;
 
-        public ExerciseCategoryQueryRepository(ExerciseContext context, IMapper mapper) {
+        public ExerciseCategoryQueryRepository(ExerciseContext context, IMapper mapper)
+        {
             _context = context;
             _mapper = mapper;
         }
 
-        public List<ExerciseCategory> GetByUserId(int userId) {
-            List<ExerciseCategoryEntity> entities = _context.ExerciseCategories!.Where(entity => entity.User!.Id == userId).ToList();
+        public List<ExerciseCategory> GetByUserId(int userId)
+        {
+            List<ExerciseCategoryEntity> entities = _context.ExerciseCategories!
+                .Where(entity => entity.User!.Id == userId)
+                .ToList();
 
-            return entities.Select(entity =>_mapper.Map<ExerciseCategory>(entity)).ToList();
+            return entities.Select(entity => _mapper.Map<ExerciseCategory>(entity)).ToList();
         }
     }
 }

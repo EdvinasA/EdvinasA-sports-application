@@ -4,8 +4,8 @@ namespace SaveApp.App.Workout.Services.ExerciseCategoryService
 {
     public interface IExerciseCategoryCommandService
     {
-         ExerciseCategory Create(int userId, ExerciseCategory input);
-         void Update(int userId, ExerciseCategory input);
-         void Delete(int userId, int categoryId);
+        ExerciseCategory Create(int userId, ExerciseCategory input);
+        void Update(int userId, ExerciseCategory input);
+        void Delete(int userId, int categoryId);
     }
 }

@@ -41,6 +41,7 @@ namespace SaveApp.App.Workout.Repositories.ExerciseSetRepository
             entity.Notes = exerciseSet.Notes;
             entity.Weight = exerciseSet.Weight;
             entity.Reps = exerciseSet.Reps;
+            entity.UserEntity = _context.User!.Find(userId);
 
             _context.ExerciseSet.Update(entity);
             _context.SaveChanges();

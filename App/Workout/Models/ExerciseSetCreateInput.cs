@@ -8,5 +8,6 @@ namespace SaveApp.App.Workout.Models
         public int ExerciseId { get; set; }
         public int WorkoutExerciseId { get; set; }
         public int UserId { get; set; }
+        public int IndexOfSet { get; set; }
     }
 }

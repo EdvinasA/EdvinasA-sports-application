@@ -4,6 +4,6 @@ namespace SaveApp.App.Workout.Repositories.ExerciseCategoryRepository
 {
     public interface IExerciseCategoryQueryRepository
     {
-         List<ExerciseCategory> GetByUserId(int userId);
+        List<ExerciseCategory> GetByUserId(int userId);
     }
 }

@@ -3,13 +3,13 @@ using SaveApp.App.Workout.Models;
 using SaveApp.App.Workout.Repositories.Entities;
 
 namespace SaveApp.App.Workout.Repositories.Contexts;
+
 public class ExerciseContext : DbContext
 {
-    public ExerciseContext(DbContextOptions<ExerciseContext> options) : base(options)
-    {
-    }
+    public ExerciseContext(DbContextOptions<ExerciseContext> options) : base(options) { }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder) {
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
         modelBuilder
             .Entity<ExerciseEntity>()
             .Property(e => e.ExerciseType)

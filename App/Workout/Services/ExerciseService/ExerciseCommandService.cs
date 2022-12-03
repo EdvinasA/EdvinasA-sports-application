@@ -10,21 +10,27 @@ namespace SaveApp.App.Workout.Services
         private readonly IMapper _mapper;
         private readonly IExerciseCommandRepository _exerciseCommandRepository;
 
-        public ExerciseCommandService(IMapper mapper, IExerciseCommandRepository exerciseCommandRepository) {
+        public ExerciseCommandService(
+            IMapper mapper,
+            IExerciseCommandRepository exerciseCommandRepository
+        )
+        {
             _mapper = mapper;
             _exerciseCommandRepository = exerciseCommandRepository;
         }
 
-        public Exercise CreateExercise(int userId, ExerciseCreateInput exercise) 
+        public Exercise CreateExercise(int userId, ExerciseCreateInput exercise)
         {
             return _exerciseCommandRepository.Create(userId, exercise);
         }
 
-        public void UpdateExercise(int userId, Exercise exercise) 
+        public void UpdateExercise(int userId, Exercise exercise)
         {
             _exerciseCommandRepository.Update(userId, exercise);
         }
-        public void Delete(int userId, int exerciseId) {
+
+        public void Delete(int userId, int exerciseId)
+        {
             _exerciseCommandRepository.Delete(userId, exerciseId);
         }
     }

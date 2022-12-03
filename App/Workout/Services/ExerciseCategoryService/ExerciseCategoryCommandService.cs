@@ -8,18 +8,23 @@ namespace SaveApp.App.Workout.Services.ExerciseCategoryService
     {
         private readonly IExerciseCategoryCommandRepository _commandRepository;
 
-        public ExerciseCategoryCommandService(IExerciseCategoryCommandRepository commandRepository) {
+        public ExerciseCategoryCommandService(IExerciseCategoryCommandRepository commandRepository)
+        {
             _commandRepository = commandRepository;
         }
-        public ExerciseCategory Create(int userId, ExerciseCategory input) {
+
+        public ExerciseCategory Create(int userId, ExerciseCategory input)
+        {
             return _commandRepository.Create(userId, input);
         }
-        
-        public void Update(int userId, ExerciseCategory input) {
+
+        public void Update(int userId, ExerciseCategory input)
+        {
             _commandRepository.Update(userId, input);
         }
 
-        public void Delete(int userId, int categoryId) {
+        public void Delete(int userId, int categoryId)
+        {
             _commandRepository.Delete(userId, categoryId);
         }
     }
