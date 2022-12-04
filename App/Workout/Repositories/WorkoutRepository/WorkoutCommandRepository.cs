@@ -71,8 +71,6 @@ namespace SaveApp.App.Workout.Repositories.WorkoutRepository
                     .Include("ExerciseSets")
                     .FirstOrDefault(e => e.Id == workoutExerciseId);
 
-                _context.ExerciseSet!.RemoveRange(entity.ExerciseSets);
-                _context.SaveChanges();
                 _context.WorkoutExercise!.Remove(entity);
                 _context.SaveChanges();
             }
@@ -87,14 +85,6 @@ namespace SaveApp.App.Workout.Repositories.WorkoutRepository
             WorkoutEntity entity = _context.Workout
                 .Include("Exercises.ExerciseSets")
                 .FirstOrDefault(e => e.Id == workoutId);
-
-            if (entity.Exercises != null || entity.Exercises.Count() != 0)
-            {
-                foreach (var item in entity.Exercises)
-                {
-                    DeleteWorkoutExercise(userId, item.Id);
-                }
-            }
 
             _context.Workout.Remove(entity);
             _context.SaveChanges();

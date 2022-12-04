@@ -17,6 +17,18 @@ public class ExerciseContext : DbContext
                 v => v.ToString(),
                 v => (ExerciseType)Enum.Parse(typeof(ExerciseType), v)
             );
+            
+        modelBuilder
+            .Entity<WorkoutEntity>()
+                .HasMany(b => b.Exercises)
+                .WithOne(o => o.WorkoutEntity)
+                .OnDelete(DeleteBehavior.ClientCascade);
+
+        modelBuilder
+            .Entity<WorkoutExerciseEntity>()
+                .HasMany(b => b.ExerciseSets)
+                .WithOne(o => o.WorkoutExerciseEntity)
+                .OnDelete(DeleteBehavior.ClientCascade);
     }
 
     public DbSet<ExerciseEntity>? Exercise { get; set; }
