@@ -31,6 +31,7 @@ namespace SaveApp.App.Workout.Services.ExerciseSetService
             ExerciseSet set = _commandRepository.Create(input);
             WorkoutExercise workoutExercise = _workoutQueryRepository.GetLatestWorkoutExerciseById(
                 input.UserId,
+                input.WorkoutExerciseId,
                 input.ExerciseId
             );
 

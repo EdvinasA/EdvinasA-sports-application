@@ -39,6 +39,7 @@ namespace SaveApp.App.Workout.Services.WorkoutService
                 WorkoutExercise workoutExerciseFromDb =
                     _queryRepository.GetLatestWorkoutExerciseById(
                         userId,
+                        workoutExercise.Id,
                         workoutExercise.Exercise.Id
                     );
 
@@ -58,9 +59,9 @@ namespace SaveApp.App.Workout.Services.WorkoutService
             return workoutDetails;
         }
 
-        public WorkoutExercise GetLatestWorkoutExerciseById(int userId, int exerciseId)
+        public WorkoutExercise GetLatestWorkoutExerciseById(int userId, int currentWorkoutExerciseId, int exerciseId)
         {
-            return _queryRepository.GetLatestWorkoutExerciseById(userId, exerciseId);
+            return _queryRepository.GetLatestWorkoutExerciseById(userId, currentWorkoutExerciseId ,exerciseId);
         }
     }
 }
