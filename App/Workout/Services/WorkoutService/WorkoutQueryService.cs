@@ -1,3 +1,4 @@
+using AutoMapper;
 using SaveApp.App.Workout.Models;
 using SaveApp.App.Workout.Repositories.WorkoutRepository;
 
@@ -6,10 +7,12 @@ namespace SaveApp.App.Workout.Services.WorkoutService
     public class WorkoutQueryService : IWorkoutQueryService
     {
         private readonly IWorkoutQueryRepository _queryRepository;
+        private readonly IMapper _mapper;
 
-        public WorkoutQueryService(IWorkoutQueryRepository queryRepository)
+        public WorkoutQueryService(IWorkoutQueryRepository queryRepository, IMapper mapper)
         {
             _queryRepository = queryRepository;
+            _mapper = mapper;
         }
 
         public List<WorkoutDetails> GetAllByUserId(int UserId)
@@ -21,17 +24,14 @@ namespace SaveApp.App.Workout.Services.WorkoutService
         {
             WorkoutDetails workoutDetails = _queryRepository.GetWorkout(userId, workoutId);
 
-            if (workoutDetails.Exercises == null || workoutDetails.Exercises.Count() == 0)
+            if (workoutDetails.Exercises.Count() == 0)
             {
                 return workoutDetails;
             }
 
             foreach (var workoutExercise in workoutDetails.Exercises)
             {
-                if (
-                    workoutExercise.ExerciseSets == null
-                    || workoutExercise.ExerciseSets.Count() == 0
-                )
+                if (workoutExercise.ExerciseSets.Count() == 0)
                 {
                     continue;
                 }
@@ -41,9 +41,18 @@ namespace SaveApp.App.Workout.Services.WorkoutService
                         userId,
                         workoutExercise.Exercise.Id
                     );
+
+                if (workoutExerciseFromDb == null)
+                {
+                    continue;
+                }
+
                 for (var i = 0; i < workoutExercise.ExerciseSets.Count(); i++)
                 {
-                    workoutExercise.ExerciseSets[i] = workoutExerciseFromDb.ExerciseSets[i];
+                    workoutExercise.ExerciseSets[i].ExerciseSetPreviousValues =
+                        _mapper.Map<ExerciseSetPreviousValues>(
+                            workoutExerciseFromDb.ExerciseSets[i]
+                        );
                 }
             }
             return workoutDetails;

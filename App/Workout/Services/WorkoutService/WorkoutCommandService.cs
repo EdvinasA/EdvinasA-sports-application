@@ -9,14 +9,17 @@ namespace SaveApp.App.Workout.Services.WorkoutService
     {
         private readonly IWorkoutCommandRepository _commandRepository;
         private readonly IExerciseSetCommandService _exerciseSetCommandService;
+        private readonly ILogger _logger;
 
         public WorkoutCommandService(
             IWorkoutCommandRepository commandRepository,
-            IExerciseSetCommandService exerciseSetCommandService
+            IExerciseSetCommandService exerciseSetCommandService,
+            ILogger<string> logger
         )
         {
             _commandRepository = commandRepository;
             _exerciseSetCommandService = exerciseSetCommandService;
+            _logger = logger;
         }
 
         public int Create(int userId)

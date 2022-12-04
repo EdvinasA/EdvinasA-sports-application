@@ -10,14 +10,17 @@ public class WorkoutController : ControllerBase
 {
     private readonly IWorkoutCommandService _workoutCommandService;
     private readonly IWorkoutQueryService _workoutQueryService;
+    private readonly ILogger _logger;
 
     public WorkoutController(
         IWorkoutCommandService workoutCommandService,
-        IWorkoutQueryService workoutQueryService
+        IWorkoutQueryService workoutQueryService,
+        ILogger<string> logger
     )
     {
         _workoutCommandService = workoutCommandService;
         _workoutQueryService = workoutQueryService;
+        _logger = logger;
     }
 
     [HttpPost]

@@ -11,11 +11,17 @@ namespace SaveApp.App.Workout.Repositories.WorkoutRepository
     {
         private readonly ExerciseContext _context;
         private readonly IMapper _mapper;
+        private readonly ILogger _logger;
 
-        public WorkoutCommandRepository(ExerciseContext context, IMapper mapper)
+        public WorkoutCommandRepository(
+            ExerciseContext context,
+            IMapper mapper,
+            ILogger<string> logger
+        )
         {
             _context = context;
             _mapper = mapper;
+            _logger = logger;
         }
 
         public int Create(int userId, WorkoutDetailsCreateInput input)
@@ -61,8 +67,8 @@ namespace SaveApp.App.Workout.Repositories.WorkoutRepository
         {
             try
             {
-                WorkoutExerciseEntity entity = _context.WorkoutExercise!
-                    .Include("ExerciseSets")!
+                WorkoutExerciseEntity entity = _context.WorkoutExercise
+                    .Include("ExerciseSets")
                     .FirstOrDefault(e => e.Id == workoutExerciseId);
 
                 _context.ExerciseSet!.RemoveRange(entity.ExerciseSets);
@@ -70,7 +76,7 @@ namespace SaveApp.App.Workout.Repositories.WorkoutRepository
                 _context.WorkoutExercise!.Remove(entity);
                 _context.SaveChanges();
             }
-            catch (Exception e)
+            catch (NullReferenceException e)
             {
                 Console.WriteLine(e);
             }
@@ -82,9 +88,12 @@ namespace SaveApp.App.Workout.Repositories.WorkoutRepository
                 .Include("Exercises.ExerciseSets")
                 .FirstOrDefault(e => e.Id == workoutId);
 
-            foreach (var item in entity.Exercises)
+            if (entity.Exercises != null || entity.Exercises.Count() != 0)
             {
-                DeleteWorkoutExercise(userId, item.Id);
+                foreach (var item in entity.Exercises)
+                {
+                    DeleteWorkoutExercise(userId, item.Id);
+                }
             }
 
             _context.Workout.Remove(entity);
