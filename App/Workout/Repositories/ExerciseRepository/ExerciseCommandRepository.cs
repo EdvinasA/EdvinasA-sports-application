@@ -40,6 +40,7 @@ namespace SaveApp.App.Workout.Repositories.ExerciseRepository
         {
             var exerciseEntity = _context.Exercise.Find(input.Id);
             exerciseEntity.Name = input.Name;
+            exerciseEntity.Note = input.Note;
             exerciseEntity.User = _context.User!.Find(userId);
             exerciseEntity.ExerciseCategory = _context.ExerciseCategories.Find(
                 input.ExerciseCategoryId
