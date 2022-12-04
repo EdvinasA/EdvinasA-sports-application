@@ -4,7 +4,7 @@ namespace SaveApp.App.Workout.Models
 {
     public class WorkoutDetails
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
         public String? Name { get; set; }
         public int? BodyWeight { get; set; }
         public DateTime? Date { get; set; }

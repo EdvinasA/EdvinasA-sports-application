@@ -64,4 +64,9 @@ public class WorkoutController : ControllerBase
     {
         _workoutCommandService.DeleteWorkout(userId, workoutId);
     }
+
+    [HttpPost("repeat/{workoutId}")]
+    public int RepeatWorkout(int userId, int workoutId) {
+        return _workoutCommandService.RepeatWorkout(userId, workoutId);
+    }
 }

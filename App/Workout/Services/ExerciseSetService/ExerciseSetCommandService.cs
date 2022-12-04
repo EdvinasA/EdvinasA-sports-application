@@ -35,7 +35,7 @@ namespace SaveApp.App.Workout.Services.ExerciseSetService
                 input.ExerciseId
             );
 
-            if (workoutExercise != null && input.IndexOfSet < workoutExercise.ExerciseSets.Count())
+            if (workoutExercise != null && input.IndexOfSet != 0 && input.IndexOfSet < workoutExercise.ExerciseSets.Count())
             {
                 set.ExerciseSetPreviousValues = _mapper.Map<ExerciseSetPreviousValues>(
                     workoutExercise.ExerciseSets[input.IndexOfSet]
