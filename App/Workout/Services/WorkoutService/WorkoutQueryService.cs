@@ -24,14 +24,14 @@ namespace SaveApp.App.Workout.Services.WorkoutService
         {
             WorkoutDetails workoutDetails = _queryRepository.GetWorkout(userId, workoutId);
 
-            if (workoutDetails.Exercises.Count() == 0)
+            if (workoutDetails == null || workoutDetails.Exercises == null || workoutDetails.Exercises.Count == 0)
             {
                 return workoutDetails;
             }
 
             foreach (var workoutExercise in workoutDetails.Exercises)
             {
-                if (workoutExercise.ExerciseSets.Count() == 0)
+                if (workoutExercise.ExerciseSets == null || workoutExercise.ExerciseSets.Count == 0)
                 {
                     continue;
                 }
@@ -48,7 +48,12 @@ namespace SaveApp.App.Workout.Services.WorkoutService
                     continue;
                 }
 
-                for (var i = 0; i < workoutExercise.ExerciseSets.Count(); i++)
+                if (workoutExerciseFromDb.ExerciseSets == null)
+                {
+                    continue;
+                }
+
+                for (var i = 0; i < workoutExerciseFromDb.ExerciseSets.Count; i++)
                 {
                     workoutExercise.ExerciseSets[i].ExerciseSetPreviousValues =
                         _mapper.Map<ExerciseSetPreviousValues>(
