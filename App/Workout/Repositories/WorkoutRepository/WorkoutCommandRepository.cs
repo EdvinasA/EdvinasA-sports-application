@@ -53,7 +53,7 @@ namespace SaveApp.App.Workout.Repositories.WorkoutRepository
         {
             WorkoutEntity entity = _context.Workout!.Find(workoutDetails.Id);
             entity.BodyWeight = workoutDetails.BodyWeight;
-            entity.Date = workoutDetails.Date;
+            entity.Date = (DateTime)workoutDetails.Date;
             entity.StartTime = workoutDetails.StartTime;
             entity.EndTime = workoutDetails.EndTime;
             entity.Name = workoutDetails.Name;

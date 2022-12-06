@@ -50,6 +50,7 @@ namespace SaveApp.App.Workout.Repositories.WorkoutRepository
 
         public WorkoutExercise GetLatestWorkoutExerciseById(int userId, int currentWorkoutExerciseId, int exerciseId)
         {
+            WorkoutExerciseEntity exerciseEntityToGetDate = _context.WorkoutExercise!.Find(currentWorkoutExerciseId);
             List<WorkoutExerciseEntity> entity = _context.WorkoutExercise
                 .Include("Exercise")
                 .Include("ExerciseSets")
@@ -57,6 +58,7 @@ namespace SaveApp.App.Workout.Repositories.WorkoutRepository
                 .Where(o => o.User!.Id == userId)
                 .Where(o => o.Exercise!.Id == exerciseId)
                 .Where(o => o.Id != currentWorkoutExerciseId)
+                .Where(o => DateTime.Compare(o.WorkoutEntity.Date, exerciseEntityToGetDate.WorkoutEntity.Date) < 0)
                 .ToList();
 
             return _mapper.Map<WorkoutExercise>(entity.MaxBy(o => o.Id));
