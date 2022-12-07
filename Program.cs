@@ -10,6 +10,8 @@ using SaveApp.App.Workout.Repositories.ExerciseSetRepository;
 using SaveApp.App.Workout.Services.ExerciseService;
 using SaveApp.App.Workout.Services.ExerciseCategoryService;
 using SaveApp.App.Workout.Repositories.ExerciseCategoryRepository;
+using SaveApp.App.Workout.Repositories.UserRepository;
+using SaveApp.App.Workout.Services.UserService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -45,6 +47,9 @@ builder.Services.AddTransient<IExerciseCategoryCommandRepository, ExerciseCatego
 
 builder.Services.AddScoped<IExerciseCategoryQueryService, ExerciseCategoryQueryService>();
 builder.Services.AddTransient<IExerciseCategoryQueryRepository, ExerciseCategoryQueryRepository>();
+
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddTransient<IUserRepository, UserRepository>();
 
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 builder.Services.AddHttpContextAccessor();
