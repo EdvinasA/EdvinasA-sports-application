@@ -31,6 +31,11 @@ public class ExerciseContext : DbContext
                 .OnDelete(DeleteBehavior.ClientCascade);
     }
 
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder.EnableSensitiveDataLogging();
+    }
+
     public DbSet<ExerciseEntity>? Exercise { get; set; }
     public DbSet<ExerciseSetEntity>? ExerciseSet { get; set; }
     public DbSet<UserEntity>? User { get; set; }

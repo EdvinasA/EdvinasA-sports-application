@@ -28,21 +28,45 @@ namespace SaveApp.App.Workout.Services.ExerciseSetService
 
         public ExerciseSet Create(ExerciseSetCreateInput input)
         {
-            ExerciseSet set = _commandRepository.Create(input);
+            ExerciseSet set = new();
+            set.Notes = string.Empty;
+            set.Reps = 0;
+            set.Weight = 0;
             WorkoutExercise workoutExercise = _workoutQueryRepository.GetLatestWorkoutExerciseById(
                 input.UserId,
                 input.WorkoutExerciseId,
                 input.ExerciseId
             );
 
-            if (workoutExercise != null && input.IndexOfSet != 0 && input.IndexOfSet < workoutExercise.ExerciseSets.Count)
+            if (
+                workoutExercise != null
+                && input.IndexOfSet != 0
+                && workoutExercise != null
+                && workoutExercise.ExerciseSets != null
+                && input.IndexOfSet <= workoutExercise.ExerciseSets.Count - 1
+            )
             {
-                set.ExerciseSetPreviousValues = _mapper.Map<ExerciseSetPreviousValues>(
+                set.Weight = workoutExercise.ExerciseSets[input.IndexOfSet].Weight;
+                set.Reps = workoutExercise.ExerciseSets[input.IndexOfSet].Reps;
+                set.Notes = workoutExercise.ExerciseSets[input.IndexOfSet].Notes;
+            }
+
+            ExerciseSet createdSet = _commandRepository.Create(set, input.ExerciseId, input.WorkoutExerciseId, input.UserId);
+
+            if (
+                workoutExercise != null
+                && input.IndexOfSet != 0
+                && workoutExercise != null
+                && workoutExercise.ExerciseSets != null
+                && input.IndexOfSet <= workoutExercise.ExerciseSets.Count - 1
+            )
+            {
+                createdSet.ExerciseSetPreviousValues = _mapper.Map<ExerciseSetPreviousValues>(
                     workoutExercise.ExerciseSets[input.IndexOfSet]
                 );
             }
 
-            return set;
+            return createdSet;
         }
 
         public void Delete(int exerciseSetId)

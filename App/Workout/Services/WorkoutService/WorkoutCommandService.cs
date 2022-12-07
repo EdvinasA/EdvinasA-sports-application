@@ -99,11 +99,6 @@ namespace SaveApp.App.Workout.Services.WorkoutService
 
                     foreach (var set in workoutExercise.ExerciseSets)
                     {
-                        _logger.LogInformation("Second loop entered");
-                        _logger.LogInformation("Second loop entered");
-                        _logger.LogInformation("Second loop entered");
-                        _logger.LogInformation("Second loop entered");
-                        _logger.LogInformation("Second loop entered");
                         _logger.LogInformation(returnedWorkoutId.ToString());
                         _exerciseSetCommandService.Create(new ExerciseSetCreateInput{
                             Weight = set.Weight,

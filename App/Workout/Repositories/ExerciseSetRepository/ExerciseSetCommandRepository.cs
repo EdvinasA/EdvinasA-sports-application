@@ -15,12 +15,12 @@ namespace SaveApp.App.Workout.Repositories.ExerciseSetRepository
             _mapper = mapper;
         }
 
-        public ExerciseSet Create(ExerciseSetCreateInput input)
+        public ExerciseSet Create(ExerciseSet input, int exerciseId, int workoutExerciseId, int userId)
         {
             ExerciseSetEntity entity = _mapper.Map<ExerciseSetEntity>(input);
-            entity.ExerciseEntity = _context.Exercise?.Find(input.ExerciseId);
-            entity.WorkoutExerciseEntity = _context.WorkoutExercise?.Find(input.WorkoutExerciseId);
-            entity.UserEntity = _context.User?.Find(input.UserId);
+            entity.ExerciseEntity = _context.Exercise?.Find(exerciseId);
+            entity.WorkoutExerciseEntity = _context.WorkoutExercise?.Find(workoutExerciseId);
+            entity.UserEntity = _context.User?.Find(userId);
 
             _context.ExerciseSet?.Add(entity);
             _context.SaveChanges();
