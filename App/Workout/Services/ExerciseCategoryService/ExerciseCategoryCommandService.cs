@@ -13,19 +13,19 @@ namespace SaveApp.App.Workout.Services.ExerciseCategoryService
             _commandRepository = commandRepository;
         }
 
-        public ExerciseCategory Create(int userId, ExerciseCategory input)
+        public ExerciseCategory Create(ExerciseCategory input)
         {
-            return _commandRepository.Create(userId, input);
+            return _commandRepository.Create(input);
         }
 
-        public void Update(int userId, ExerciseCategory input)
+        public void Update(ExerciseCategory input)
         {
-            _commandRepository.Update(userId, input);
+            _commandRepository.Update(input);
         }
 
-        public void Delete(int userId, int categoryId)
+        public void Delete(int categoryId)
         {
-            _commandRepository.Delete(userId, categoryId);
+            _commandRepository.Delete(categoryId);
         }
     }
 }

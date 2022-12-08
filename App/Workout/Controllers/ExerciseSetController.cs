@@ -1,11 +1,13 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SaveApp.App.Workout.Models;
 using SaveApp.App.Workout.Services.ExerciseSetService;
 
 namespace SaveApp.App.Workout.Controllers;
 
+[Authorize]
 [ApiController]
-[Route("api/exercise-set/{userId}")]
+[Route("api/exercise-set")]
 public class ExerciseSetController
 {
     private readonly IExerciseSetCommandService _commandService;
@@ -16,21 +18,20 @@ public class ExerciseSetController
     }
 
     [HttpPost]
-    public ExerciseSet Create(int userId, ExerciseSetCreateInput input)
+    public ExerciseSet Create(ExerciseSetCreateInput input)
     {
-        input.UserId = userId;
         return _commandService.Create(input);
     }
 
     [HttpDelete("{exerciseSetId}")]
-    public void Delete(int userId, int exerciseSetId)
+    public void Delete(int exerciseSetId)
     {
         _commandService.Delete(exerciseSetId);
     }
 
     [HttpPut]
-    public void UpdateSet(int userId, ExerciseSet exerciseSet)
+    public void UpdateSet(ExerciseSet exerciseSet)
     {
-        _commandService.Update(userId, exerciseSet);
+        _commandService.Update(exerciseSet);
     }
 }

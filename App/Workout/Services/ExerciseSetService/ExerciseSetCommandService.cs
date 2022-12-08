@@ -33,7 +33,6 @@ namespace SaveApp.App.Workout.Services.ExerciseSetService
             set.Reps = 0;
             set.Weight = 0;
             WorkoutExercise workoutExercise = _workoutQueryRepository.GetLatestWorkoutExerciseById(
-                input.UserId,
                 input.WorkoutExerciseId,
                 input.ExerciseId
             );
@@ -51,7 +50,7 @@ namespace SaveApp.App.Workout.Services.ExerciseSetService
                 set.Notes = workoutExercise.ExerciseSets[input.IndexOfSet].Notes;
             }
 
-            ExerciseSet createdSet = _commandRepository.Create(set, input.ExerciseId, input.WorkoutExerciseId, input.UserId);
+            ExerciseSet createdSet = _commandRepository.Create(set, input.ExerciseId, input.WorkoutExerciseId);
 
             if (
                 workoutExercise != null
@@ -74,9 +73,9 @@ namespace SaveApp.App.Workout.Services.ExerciseSetService
             _commandRepository.Delete(exerciseSetId);
         }
 
-        public void Update(int userId, ExerciseSet exerciseSet)
+        public void Update(ExerciseSet exerciseSet)
         {
-            _commandRepository.Update(userId, exerciseSet);
+            _commandRepository.Update(exerciseSet);
         }
     }
 }

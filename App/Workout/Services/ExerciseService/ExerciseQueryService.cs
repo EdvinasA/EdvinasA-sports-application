@@ -12,14 +12,14 @@ namespace SaveApp.App.Workout.Services.ExerciseService
             _queryRepository = queryRepository;
         }
 
-        public List<Exercise> GetAllExercises(int userId)
+        public List<Exercise> GetAllExercises()
         {
-            return _queryRepository.GetExercises(userId);
+            return _queryRepository.GetExercises();
         }
 
-        public List<Exercise> GetExercisesByCategory(int userId, int categoryId)
+        public List<Exercise> GetExercisesByCategory(int categoryId)
         {
-            return _queryRepository.GetExercisesByCategory(userId, categoryId);
+            return _queryRepository.GetExercisesByCategory(categoryId);
         }
     }
 }

@@ -23,11 +23,11 @@ namespace SaveApp.App.Workout.Repositories.UserRepository
         }
 
         [HttpPost("login")]
-        public User Login(UserLoginRequest request) 
+        public UserSecurityToken Login(UserLoginRequest request) 
         {
-            int id = _userService.Login(request);
+            string token = _userService.Login(request);
 
-            return new User() { Id = id };
+            return new UserSecurityToken() { Token = token };
         }
         
     }

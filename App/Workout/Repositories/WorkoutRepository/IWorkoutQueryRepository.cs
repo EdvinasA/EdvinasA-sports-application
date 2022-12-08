@@ -4,8 +4,8 @@ namespace SaveApp.App.Workout.Repositories.WorkoutRepository
 {
     public interface IWorkoutQueryRepository
     {
-        List<WorkoutDetails> GetWorkouts(int UserId);
-        WorkoutDetails GetWorkout(int userId, int workoutId);
-        WorkoutExercise GetLatestWorkoutExerciseById(int userId, int currentWorkoutExerciseId, int exerciseId);
+        List<WorkoutDetails> GetWorkouts();
+        WorkoutDetails GetWorkout(int workoutId);
+        WorkoutExercise GetLatestWorkoutExerciseById(int currentWorkoutExerciseId, int exerciseId);
     }
 }

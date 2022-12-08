@@ -1,11 +1,13 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SaveApp.App.Workout.Models;
 using SaveApp.App.Workout.Services.WorkoutService;
 
 namespace SaveApp.App.Workout.Controllers;
 
+[Authorize]
 [ApiController]
-[Route("api/workout/{userId}")]
+[Route("api/workout")]
 public class WorkoutController : ControllerBase
 {
     private readonly IWorkoutCommandService _workoutCommandService;
@@ -24,49 +26,49 @@ public class WorkoutController : ControllerBase
     }
 
     [HttpPost]
-    public int CreateWorkout(int userId)
+    public int CreateWorkout()
     {
-        return _workoutCommandService.Create(userId);
+        return _workoutCommandService.Create();
     }
 
     [HttpGet]
-    public List<WorkoutDetails> GetWorkouts(int userId)
+    public List<WorkoutDetails> GetWorkouts()
     {
-        return _workoutQueryService.GetAllByUserId(userId);
+        return _workoutQueryService.GetAllByUserId();
     }
 
     [HttpGet("{workoutId}")]
-    public WorkoutDetails GetWorkoutById(int userId, int workoutId)
+    public WorkoutDetails GetWorkoutById(int workoutId)
     {
-        return _workoutQueryService.GetByWorkoutId(userId, workoutId);
+        return _workoutQueryService.GetByWorkoutId(workoutId);
     }
 
     [HttpPut("update")]
-    public void UpdateWorkout(int userId, WorkoutDetailsUpdateInput workoutDetails)
+    public void UpdateWorkout(WorkoutDetailsUpdateInput workoutDetails)
     {
-        _workoutCommandService.Update(userId, workoutDetails);
+        _workoutCommandService.Update(workoutDetails);
     }
 
     [HttpPut]
-    public WorkoutExercise AddExerciseToWorkout(int userId, AddExerciseToWorkoutInput exercise)
+    public WorkoutExercise AddExerciseToWorkout(AddExerciseToWorkoutInput exercise)
     {
-        return _workoutCommandService.AddExerciseToWorkout(userId, exercise);
+        return _workoutCommandService.AddExerciseToWorkout(exercise);
     }
 
     [HttpDelete("{workoutExerciseId}")]
-    public void DeleteExerciseFromWorkout(int userId, int workoutExerciseId)
+    public void DeleteExerciseFromWorkout(int workoutExerciseId)
     {
-        _workoutCommandService.DeleteWorkoutExercise(userId, workoutExerciseId);
+        _workoutCommandService.DeleteWorkoutExercise(workoutExerciseId);
     }
 
     [HttpDelete("workout/{workoutId}")]
-    public void DeleteWorkout(int userId, int workoutId)
+    public void DeleteWorkout(int workoutId)
     {
-        _workoutCommandService.DeleteWorkout(userId, workoutId);
+        _workoutCommandService.DeleteWorkout(workoutId);
     }
 
     [HttpPost("repeat/{workoutId}")]
-    public int RepeatWorkout(int userId, int workoutId) {
-        return _workoutCommandService.RepeatWorkout(userId, workoutId);
+    public int RepeatWorkout(int workoutId) {
+        return _workoutCommandService.RepeatWorkout(workoutId);
     }
 }

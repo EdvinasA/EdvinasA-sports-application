@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using AutoMapper;
 using SaveApp.App.Workout.Models;
 using SaveApp.App.Workout.Repositories.Contexts;
@@ -22,26 +23,28 @@ namespace SaveApp.App.Workout.Repositories.ExerciseRepository
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public Exercise Create(int userId, ExerciseCreateInput input)
+        private int GetUserId() => int.Parse(_httpContextAccessor.HttpContext!.User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+        public Exercise Create(ExerciseCreateInput input)
         {
             Console.WriteLine(input.Name);
             var exerciseEntity = _mapper.Map<ExerciseEntity>(input);
             exerciseEntity.ExerciseCategory = _context.ExerciseCategories!.Find(
                 input.ExerciseCategoryId
             );
-            exerciseEntity.User = _context.User!.Find(userId);
+            exerciseEntity.User = _context.User!.Find(GetUserId());
             _context.Exercise!.Add(exerciseEntity);
             _context.SaveChanges();
 
             return _mapper.Map<Exercise>(exerciseEntity);
         }
 
-        public void Update(int userId, Exercise input)
+        public void Update(Exercise input)
         {
             var exerciseEntity = _context.Exercise.Find(input.Id);
             exerciseEntity.Name = input.Name;
             exerciseEntity.Note = input.Note;
-            exerciseEntity.User = _context.User!.Find(userId);
+            exerciseEntity.User = _context.User!.Find(GetUserId());
             exerciseEntity.ExerciseCategory = _context.ExerciseCategories.Find(
                 input.ExerciseCategoryId
             );
@@ -50,7 +53,7 @@ namespace SaveApp.App.Workout.Repositories.ExerciseRepository
             _context.SaveChanges();
         }
 
-        public void Delete(int userId, int exerciseId)
+        public void Delete(int exerciseId)
         {
             ExerciseEntity entity = _context.Exercise.FirstOrDefault(obj => obj.Id == exerciseId);
 

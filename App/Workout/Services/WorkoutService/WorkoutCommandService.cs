@@ -29,10 +29,9 @@ namespace SaveApp.App.Workout.Services.WorkoutService
             _mapper = mapper;
         }
 
-        public int Create(int userId)
+        public int Create()
         {
             return _commandRepository.Create(
-                userId,
                 new WorkoutDetailsCreateInput()
                 {
                     Date = DateTime.UtcNow,
@@ -41,10 +40,9 @@ namespace SaveApp.App.Workout.Services.WorkoutService
             );
         }
 
-        public WorkoutExercise AddExerciseToWorkout(int userId, AddExerciseToWorkoutInput exercise)
+        public WorkoutExercise AddExerciseToWorkout(AddExerciseToWorkoutInput exercise)
         {
             WorkoutExercise addedExercise = _commandRepository.AddExerciseToWorkout(
-                userId,
                 exercise
             );
 
@@ -53,7 +51,6 @@ namespace SaveApp.App.Workout.Services.WorkoutService
             set.Reps = 0;
             set.ExerciseId = exercise.Exercise.Id;
             set.WorkoutExerciseId = (int)addedExercise.Id;
-            set.UserId = userId;
 
             ExerciseSet createdSet = _exerciseSetCommandService.Create(set);
 
@@ -62,23 +59,23 @@ namespace SaveApp.App.Workout.Services.WorkoutService
             return addedExercise;
         }
 
-        public void Update(int userId, WorkoutDetailsUpdateInput workoutDetails)
+        public void Update(WorkoutDetailsUpdateInput workoutDetails)
         {
-            _commandRepository.Update(userId, workoutDetails);
+            _commandRepository.Update(workoutDetails);
         }
 
-        public void DeleteWorkoutExercise(int userId, int workoutExerciseId)
+        public void DeleteWorkoutExercise(int workoutExerciseId)
         {
-            _commandRepository.DeleteWorkoutExercise(userId, workoutExerciseId);
+            _commandRepository.DeleteWorkoutExercise(workoutExerciseId);
         }
 
-        public void DeleteWorkout(int userId, int workoutId)
+        public void DeleteWorkout(int workoutId)
         {
-            _commandRepository.DeleteWorkout(userId, workoutId);
+            _commandRepository.DeleteWorkout(workoutId);
         }
 
-        public int RepeatWorkout(int userId, int workoutId) {
-            WorkoutDetails details = _queryRepository.GetWorkout(userId, workoutId);
+        public int RepeatWorkout(int workoutId) {
+            WorkoutDetails details = _queryRepository.GetWorkout(workoutId);
             List<WorkoutExercise> workoutExercises = details.Exercises;
             details.Id = null;
             details.Exercises = new List<WorkoutExercise>();
@@ -86,12 +83,11 @@ namespace SaveApp.App.Workout.Services.WorkoutService
             details.Date = DateTime.UtcNow;
             details.StartTime = DateTime.UtcNow;
 
-            int returnedWorkoutId = _commandRepository.Create(userId, _mapper.Map<WorkoutDetailsCreateInput>(details));
+            int returnedWorkoutId = _commandRepository.Create(_mapper.Map<WorkoutDetailsCreateInput>(details));
 
             foreach (var workoutExercise in workoutExercises)
             {
                 WorkoutExercise createdWorkoutExercise = _commandRepository.AddExerciseToWorkout(
-                userId, 
                 new AddExerciseToWorkoutInput{
                     Exercise = workoutExercise.Exercise,
                     RowNumber = workoutExercise.RowNumber,
@@ -106,7 +102,6 @@ namespace SaveApp.App.Workout.Services.WorkoutService
                             Notes = set.Notes,
                             ExerciseId = workoutExercise.Exercise.Id,
                             WorkoutExerciseId = (int)createdWorkoutExercise.Id,
-                            UserId = userId,
                             IndexOfSet = 0,
                         });
                     }

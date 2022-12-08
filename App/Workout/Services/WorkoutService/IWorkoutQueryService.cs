@@ -4,8 +4,8 @@ namespace SaveApp.App.Workout.Services.WorkoutService
 {
     public interface IWorkoutQueryService
     {
-        List<WorkoutDetails> GetAllByUserId(int UserId);
-        WorkoutDetails GetByWorkoutId(int userId, int workoutId);
-        WorkoutExercise GetLatestWorkoutExerciseById(int userId, int currentWorkoutExerciseId, int exerciseId);
+        List<WorkoutDetails> GetAllByUserId();
+        WorkoutDetails GetByWorkoutId(int workoutId);
+        WorkoutExercise GetLatestWorkoutExerciseById(int currentWorkoutExerciseId, int exerciseId);
     }
 }

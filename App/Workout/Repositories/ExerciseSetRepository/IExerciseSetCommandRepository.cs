@@ -4,8 +4,8 @@ namespace SaveApp.App.Workout.Repositories.ExerciseSetRepository
 {
     public interface IExerciseSetCommandRepository
     {
-        ExerciseSet Create(ExerciseSet input, int exerciseId, int workoutExerciseId, int userId);
+        ExerciseSet Create(ExerciseSet input, int exerciseId, int workoutExerciseId);
         void Delete(int exerciseSetId);
-        void Update(int userId, ExerciseSet exerciseSet);
+        void Update(ExerciseSet exerciseSet);
     }
 }

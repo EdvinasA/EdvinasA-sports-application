@@ -12,7 +12,7 @@ namespace SaveApp.App.Workout.Services.UserService
             _repository = repository;
         }
 
-        public int Login(UserLoginRequest request)
+        public string Login(UserLoginRequest request)
         {
             return _repository.Login(request.Email, request.Password);
         }

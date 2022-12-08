@@ -4,11 +4,11 @@ namespace SaveApp.App.Workout.Services.WorkoutService
 {
     public interface IWorkoutCommandService
     {
-        int Create(int userId);
-        WorkoutExercise AddExerciseToWorkout(int userId, AddExerciseToWorkoutInput exercise);
-        void Update(int userId, WorkoutDetailsUpdateInput workoutDetails);
-        void DeleteWorkoutExercise(int userId, int workoutExerciseId);
-        void DeleteWorkout(int userId, int workoutId);
-        int RepeatWorkout(int userId, int workoutId);
+        int Create();
+        WorkoutExercise AddExerciseToWorkout(AddExerciseToWorkoutInput exercise);
+        void Update(WorkoutDetailsUpdateInput workoutDetails);
+        void DeleteWorkoutExercise(int workoutExerciseId);
+        void DeleteWorkout(int workoutId);
+        int RepeatWorkout(int workoutId);
     }
 }

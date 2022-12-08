@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using System.Threading;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
@@ -13,31 +14,36 @@ namespace SaveApp.App.Workout.Repositories.WorkoutRepository
         private readonly ILogger _logger;
         private readonly ExerciseContext _context;
         private readonly IMapper _mapper;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
         public WorkoutQueryRepository(
             ILogger<string> logger,
             ExerciseContext context,
-            IMapper mapper
+            IMapper mapper,
+            IHttpContextAccessor httpContextAccessor
         )
         {
             _context = context;
             _mapper = mapper;
             _logger = logger;
+            _httpContextAccessor = httpContextAccessor;
         }
 
-        public List<WorkoutDetails> GetWorkouts(int userId)
+        private int GetUserId() => int.Parse(_httpContextAccessor.HttpContext!.User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+        public List<WorkoutDetails> GetWorkouts()
         {
             List<WorkoutEntity> entities = _context.Workout!
                 .Include("Exercises.Exercise")
                 .Include("Exercises.ExerciseSets")
-                .Where(workout => workout.UserEntity!.Id == userId)
+                .Where(workout => workout.UserEntity!.Id == GetUserId())
                 .OrderByDescending(workout => workout.Date)
                 .ToList();
 
             return entities.Select(entity => _mapper.Map<WorkoutDetails>(entity)).ToList();
         }
 
-        public WorkoutDetails GetWorkout(int userId, int workoutId)
+        public WorkoutDetails GetWorkout(int workoutId)
         {
             return _mapper.Map<WorkoutDetails>(
                 _context.Workout
@@ -48,14 +54,14 @@ namespace SaveApp.App.Workout.Repositories.WorkoutRepository
             );
         }
 
-        public WorkoutExercise GetLatestWorkoutExerciseById(int userId, int currentWorkoutExerciseId, int exerciseId)
+        public WorkoutExercise GetLatestWorkoutExerciseById(int currentWorkoutExerciseId, int exerciseId)
         {
             WorkoutExerciseEntity exerciseEntityToGetDate = _context.WorkoutExercise!.Include("WorkoutEntity").Where(o => o.Id == currentWorkoutExerciseId).Single();
             List<WorkoutExerciseEntity> entity = _context.WorkoutExercise
                 .Include("Exercise")
                 .Include("ExerciseSets")
                 .Include("User")
-                .Where(o => o.User!.Id == userId)
+                .Where(o => o.User!.Id == GetUserId())
                 .Where(o => o.Exercise!.Id == exerciseId)
                 .Where(o => o.Id != currentWorkoutExerciseId)
                 .Where(o => DateTime.Compare(o.WorkoutEntity.Date, exerciseEntityToGetDate.WorkoutEntity.Date) < 0)

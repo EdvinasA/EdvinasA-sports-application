@@ -12,9 +12,9 @@ namespace SaveApp.App.Workout.Services.ExerciseCategoryService
             _queryRepository = queryRepository;
         }
 
-        public List<ExerciseCategory> GetByUserId(int userId)
+        public List<ExerciseCategory> GetByUserId()
         {
-            return _queryRepository.GetByUserId(userId);
+            return _queryRepository.GetByUserId();
         }
     }
 }

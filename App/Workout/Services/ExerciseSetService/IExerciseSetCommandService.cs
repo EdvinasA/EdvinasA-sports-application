@@ -6,6 +6,6 @@ namespace SaveApp.App.Workout.Services.ExerciseSetService
     {
         ExerciseSet Create(ExerciseSetCreateInput input);
         void Delete(int ExerciseSetId);
-        void Update(int userId, ExerciseSet exerciseSet);
+        void Update(ExerciseSet exerciseSet);
     }
 }

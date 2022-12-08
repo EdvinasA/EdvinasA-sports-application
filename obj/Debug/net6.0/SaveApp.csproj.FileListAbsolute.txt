@@ -386,3 +386,15 @@ C:\Users\Beast\Desktop\Programavimas\Projects\SaveApp\obj\Debug\net6.0\SaveApp.g
 C:\Users\Beast\Desktop\Programavimas\Projects\SaveApp\obj\Debug\net6.0\ref\SaveApp.dll
 C:\Users\Beast\Desktop\Programavimas\Projects\SaveApp\bin\Debug\net6.0\Npgsql.dll
 C:\Users\Beast\Desktop\Programavimas\Projects\SaveApp\bin\Debug\net6.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll
+C:\Users\Beast\Desktop\Programavimas\Projects\SaveApp\bin\Debug\net6.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\Beast\Desktop\Programavimas\Projects\SaveApp\bin\Debug\net6.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\Beast\Desktop\Programavimas\Projects\SaveApp\bin\Debug\net6.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\Beast\Desktop\Programavimas\Projects\SaveApp\bin\Debug\net6.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\Beast\Desktop\Programavimas\Projects\SaveApp\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\Beast\Desktop\Programavimas\Projects\SaveApp\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\Beast\Desktop\Programavimas\Projects\SaveApp\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\Beast\Desktop\Programavimas\Projects\SaveApp\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\Beast\Desktop\Programavimas\Projects\SaveApp\bin\Debug\net6.0\Microsoft.Extensions.DependencyModel.dll
+C:\Users\Beast\Desktop\Programavimas\Projects\SaveApp\bin\Debug\net6.0\Scrutor.dll
+C:\Users\Beast\Desktop\Programavimas\Projects\SaveApp\bin\Debug\net6.0\Swashbuckle.AspNetCore.Filters.dll
+C:\Users\Beast\Desktop\Programavimas\Projects\SaveApp\bin\Debug\net6.0\Swashbuckle.AspNetCore.Filters.Abstractions.dll

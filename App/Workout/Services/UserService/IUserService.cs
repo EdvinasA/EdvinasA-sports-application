@@ -5,6 +5,6 @@ namespace SaveApp.App.Workout.Services.UserService
     public interface IUserService
     {
         User Register(User user);
-        int Login(UserLoginRequest request);
+        string Login(UserLoginRequest request);
     }
 }

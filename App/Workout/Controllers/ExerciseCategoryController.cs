@@ -1,11 +1,13 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SaveApp.App.Workout.Models;
 using SaveApp.App.Workout.Services.ExerciseCategoryService;
 
 namespace SaveApp.App.Workout.Controllers;
 
+[Authorize]
 [ApiController]
-[Route("api/exercise-category/{userId}")]
+[Route("api/exercise-category")]
 public class ExerciseCategoryController
 {
     private readonly IExerciseCategoryCommandService _commandService;
@@ -21,26 +23,26 @@ public class ExerciseCategoryController
     }
 
     [HttpPost]
-    public ExerciseCategory Create(int userId, ExerciseCategory input)
+    public ExerciseCategory Create(ExerciseCategory input)
     {
-        return _commandService.Create(userId, input);
+        return _commandService.Create(input);
     }
 
     [HttpPut]
-    public void Update(int userId, ExerciseCategory input)
+    public void Update(ExerciseCategory input)
     {
-        _commandService.Update(userId, input);
+        _commandService.Update(input);
     }
 
     [HttpGet]
-    public List<ExerciseCategory> GetByUserId(int userId)
+    public List<ExerciseCategory> GetByUserId()
     {
-        return _queryService.GetByUserId(userId);
+        return _queryService.GetByUserId();
     }
 
     [HttpDelete("{categoryId}")]
-    public void Delete(int userId, int categoryId)
+    public void Delete(int categoryId)
     {
-        _commandService.Delete(userId, categoryId);
+        _commandService.Delete(categoryId);
     }
 }

@@ -21,14 +21,14 @@ namespace SaveApp.App.Workout.Services.WorkoutService
             _logger = logger;
         }
 
-        public List<WorkoutDetails> GetAllByUserId(int UserId)
+        public List<WorkoutDetails> GetAllByUserId()
         {
-            return _queryRepository.GetWorkouts(UserId);
+            return _queryRepository.GetWorkouts();
         }
 
-        public WorkoutDetails GetByWorkoutId(int userId, int workoutId)
+        public WorkoutDetails GetByWorkoutId(int workoutId)
         {
-            WorkoutDetails workoutDetails = _queryRepository.GetWorkout(userId, workoutId);
+            WorkoutDetails workoutDetails = _queryRepository.GetWorkout(workoutId);
 
             if (
                 workoutDetails == null
@@ -48,7 +48,6 @@ namespace SaveApp.App.Workout.Services.WorkoutService
 
                 WorkoutExercise workoutExerciseFromDb =
                     _queryRepository.GetLatestWorkoutExerciseById(
-                        userId,
                         (int)workoutExercise.Id,
                         workoutExercise.Exercise.Id
                     );
@@ -80,13 +79,11 @@ namespace SaveApp.App.Workout.Services.WorkoutService
         }
 
         public WorkoutExercise GetLatestWorkoutExerciseById(
-            int userId,
             int currentWorkoutExerciseId,
             int exerciseId
         )
         {
             return _queryRepository.GetLatestWorkoutExerciseById(
-                userId,
                 currentWorkoutExerciseId,
                 exerciseId
             );

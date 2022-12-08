@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using SaveApp.App.Workout.Models;
@@ -12,22 +13,27 @@ namespace SaveApp.App.Workout.Repositories.WorkoutRepository
         private readonly ExerciseContext _context;
         private readonly IMapper _mapper;
         private readonly ILogger _logger;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
         public WorkoutCommandRepository(
             ExerciseContext context,
             IMapper mapper,
-            ILogger<string> logger
+            ILogger<string> logger,
+            IHttpContextAccessor httpContextAccessor
         )
         {
             _context = context;
             _mapper = mapper;
             _logger = logger;
+            _httpContextAccessor = httpContextAccessor;
         }
 
-        public int Create(int userId, WorkoutDetailsCreateInput input)
+        private int GetUserId() => int.Parse(_httpContextAccessor.HttpContext!.User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+        public int Create(WorkoutDetailsCreateInput input)
         {
             WorkoutEntity workoutEntity = _mapper.Map<WorkoutEntity>(input);
-            workoutEntity.UserEntity = _context.User!.First(user => user.Id == userId);
+            workoutEntity.UserEntity = _context.User!.First(user => user.Id == GetUserId());
 
             _context.Workout!.Add(workoutEntity);
             _context.SaveChanges();
@@ -35,12 +41,12 @@ namespace SaveApp.App.Workout.Repositories.WorkoutRepository
             return workoutEntity.Id;
         }
 
-        public WorkoutExercise AddExerciseToWorkout(int userId, AddExerciseToWorkoutInput exercise)
+        public WorkoutExercise AddExerciseToWorkout(AddExerciseToWorkoutInput exercise)
         {
             WorkoutExerciseEntity entity = new WorkoutExerciseEntity();
             entity.Exercise = _context.Exercise!.Find(exercise.Exercise.Id);
             entity.RowNumber = exercise.RowNumber;
-            entity.User = _context.User!.Find(userId);
+            entity.User = _context.User!.Find(GetUserId());
             entity.WorkoutEntity = _context.Workout!.Find(exercise.WorkoutId);
 
             _context.WorkoutExercise!.Add(entity);
@@ -49,7 +55,7 @@ namespace SaveApp.App.Workout.Repositories.WorkoutRepository
             return _mapper.Map<WorkoutExercise>(entity);
         }
 
-        public void Update(int userId, WorkoutDetailsUpdateInput workoutDetails)
+        public void Update(WorkoutDetailsUpdateInput workoutDetails)
         {
             WorkoutEntity entity = _context.Workout!.Find(workoutDetails.Id);
             entity.BodyWeight = workoutDetails.BodyWeight;
@@ -63,7 +69,7 @@ namespace SaveApp.App.Workout.Repositories.WorkoutRepository
             _context.SaveChanges();
         }
 
-        public void DeleteWorkoutExercise(int userId, int workoutExerciseId)
+        public void DeleteWorkoutExercise(int workoutExerciseId)
         {
             try
             {
@@ -80,7 +86,7 @@ namespace SaveApp.App.Workout.Repositories.WorkoutRepository
             }
         }
 
-        public void DeleteWorkout(int userId, int workoutId)
+        public void DeleteWorkout(int workoutId)
         {
             WorkoutEntity entity = _context.Workout
                 .Include("Exercises.ExerciseSets")

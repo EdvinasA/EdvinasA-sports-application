@@ -19,19 +19,19 @@ namespace SaveApp.App.Workout.Services
             _exerciseCommandRepository = exerciseCommandRepository;
         }
 
-        public Exercise CreateExercise(int userId, ExerciseCreateInput exercise)
+        public Exercise CreateExercise(ExerciseCreateInput exercise)
         {
-            return _exerciseCommandRepository.Create(userId, exercise);
+            return _exerciseCommandRepository.Create(exercise);
         }
 
-        public void UpdateExercise(int userId, Exercise exercise)
+        public void UpdateExercise(Exercise exercise)
         {
-            _exerciseCommandRepository.Update(userId, exercise);
+            _exerciseCommandRepository.Update(exercise);
         }
 
-        public void Delete(int userId, int exerciseId)
+        public void Delete(int exerciseId)
         {
-            _exerciseCommandRepository.Delete(userId, exerciseId);
+            _exerciseCommandRepository.Delete(exerciseId);
         }
     }
 }
