@@ -4,19 +4,25 @@ namespace SaveApp.App.Workout.Services.WorkoutRoutineExerciseService
 {
     public class WorkoutRoutineExerciseCommandService : IWorkoutRoutineExerciseCommandService
     {
+        private readonly IWorkoutRoutineExerciseCommandService _commandService;
+
+        public WorkoutRoutineExerciseCommandService(IWorkoutRoutineExerciseCommandService commandService) {
+            _commandService = commandService;
+        }
+
         public WorkoutRoutineExercise CreateForWorkoutRoutine(int ExerciseId)
         {
-            throw new NotImplementedException();
+            return _commandService.CreateForWorkoutRoutine(ExerciseId);
         }
 
         public void Delete(int workoutRoutineExerciseId)
         {
-            throw new NotImplementedException();
+            _commandService.Delete(workoutRoutineExerciseId);
         }
 
         public void Update(WorkoutRoutineExercise input)
         {
-            throw new NotImplementedException();
+            _commandService.Update(input);
         }
     }
 }
