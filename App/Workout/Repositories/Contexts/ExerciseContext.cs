@@ -29,6 +29,12 @@ public class ExerciseContext : DbContext
                 .HasMany(b => b.ExerciseSets)
                 .WithOne(o => o.WorkoutExerciseEntity)
                 .OnDelete(DeleteBehavior.ClientCascade);
+
+        modelBuilder
+            .Entity<WorkoutRoutineEntity>()
+                .HasMany(b => b.WorkoutRoutineExercises)
+                .WithOne(o => o.WorkoutRoutine)
+                .OnDelete(DeleteBehavior.ClientCascade);        
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -42,4 +48,6 @@ public class ExerciseContext : DbContext
     public DbSet<WorkoutEntity>? Workout { get; set; }
     public DbSet<WorkoutExerciseEntity>? WorkoutExercise { get; set; }
     public DbSet<ExerciseCategoryEntity>? ExerciseCategories { get; set; }
+    public DbSet<WorkoutRoutineEntity>? WorkoutRoutine { get; set; }
+    public DbSet<WorkoutRoutineExerciseEntity>? WorkoutRoutineExercise { get; set; }
 }

@@ -16,6 +16,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Swashbuckle.AspNetCore.Filters;
 using Microsoft.OpenApi.Models;
+using SaveApp.App.Workout.Repositories.WorkoutRoutineRepository;
+using SaveApp.App.Workout.Repositories.WorkoutRoutineExerciseRepository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -83,6 +85,12 @@ builder.Services.AddTransient<IExerciseCategoryQueryRepository, ExerciseCategory
 
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddTransient<IUserRepository, UserRepository>();
+
+// builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddTransient<IWorkoutRoutineCommandRepository, WorkoutRoutineCommandRepository>();
+
+// builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddTransient<IWorkoutRoutineExerciseCommandRepository, WorkoutRoutineExerciseCommandRepository>();
 
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
