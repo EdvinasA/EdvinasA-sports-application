@@ -18,6 +18,8 @@ using Swashbuckle.AspNetCore.Filters;
 using Microsoft.OpenApi.Models;
 using SaveApp.App.Workout.Repositories.WorkoutRoutineRepository;
 using SaveApp.App.Workout.Repositories.WorkoutRoutineExerciseRepository;
+using SaveApp.App.Workout.Services.WorkoutRoutineService;
+using SaveApp.App.Workout.Services.WorkoutRoutineExerciseService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -86,11 +88,14 @@ builder.Services.AddTransient<IExerciseCategoryQueryRepository, ExerciseCategory
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddTransient<IUserRepository, UserRepository>();
 
-// builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IWorkoutRoutineCommandService, WorkoutRoutineCommandService>();
 builder.Services.AddTransient<IWorkoutRoutineCommandRepository, WorkoutRoutineCommandRepository>();
 
-// builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IWorkoutRoutineExerciseCommandService, WorkoutRoutineExerciseCommandService>();
 builder.Services.AddTransient<IWorkoutRoutineExerciseCommandRepository, WorkoutRoutineExerciseCommandRepository>();
+
+builder.Services.AddScoped<IWorkoutRoutineQueryService, WorkoutRoutineQueryService>();
+builder.Services.AddTransient<IWorkoutRoutineQueryRepository, WorkoutRoutineQueryRepository>();
 
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
