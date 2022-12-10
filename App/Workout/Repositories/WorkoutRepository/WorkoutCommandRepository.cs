@@ -1,6 +1,7 @@
 using System.Security.Claims;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 using SaveApp.App.Workout.Models;
 using SaveApp.App.Workout.Repositories.Contexts;
 using SaveApp.App.Workout.Repositories.Entities;
@@ -28,7 +29,10 @@ namespace SaveApp.App.Workout.Repositories.WorkoutRepository
             _httpContextAccessor = httpContextAccessor;
         }
 
-        private int GetUserId() => int.Parse(_httpContextAccessor.HttpContext!.User.FindFirstValue(ClaimTypes.NameIdentifier));
+        private int GetUserId() =>
+            int.Parse(
+                _httpContextAccessor.HttpContext!.User.FindFirstValue(ClaimTypes.NameIdentifier)
+            );
 
         public int Create(WorkoutDetailsCreateInput input)
         {
@@ -69,10 +73,33 @@ namespace SaveApp.App.Workout.Repositories.WorkoutRepository
             _context.SaveChanges();
         }
 
-        public void UpdateExercises(List<WorkoutExercise> exercises) {
-            List<WorkoutExerciseEntity> entities = exercises.Select(o => _mapper.Map<WorkoutExerciseEntity>(o)).ToList();
+        public void UpdateExercises(List<WorkoutExercise> exercises)
+        {
+            List<int?> Ids = exercises.Select(o => o.Id).ToList();
+            List<WorkoutExerciseEntity> entities = _context.WorkoutExercise!
+                .Where(o => Ids.Contains(o.Id))
+                .ToList();
+            List<WorkoutExerciseEntity> updatedEntities = new List<WorkoutExerciseEntity>();
 
-            _context.WorkoutExercise.UpdateRange(entities);
+            entities.ForEach(
+                o =>
+                    exercises.ForEach(e =>
+                    {
+                        if (o.Id == e.Id && o.RowNumber != e.RowNumber)
+                        {
+                            o.RowNumber = e.RowNumber;
+                            updatedEntities.Add(o);
+                        }
+                        ;
+                    })
+            );
+
+            if (updatedEntities.Count == 0)
+            {
+                return;
+            }
+
+            _context.WorkoutExercise!.UpdateRange(updatedEntities);
             _context.SaveChanges();
         }
 
