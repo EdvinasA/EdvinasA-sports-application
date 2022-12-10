@@ -7,6 +7,7 @@ namespace SaveApp.App.Workout.Services.WorkoutService
         int Create();
         WorkoutExercise AddExerciseToWorkout(AddExerciseToWorkoutInput exercise);
         void Update(WorkoutDetailsUpdateInput workoutDetails);
+        void UpdateExercises(List<WorkoutExercise> exercises);
         void DeleteWorkoutExercise(int workoutExerciseId);
         void DeleteWorkout(int workoutId);
         int RepeatWorkout(int workoutId);

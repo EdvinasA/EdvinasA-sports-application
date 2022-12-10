@@ -49,6 +49,12 @@ public class WorkoutController : ControllerBase
         _workoutCommandService.Update(workoutDetails);
     }
 
+    [HttpPut("update-exercise")]
+    public void UpdateExercises(List<WorkoutExercise> exercises)
+    {
+        _workoutCommandService.UpdateExercises(exercises);
+    }
+
     [HttpPut]
     public WorkoutExercise AddExerciseToWorkout(AddExerciseToWorkoutInput exercise)
     {

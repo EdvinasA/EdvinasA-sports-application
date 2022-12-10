@@ -42,9 +42,7 @@ namespace SaveApp.App.Workout.Services.WorkoutService
 
         public WorkoutExercise AddExerciseToWorkout(AddExerciseToWorkoutInput exercise)
         {
-            WorkoutExercise addedExercise = _commandRepository.AddExerciseToWorkout(
-                exercise
-            );
+            WorkoutExercise addedExercise = _commandRepository.AddExerciseToWorkout(exercise);
 
             ExerciseSetCreateInput set = new ExerciseSetCreateInput();
             set.Weight = 0;
@@ -64,6 +62,11 @@ namespace SaveApp.App.Workout.Services.WorkoutService
             _commandRepository.Update(workoutDetails);
         }
 
+        public void UpdateExercises(List<WorkoutExercise> exercises)
+        {
+            _commandRepository.UpdateExercises(exercises);
+        }
+
         public void DeleteWorkoutExercise(int workoutExerciseId)
         {
             _commandRepository.DeleteWorkoutExercise(workoutExerciseId);
@@ -74,7 +77,8 @@ namespace SaveApp.App.Workout.Services.WorkoutService
             _commandRepository.DeleteWorkout(workoutId);
         }
 
-        public int RepeatWorkout(int workoutId) {
+        public int RepeatWorkout(int workoutId)
+        {
             WorkoutDetails details = _queryRepository.GetWorkout(workoutId);
             List<WorkoutExercise> workoutExercises = details.Exercises;
             details.Id = null;
@@ -83,29 +87,37 @@ namespace SaveApp.App.Workout.Services.WorkoutService
             details.Date = DateTime.UtcNow;
             details.StartTime = DateTime.UtcNow;
 
-            int returnedWorkoutId = _commandRepository.Create(_mapper.Map<WorkoutDetailsCreateInput>(details));
+            int returnedWorkoutId = _commandRepository.Create(
+                _mapper.Map<WorkoutDetailsCreateInput>(details)
+            );
 
             foreach (var workoutExercise in workoutExercises)
             {
                 WorkoutExercise createdWorkoutExercise = _commandRepository.AddExerciseToWorkout(
-                new AddExerciseToWorkoutInput{
-                    Exercise = workoutExercise.Exercise,
-                    RowNumber = workoutExercise.RowNumber,
-                    WorkoutId = returnedWorkoutId});
-
-                    foreach (var set in workoutExercise.ExerciseSets)
+                    new AddExerciseToWorkoutInput
                     {
-                        _logger.LogInformation(returnedWorkoutId.ToString());
-                        _exerciseSetCommandService.Create(new ExerciseSetCreateInput{
+                        Exercise = workoutExercise.Exercise,
+                        RowNumber = workoutExercise.RowNumber,
+                        WorkoutId = returnedWorkoutId
+                    }
+                );
+
+                foreach (var set in workoutExercise.ExerciseSets)
+                {
+                    _logger.LogInformation(returnedWorkoutId.ToString());
+                    _exerciseSetCommandService.Create(
+                        new ExerciseSetCreateInput
+                        {
                             Weight = set.Weight,
                             Reps = set.Reps,
                             Notes = set.Notes,
                             ExerciseId = workoutExercise.Exercise.Id,
                             WorkoutExerciseId = (int)createdWorkoutExercise.Id,
                             IndexOfSet = 0,
-                        });
-                    }
-            } 
+                        }
+                    );
+                }
+            }
 
             return returnedWorkoutId;
         }

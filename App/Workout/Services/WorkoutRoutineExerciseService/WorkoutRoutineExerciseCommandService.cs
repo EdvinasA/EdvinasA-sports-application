@@ -1,28 +1,29 @@
 using SaveApp.App.Workout.Models;
+using SaveApp.App.Workout.Repositories.WorkoutRoutineExerciseRepository;
 
 namespace SaveApp.App.Workout.Services.WorkoutRoutineExerciseService
 {
     public class WorkoutRoutineExerciseCommandService : IWorkoutRoutineExerciseCommandService
     {
-        private readonly IWorkoutRoutineExerciseCommandService _commandService;
+        private readonly IWorkoutRoutineExerciseCommandRepository _commandRepository;
 
-        public WorkoutRoutineExerciseCommandService(IWorkoutRoutineExerciseCommandService commandService) {
-            _commandService = commandService;
+        public WorkoutRoutineExerciseCommandService(IWorkoutRoutineExerciseCommandRepository commandRepository) {
+            _commandRepository = commandRepository;
         }
 
         public WorkoutRoutineExercise CreateForWorkoutRoutine(int ExerciseId)
         {
-            return _commandService.CreateForWorkoutRoutine(ExerciseId);
+            return _commandRepository.CreateForWorkoutRoutine(ExerciseId);
         }
 
         public void Delete(int workoutRoutineExerciseId)
         {
-            _commandService.Delete(workoutRoutineExerciseId);
+            _commandRepository.Delete(workoutRoutineExerciseId);
         }
 
         public void Update(WorkoutRoutineExercise input)
         {
-            _commandService.Update(input);
+            _commandRepository.Update(input);
         }
     }
 }

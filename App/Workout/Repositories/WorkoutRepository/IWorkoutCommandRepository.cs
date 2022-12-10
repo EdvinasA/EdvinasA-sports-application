@@ -7,6 +7,7 @@ namespace SaveApp.App.Workout.Repositories.WorkoutRepository
         int Create(WorkoutDetailsCreateInput input);
         WorkoutExercise AddExerciseToWorkout(AddExerciseToWorkoutInput exercise);
         void Update(WorkoutDetailsUpdateInput workoutDetails);
+        void UpdateExercises(List<WorkoutExercise> exercises);
         void DeleteWorkoutExercise(int workoutExerciseId);
         void DeleteWorkout(int workoutId);
     }

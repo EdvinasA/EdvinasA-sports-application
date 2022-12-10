@@ -69,6 +69,13 @@ namespace SaveApp.App.Workout.Repositories.WorkoutRepository
             _context.SaveChanges();
         }
 
+        public void UpdateExercises(List<WorkoutExercise> exercises) {
+            List<WorkoutExerciseEntity> entities = exercises.Select(o => _mapper.Map<WorkoutExerciseEntity>(o)).ToList();
+
+            _context.WorkoutExercise.UpdateRange(entities);
+            _context.SaveChanges();
+        }
+
         public void DeleteWorkoutExercise(int workoutExerciseId)
         {
             try
