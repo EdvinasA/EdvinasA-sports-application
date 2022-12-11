@@ -33,7 +33,7 @@ public class ExerciseContext : DbContext
         modelBuilder
             .Entity<WorkoutRoutineEntity>()
                 .HasMany(b => b.WorkoutRoutineExercises)
-                .WithOne(o => o.WorkoutRoutine)
+                .WithOne(o => o.WorkoutRoutineEntity)
                 .OnDelete(DeleteBehavior.ClientCascade);        
     }
 

@@ -11,9 +11,9 @@ namespace SaveApp.App.Workout.Services.WorkoutRoutineExerciseService
             _commandRepository = commandRepository;
         }
 
-        public WorkoutRoutineExercise CreateForWorkoutRoutine(int ExerciseId)
+        public WorkoutRoutineExercise CreateForWorkoutRoutine(AddExerciseToRoutineInput input)
         {
-            return _commandRepository.CreateForWorkoutRoutine(ExerciseId);
+            return _commandRepository.CreateForWorkoutRoutine(input);
         }
 
         public void Delete(int workoutRoutineExerciseId)

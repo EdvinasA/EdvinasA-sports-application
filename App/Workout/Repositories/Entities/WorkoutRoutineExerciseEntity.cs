@@ -9,7 +9,7 @@ namespace SaveApp.App.Workout.Repositories.Entities
         public string? Notes { get; set; } = string.Empty;
         public int? NumberOfSets { get; set; }
         public int? RowNumber { get; set; }
-        public WorkoutRoutineEntity? WorkoutRoutine { get; set; }
+        public WorkoutRoutineEntity? WorkoutRoutineEntity { get; set; }
         public UserEntity? User { get; set; }
     }
 }

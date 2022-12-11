@@ -1,5 +1,6 @@
 using System.Security.Claims;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using SaveApp.App.Workout.Models;
 using SaveApp.App.Workout.Repositories.Contexts;
 using SaveApp.App.Workout.Repositories.Entities;
@@ -32,13 +33,14 @@ namespace SaveApp.App.Workout.Repositories.WorkoutRoutineRepository
             );
 
         public List<WorkoutRoutine> GetAll() {
-            List<WorkoutRoutineEntity> entities = _context.WorkoutRoutine!.Where(o => o.User!.Id == GetUserId()).ToList();
+            List<WorkoutRoutineEntity> entities = _context.WorkoutRoutine!.Include("WorkoutRoutineExercises.Exercise").Where(o => o.User!.Id == GetUserId()).ToList();
 
             return entities.Select(o => _mapper.Map<WorkoutRoutine>(o)).ToList();
         }
 
          public WorkoutRoutine GetById(int workoutRoutineId) {
             WorkoutRoutineEntity entity = _context.WorkoutRoutine!
+            .Include("WorkoutRoutineExercises.Exercise")
             .Where(o => o.User!.Id == GetUserId())
             .Where(o => o.Id == workoutRoutineId)
             .Single();

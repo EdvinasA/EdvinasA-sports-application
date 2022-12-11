@@ -19,10 +19,10 @@ namespace SaveApp.App.Workout.Controllers
             _commandService = commandService;
         }
 
-        [HttpPost("{exerciseId}")]
-        public WorkoutRoutineExercise CreateForWorkoutRoutine(int exerciseId)
+        [HttpPost]
+        public WorkoutRoutineExercise CreateForWorkoutRoutine(AddExerciseToRoutineInput input)
         {
-            return _commandService.CreateForWorkoutRoutine(exerciseId);
+            return _commandService.CreateForWorkoutRoutine(input);
         }
 
         [HttpPut]

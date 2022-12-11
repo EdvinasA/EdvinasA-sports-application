@@ -31,15 +31,17 @@ namespace SaveApp.App.Workout.Repositories.WorkoutRoutineExerciseRepository
                 _httpContextAccessor.HttpContext!.User.FindFirstValue(ClaimTypes.NameIdentifier)
             );
 
-        public WorkoutRoutineExercise CreateForWorkoutRoutine(int exerciseId)
+        public WorkoutRoutineExercise CreateForWorkoutRoutine(AddExerciseToRoutineInput input)
         {
             WorkoutRoutineExerciseEntity entity =
                 new()
                 {
-                    Exercise = _context.Exercise!.Find(exerciseId),
+                    Exercise = _context.Exercise!.Find(input.ExerciseId),
                     Notes = string.Empty,
-                    NumberOfSets = 0,
-                    User = _context.User!.Find(GetUserId())
+                    RowNumber = input.RowNumber,
+                    NumberOfSets = 1,
+                    User = _context.User!.Find(GetUserId()),
+                    WorkoutRoutineEntity = _context.WorkoutRoutine!.Find(input.RoutineId)
                 };
 
             _context.WorkoutRoutineExercise!.Add(entity);
