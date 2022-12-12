@@ -104,6 +104,10 @@ namespace SaveApp.App.Workout.Services.WorkoutRoutineService
             return createdWorkoutId;
         }
 
+        public WorkoutRoutine CopyRoutine(int routineId) {
+            return _commandRepository.CopyRoutine(routineId);
+        }
+
         public void Delete(int workoutRoutineId)
         {
             _commandRepository.Delete(workoutRoutineId);

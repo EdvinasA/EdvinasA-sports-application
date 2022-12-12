@@ -23,6 +23,11 @@ namespace SaveApp.App.Workout.Controllers
             return _commandService.Create();
         }
 
+        [HttpPost("copy/{routineId}")]
+        public WorkoutRoutine CopyRoutine(int routineId) {
+            return _commandService.CopyRoutine(routineId);
+        }
+
         [HttpPost("workout/{routineId}")]
         public int CreateWorkoutFromRoutine(int routineId) {
             return _commandService.CreateWorkoutFromRoutine(routineId);

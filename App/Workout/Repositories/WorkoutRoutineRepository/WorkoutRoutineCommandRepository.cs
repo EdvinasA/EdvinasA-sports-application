@@ -56,10 +56,54 @@ namespace SaveApp.App.Workout.Repositories.WorkoutRoutineRepository
             return entity.Id;
         }
 
-        public int CreateWorkoutFromRoutine(int routineId) {
-            
+        public WorkoutRoutine CopyRoutine(int routineId)
+        {
+            WorkoutRoutineEntity entity = _context.WorkoutRoutine!
+                .Include("WorkoutRoutineExercises.Exercise")
+                .Where(o => o.Id == routineId)
+                .Single();
 
-            return 1;
+            WorkoutRoutineEntity newEntity =
+                new()
+                {
+                    Name = entity.Name,
+                    Targets = entity.Targets,
+                    Notes = entity.Notes,
+                    User = _context.User.Find(GetUserId()),
+                };
+
+            List<WorkoutRoutineExerciseEntity> exerciseEntities =
+                new List<WorkoutRoutineExerciseEntity>();
+
+            _context.WorkoutRoutine!.Add(newEntity);
+            _context.SaveChanges();
+
+            if (entity.WorkoutRoutineExercises != null && entity.WorkoutRoutineExercises.Count != 0)
+            {
+                foreach (var item in entity.WorkoutRoutineExercises)
+                {
+                    WorkoutRoutineExerciseEntity exerciseEntity =
+                        new()
+                        {
+                            Exercise = item.Exercise,
+                            Notes = item.Notes,
+                            NumberOfSets = item.NumberOfSets,
+                            RowNumber = item.RowNumber,
+                            WorkoutRoutineEntity = newEntity,
+                            WorkoutRoutineEntityId = newEntity.Id,
+                            User = item.User,
+                        };
+                    
+                    exerciseEntities.Add(exerciseEntity);
+                }
+            }
+
+            _context.WorkoutRoutineExercise!.AddRange(exerciseEntities);
+            _context.SaveChanges();
+
+            newEntity.WorkoutRoutineExercises = exerciseEntities;
+
+            return _mapper.Map<WorkoutRoutine>(newEntity);
         }
 
         public void Update(WorkoutRoutine input)
@@ -73,8 +117,12 @@ namespace SaveApp.App.Workout.Repositories.WorkoutRoutineRepository
             _context.SaveChanges();
         }
 
-        public void Delete(int workoutRoutineId) {
-            WorkoutRoutineEntity entity = _context.WorkoutRoutine!.Include("WorkoutRoutineExercises").Where(o => o.Id == workoutRoutineId).Single();
+        public void Delete(int workoutRoutineId)
+        {
+            WorkoutRoutineEntity entity = _context.WorkoutRoutine!
+                .Include("WorkoutRoutineExercises")
+                .Where(o => o.Id == workoutRoutineId)
+                .Single();
 
             _context.WorkoutRoutine!.Remove(entity);
             _context.SaveChanges();
