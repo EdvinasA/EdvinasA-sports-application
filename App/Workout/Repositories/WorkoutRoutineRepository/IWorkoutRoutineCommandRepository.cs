@@ -6,6 +6,7 @@ namespace SaveApp.App.Workout.Repositories.WorkoutRoutineRepository
     {
          int Create();
          int CreateWithInput(WorkoutRoutine workoutRoutine);
+         int CreateWorkoutFromRoutine(int routineId);
          void Update(WorkoutRoutine input);
          void Delete(int workoutRoutineId);
     }

@@ -56,6 +56,12 @@ namespace SaveApp.App.Workout.Repositories.WorkoutRoutineRepository
             return entity.Id;
         }
 
+        public int CreateWorkoutFromRoutine(int routineId) {
+            
+
+            return 1;
+        }
+
         public void Update(WorkoutRoutine input)
         {
             WorkoutRoutineEntity entity = _context.WorkoutRoutine!.Find(input.Id);

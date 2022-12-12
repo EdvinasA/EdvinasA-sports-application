@@ -5,6 +5,7 @@ namespace SaveApp.App.Workout.Services.WorkoutService
     public interface IWorkoutCommandService
     {
         int Create();
+        int CreateFromRoutine(WorkoutDetails routine);
         WorkoutExercise AddExerciseToWorkout(AddExerciseToWorkoutInput exercise);
         void Update(WorkoutDetailsUpdateInput workoutDetails);
         void UpdateExercises(List<WorkoutExercise> exercises);

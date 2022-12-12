@@ -6,6 +6,7 @@ namespace SaveApp.App.Workout.Services.WorkoutRoutineService
     {
          int Create();
          int CreateWithInput(int workoutId);
+         int CreateWorkoutFromRoutine(int routineId);
          void Update(WorkoutRoutine input);
          void Delete(int workoutRoutineId);
     }

@@ -40,6 +40,11 @@ namespace SaveApp.App.Workout.Services.WorkoutService
             );
         }
 
+        public int CreateFromRoutine(WorkoutDetails routine)
+        {
+            return _commandRepository.CreateFromRoutine(routine);
+        }
+
         public WorkoutExercise AddExerciseToWorkout(AddExerciseToWorkoutInput exercise)
         {
             WorkoutExercise addedExercise = _commandRepository.AddExerciseToWorkout(exercise);

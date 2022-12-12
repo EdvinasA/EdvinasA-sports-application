@@ -26,6 +26,7 @@ namespace SaveApp
             CreateMap<ExerciseEntity, ExerciseCreateInput>();
             CreateMap<ExerciseSet, ExerciseSetPreviousValues>();
             CreateMap<WorkoutDetails, WorkoutDetailsCreateInput>();
+            CreateMap<WorkoutDetails, WorkoutEntity>();
             CreateMap<WorkoutRoutineEntity, WorkoutRoutine>();
             CreateMap<WorkoutRoutine, WorkoutRoutineEntity>();
             CreateMap<WorkoutRoutineExerciseEntity, WorkoutRoutineExercise>();

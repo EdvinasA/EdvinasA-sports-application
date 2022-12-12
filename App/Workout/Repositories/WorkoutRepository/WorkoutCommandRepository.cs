@@ -45,6 +45,16 @@ namespace SaveApp.App.Workout.Repositories.WorkoutRepository
             return workoutEntity.Id;
         }
 
+        public int CreateFromRoutine(WorkoutDetails details) {
+            WorkoutEntity entity = _mapper.Map<WorkoutEntity>(details);
+            entity.UserEntity = _context.User!.First(o => o.Id == GetUserId());
+
+            _context.Workout!.Add(entity);
+            _context.SaveChanges();
+
+            return entity.Id;
+        }
+
         public WorkoutExercise AddExerciseToWorkout(AddExerciseToWorkoutInput exercise)
         {
             WorkoutExerciseEntity entity = new WorkoutExerciseEntity();

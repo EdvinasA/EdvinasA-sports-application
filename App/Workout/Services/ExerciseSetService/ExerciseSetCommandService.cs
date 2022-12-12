@@ -68,6 +68,16 @@ namespace SaveApp.App.Workout.Services.ExerciseSetService
             return createdSet;
         }
 
+        public void CreateSetForRoutine(int exerciseId, int workoutExerciseId) {
+            ExerciseSet set = new ExerciseSet() {
+                Weight = 0,
+                Reps = 0,
+                Notes = "",
+            };
+
+            _commandRepository.CreateSetForRoutine(set, exerciseId, workoutExerciseId);
+        }
+
         public void Delete(int exerciseSetId)
         {
             _commandRepository.Delete(exerciseSetId);
