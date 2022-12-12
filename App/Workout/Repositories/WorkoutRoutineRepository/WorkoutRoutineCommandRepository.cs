@@ -1,5 +1,6 @@
 using System.Security.Claims;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using SaveApp.App.Workout.Models;
 using SaveApp.App.Workout.Repositories.Contexts;
 using SaveApp.App.Workout.Repositories.Entities;
@@ -67,9 +68,9 @@ namespace SaveApp.App.Workout.Repositories.WorkoutRoutineRepository
         }
 
         public void Delete(int workoutRoutineId) {
-            WorkoutRoutineEntity entity = _context.WorkoutRoutine!.Find(workoutRoutineId);
+            WorkoutRoutineEntity entity = _context.WorkoutRoutine!.Include("WorkoutRoutineExercises").Where(o => o.Id == workoutRoutineId).Single();
 
-            _context.WorkoutRoutine.Remove(entity);
+            _context.WorkoutRoutine!.Remove(entity);
             _context.SaveChanges();
         }
     }

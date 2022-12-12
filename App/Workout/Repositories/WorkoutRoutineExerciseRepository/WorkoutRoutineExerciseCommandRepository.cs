@@ -61,6 +61,37 @@ namespace SaveApp.App.Workout.Repositories.WorkoutRoutineExerciseRepository
             _context.SaveChanges();
         }
 
+        public void UpdateExercisesInRoutine(List<WorkoutRoutineExercise> input)
+        {
+            List<int> Ids = input.Select(o => o.Id).ToList();
+            List<WorkoutRoutineExerciseEntity> entities = _context.WorkoutRoutineExercise!
+                .Where(o => Ids.Contains(o.Id))
+                .ToList();
+            List<WorkoutRoutineExerciseEntity> updatedEntities = new List<WorkoutRoutineExerciseEntity>();
+
+            entities.ForEach(
+                o =>
+                    input.ForEach(e =>
+                    {
+                        if (o.Id == e.Id && o.RowNumber != e.RowNumber)
+                        {
+                            o.RowNumber = e.RowNumber;
+                            updatedEntities.Add(o);
+                        }
+                        ;
+                    })
+            );
+
+            if (updatedEntities.Count == 0)
+            {
+                return;
+            }
+
+
+            _context.WorkoutRoutineExercise.UpdateRange(updatedEntities);
+            _context.SaveChanges();
+        }
+
         public void Delete(int workoutRoutineExerciseId)
         {
             WorkoutRoutineExerciseEntity entity = _context.WorkoutRoutineExercise!.Find(

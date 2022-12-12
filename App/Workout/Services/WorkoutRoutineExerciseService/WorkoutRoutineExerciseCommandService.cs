@@ -25,5 +25,10 @@ namespace SaveApp.App.Workout.Services.WorkoutRoutineExerciseService
         {
             _commandRepository.Update(input);
         }
+
+        public void UpdateExercisesInRoutine(List<WorkoutRoutineExercise> input)
+        {
+            _commandRepository.UpdateExercisesInRoutine(input);
+        }
     }
 }

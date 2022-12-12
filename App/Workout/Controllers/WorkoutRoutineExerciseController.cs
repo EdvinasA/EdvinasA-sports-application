@@ -31,6 +31,12 @@ namespace SaveApp.App.Workout.Controllers
             _commandService.Update(input);
         }
 
+        [HttpPut("all")]
+        public void UpdateExercisesInRoutine(List<WorkoutRoutineExercise> input)
+        {
+            _commandService.UpdateExercisesInRoutine(input);
+        }
+
         [HttpDelete("{workoutRoutineExerciseId}")]
         public void Delete(int workoutRoutineExerciseId)
         {

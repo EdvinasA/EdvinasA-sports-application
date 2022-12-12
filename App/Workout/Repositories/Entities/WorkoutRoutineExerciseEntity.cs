@@ -10,6 +10,7 @@ namespace SaveApp.App.Workout.Repositories.Entities
         public int? NumberOfSets { get; set; }
         public int? RowNumber { get; set; }
         public WorkoutRoutineEntity? WorkoutRoutineEntity { get; set; }
+        public int? WorkoutRoutineEntityId { get; set; }
         public UserEntity? User { get; set; }
     }
 }

@@ -29,12 +29,14 @@ public class ExerciseContext : DbContext
                 .HasMany(b => b.ExerciseSets)
                 .WithOne(o => o.WorkoutExerciseEntity)
                 .OnDelete(DeleteBehavior.ClientCascade);
-
+        
         modelBuilder
-            .Entity<WorkoutRoutineEntity>()
-                .HasMany(b => b.WorkoutRoutineExercises)
-                .WithOne(o => o.WorkoutRoutineEntity)
-                .OnDelete(DeleteBehavior.ClientCascade);        
+            .Entity<WorkoutRoutineExerciseEntity>()
+                .HasOne<WorkoutRoutineEntity>(e => e.WorkoutRoutineEntity)
+                .WithMany(o => o.WorkoutRoutineExercises)
+                .HasForeignKey(f => f.WorkoutRoutineEntityId)
+                .IsRequired(true)
+                .OnDelete(DeleteBehavior.ClientCascade);
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
