@@ -23,6 +23,12 @@ public class ExerciseSetController
         return _commandService.Create(input);
     }
 
+    [HttpPost("{setId}")]
+    public ExerciseSet CopySet(int setId)
+    {
+        return _commandService.CopySet(setId);
+    }
+
     [HttpDelete("{exerciseSetId}")]
     public void Delete(int exerciseSetId)
     {

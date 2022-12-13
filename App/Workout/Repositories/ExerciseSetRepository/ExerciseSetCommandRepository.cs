@@ -1,5 +1,6 @@
 using System.Security.Claims;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using SaveApp.App.Workout.Models;
 using SaveApp.App.Workout.Repositories.Contexts;
 using SaveApp.App.Workout.Repositories.Entities;
@@ -73,6 +74,30 @@ namespace SaveApp.App.Workout.Repositories.ExerciseSetRepository
 
             _context.ExerciseSet.Update(entity);
             _context.SaveChanges();
+        }
+
+        public ExerciseSet CopySet(int setId) {
+            ExerciseSetEntity entity = 
+                _context.ExerciseSet!
+                .Include("ExerciseEntity")
+                .Include("WorkoutExerciseEntity")
+                .Include("UserEntity")
+                .Where(o => o.Id == setId)
+                .Single();
+
+            ExerciseSetEntity entityCopy = new ExerciseSetEntity {
+                Weight = entity.Weight,
+                Reps = entity.Reps,
+                Notes = entity.Notes,
+                ExerciseEntity = entity.ExerciseEntity,
+                WorkoutExerciseEntity = entity.WorkoutExerciseEntity,
+                UserEntity = entity.UserEntity
+            };
+
+            _context.ExerciseSet!.Add(entityCopy);
+            _context.SaveChanges();
+
+            return _mapper.Map<ExerciseSet>(entityCopy);
         }
     }
 }

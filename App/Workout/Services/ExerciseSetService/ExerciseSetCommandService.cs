@@ -87,5 +87,9 @@ namespace SaveApp.App.Workout.Services.ExerciseSetService
         {
             _commandRepository.Update(exerciseSet);
         }
+
+        public ExerciseSet CopySet(int setId) {
+            return _commandRepository.CopySet(setId);
+        }
     }
 }
