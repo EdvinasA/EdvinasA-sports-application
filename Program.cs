@@ -20,6 +20,7 @@ using SaveApp.App.Workout.Repositories.WorkoutRoutineRepository;
 using SaveApp.App.Workout.Repositories.WorkoutRoutineExerciseRepository;
 using SaveApp.App.Workout.Services.WorkoutRoutineService;
 using SaveApp.App.Workout.Services.WorkoutRoutineExerciseService;
+using SaveApp.App.Workout.Services.StatisticsService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -96,6 +97,8 @@ builder.Services.AddTransient<IWorkoutRoutineExerciseCommandRepository, WorkoutR
 
 builder.Services.AddScoped<IWorkoutRoutineQueryService, WorkoutRoutineQueryService>();
 builder.Services.AddTransient<IWorkoutRoutineQueryRepository, WorkoutRoutineQueryRepository>();
+
+builder.Services.AddScoped<IStatisticsService, StatisticsService>();
 
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
