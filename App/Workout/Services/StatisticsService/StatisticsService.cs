@@ -30,6 +30,24 @@ namespace SaveApp.App.Workout.Services.StatisticsService
             return stats;
         }
 
+        public List<ExerciseStatistics> GetExerciseStatisticsByExerciseId(int exerciseId)
+        {
+            List<WorkoutExercise> exercises = _workoutQueryService.GetWorkoutsByExerciseId(
+                exerciseId
+            );
+
+            List<ExerciseStatistics> stats = new();
+
+            exercises.ForEach(o =>
+            {
+                o.ExerciseSets?.ForEach(e =>
+                {
+                    stats.Add(new ExerciseStatistics() { Weight = e.Weight, Reps = e.Reps });
+                });
+            });
+            return stats;
+        }
+
         private static List<int> GetListOfWorkoutDurations(List<WorkoutDetails> workoutsByUser)
         {
             return workoutsByUser

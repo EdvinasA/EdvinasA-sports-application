@@ -18,5 +18,10 @@ namespace SaveApp.App.Workout.Controllers
         public OverallStatistics GetStatistics() {
             return _statisticsService.GetOverallStatistics();
         }
+
+        [HttpGet("{exerciseId}")]
+        public List<ExerciseStatistics> GetExerciseStatistics(int exerciseId) {
+            return _statisticsService.GetExerciseStatisticsByExerciseId(exerciseId);
+        }
     }
 }

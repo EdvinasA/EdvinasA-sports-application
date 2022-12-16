@@ -7,5 +7,6 @@ namespace SaveApp.App.Workout.Services.WorkoutService
         List<WorkoutDetails> GetAllByUserId();
         WorkoutDetails GetByWorkoutId(int workoutId);
         WorkoutExercise GetLatestWorkoutExerciseById(int currentWorkoutExerciseId, int exerciseId);
+        List<WorkoutExercise> GetWorkoutsByExerciseId(int exerciseId);
     }
 }

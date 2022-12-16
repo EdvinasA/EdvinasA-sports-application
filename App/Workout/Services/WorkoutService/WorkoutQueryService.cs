@@ -88,5 +88,9 @@ namespace SaveApp.App.Workout.Services.WorkoutService
                 exerciseId
             );
         }
+
+        public List<WorkoutExercise> GetWorkoutsByExerciseId(int exerciseId) {
+            return _queryRepository.GetWorkoutsByExerciseId(exerciseId);
+        }
     }
 }

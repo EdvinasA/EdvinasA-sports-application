@@ -54,6 +54,18 @@ namespace SaveApp.App.Workout.Repositories.WorkoutRepository
             );
         }
 
+        public List<WorkoutExercise> GetWorkoutsByExerciseId(int exerciseId)
+        {
+            List<WorkoutExerciseEntity> entities = _context.WorkoutExercise!
+                    .Include("Exercise")
+                    .Include("ExerciseSets")
+                    .Where(exercise => exercise.User!.Id == GetUserId())
+                    .Where(exercise => exercise.Exercise!.Id == exerciseId)
+                    .ToList();
+
+            return entities.Select(o => _mapper.Map<WorkoutExercise>(o)).ToList();
+        }
+
         public WorkoutExercise GetLatestWorkoutExerciseById(int currentWorkoutExerciseId, int exerciseId)
         {
             WorkoutExerciseEntity exerciseEntityToGetDate = _context.WorkoutExercise!.Include("WorkoutEntity").Where(o => o.Id == currentWorkoutExerciseId).Single();
