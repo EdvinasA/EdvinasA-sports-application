@@ -50,7 +50,7 @@ namespace SaveApp.App.Workout.Services.WorkoutService
             WorkoutExercise addedExercise = _commandRepository.AddExerciseToWorkout(exercise);
 
             ExerciseSetCreateInput set = new ExerciseSetCreateInput();
-            set.Weight = 0;
+            set.Weight = 0.0;
             set.Reps = 0;
             set.ExerciseId = exercise.Exercise.Id;
             set.WorkoutExerciseId = (int)addedExercise.Id;

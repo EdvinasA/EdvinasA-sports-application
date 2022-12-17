@@ -40,10 +40,14 @@ namespace SaveApp.App.Workout.Services.StatisticsService
 
             exercises.ForEach(o =>
             {
-                o.ExerciseSets?.ForEach(e =>
+                if (o.ExerciseSets != null && o.ExerciseSets.Count != 0)
                 {
-                    stats.Add(new ExerciseStatistics() { Weight = e.Weight, Reps = e.Reps });
-                });
+                    List<ExerciseSet> updateSets = o.ExerciseSets.OrderBy(p => p.Id).ToList();
+                    updateSets.ForEach(e =>
+                    {
+                        stats.Add(new ExerciseStatistics() { Weight = e.Weight, Reps = e.Reps });
+                    });
+                }
             });
             return stats;
         }
@@ -79,14 +83,14 @@ namespace SaveApp.App.Workout.Services.StatisticsService
                 .ToList();
         }
 
-        private static List<int> GetListOfVolume(List<WorkoutDetails> workoutsByUser)
+        private static List<double> GetListOfVolume(List<WorkoutDetails> workoutsByUser)
         {
             List<WorkoutDetails> workoutsByUserOrdered = workoutsByUser.OrderBy(p => p.Id).ToList();
-            List<int> newListOfIntegers = new List<int>();
+            List<double> newListOfIntegers = new List<double>();
 
             workoutsByUserOrdered.ForEach(o =>
             {
-                var volumeOfWorkout = 0;
+                var volumeOfWorkout = 0.0;
                 if (o.Exercises != null && o.Exercises.Count != 0)
                 {
                     o.Exercises.ForEach(e =>
@@ -97,7 +101,7 @@ namespace SaveApp.App.Workout.Services.StatisticsService
                             {
                                 if (f.Weight != null)
                                 {
-                                    volumeOfWorkout += (int)f.Weight;
+                                    volumeOfWorkout += (double)f.Weight;
                                 }
                             });
                         }
