@@ -9,6 +9,6 @@ namespace SaveApp.App.Workout.Models
         public List<int>? Volume { get; set; }
         public List<int>? TotalSets { get; set; }
         public List<int>? TotalReps { get; set; }
-        public List<int>? BodyWeight { get; set; }
+        public List<double>? BodyWeight { get; set; }
     }
 }

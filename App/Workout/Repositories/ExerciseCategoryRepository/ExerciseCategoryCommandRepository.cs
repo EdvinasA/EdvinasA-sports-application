@@ -61,6 +61,7 @@ namespace SaveApp.App.Workout.Repositories.ExerciseCategoryRepository
             {
                 _exerciseCommandRepository.Delete(item.Id);
             }
+            
 
             _context.ExerciseCategories.Remove(entity);
             _context.SaveChanges();

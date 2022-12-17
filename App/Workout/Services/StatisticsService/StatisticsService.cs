@@ -64,7 +64,7 @@ namespace SaveApp.App.Workout.Services.StatisticsService
                 .ToList();
         }
 
-        private static List<int> GetListOfBodyweights(List<WorkoutDetails> workoutsByUser)
+        private static List<double> GetListOfBodyweights(List<WorkoutDetails> workoutsByUser)
         {
             return workoutsByUser
                 .OrderBy(p => p.Id)
@@ -72,7 +72,7 @@ namespace SaveApp.App.Workout.Services.StatisticsService
                 {
                     if (o.BodyWeight != null)
                     {
-                        return (int)o.BodyWeight;
+                        return (double)o.BodyWeight;
                     }
                     return 0;
                 })
