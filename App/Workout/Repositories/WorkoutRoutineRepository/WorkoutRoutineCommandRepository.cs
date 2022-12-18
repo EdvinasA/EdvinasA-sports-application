@@ -45,12 +45,9 @@ namespace SaveApp.App.Workout.Repositories.WorkoutRoutineRepository
         public int CreateWithInput(WorkoutRoutine workoutRoutine)
         {
             WorkoutRoutineEntity entity = _mapper.Map<WorkoutRoutineEntity>(workoutRoutine);
+            entity.User = _context.User.Find(GetUserId());
 
             _context.WorkoutRoutine!.Add(entity);
-            if (entity.WorkoutRoutineExercises!.Count != 0)
-            {
-                _context.WorkoutRoutineExercise!.AddRange(entity.WorkoutRoutineExercises);
-            }
             _context.SaveChanges();
 
             return entity.Id;

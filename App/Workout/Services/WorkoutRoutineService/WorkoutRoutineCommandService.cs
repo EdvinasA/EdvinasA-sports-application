@@ -1,6 +1,7 @@
 using SaveApp.App.Workout.Models;
 using SaveApp.App.Workout.Repositories.WorkoutRoutineRepository;
 using SaveApp.App.Workout.Services.ExerciseSetService;
+using SaveApp.App.Workout.Services.WorkoutRoutineExerciseService;
 using SaveApp.App.Workout.Services.WorkoutService;
 
 namespace SaveApp.App.Workout.Services.WorkoutRoutineService
@@ -8,6 +9,7 @@ namespace SaveApp.App.Workout.Services.WorkoutRoutineService
     public class WorkoutRoutineCommandService : IWorkoutRoutineCommandService
     {
         private readonly IWorkoutRoutineCommandRepository _commandRepository;
+        private readonly IWorkoutRoutineExerciseCommandService _workoutRoutineExerciseCommandService;
         private readonly IWorkoutCommandService _workoutCommandService;
         private readonly IExerciseSetCommandService _exerciseSetCommandService;
         private readonly IWorkoutQueryService _workoutQueryService;
@@ -15,6 +17,7 @@ namespace SaveApp.App.Workout.Services.WorkoutRoutineService
 
         public WorkoutRoutineCommandService(
             IWorkoutRoutineCommandRepository commandRepository,
+            IWorkoutRoutineExerciseCommandService workoutRoutineExerciseCommandService,
             IWorkoutCommandService workoutCommandService,
             IExerciseSetCommandService exerciseSetCommandService,
             IWorkoutQueryService workoutQueryService,
@@ -22,6 +25,7 @@ namespace SaveApp.App.Workout.Services.WorkoutRoutineService
         )
         {
             _commandRepository = commandRepository;
+            _workoutRoutineExerciseCommandService = workoutRoutineExerciseCommandService;
             _workoutQueryService = workoutQueryService;
             _exerciseSetCommandService = exerciseSetCommandService;
             _queryService = queryService;
@@ -37,27 +41,29 @@ namespace SaveApp.App.Workout.Services.WorkoutRoutineService
         {
             WorkoutDetails workout = _workoutQueryService.GetByWorkoutId(workoutId);
 
-            List<WorkoutRoutineExercise> routineExercises = workout.Exercises!
+            WorkoutRoutine routine = new() { Name = workout.Name, Notes = workout.Notes };
+
+            int newRoutineId = _commandRepository.CreateWithInput(routine);
+
+            List<AddExerciseToRoutineInput> routineExercises = workout.Exercises!
                 .Select(
                     o =>
-                        new WorkoutRoutineExercise
+                        new AddExerciseToRoutineInput
                         {
-                            Exercise = o.Exercise,
-                            Notes = string.Empty,
-                            NumberOfSets = o.ExerciseSets != null ? o.ExerciseSets.Count : 0
+                            RoutineId = newRoutineId,
+                            ExerciseId = o.Exercise!.Id,
+                            NumberOfSets = o.ExerciseSets != null ? o.ExerciseSets.Count : 1
                         }
                 )
                 .ToList();
 
-            WorkoutRoutine routine =
-                new()
-                {
-                    Name = workout.Name,
-                    Notes = workout.Notes,
-                    WorkoutRoutineExercises = routineExercises
-                };
+            for (var i = 0; i < routineExercises.Count; i++)
+            {
+                routineExercises[i].RowNumber = i + 1;
+                _workoutRoutineExerciseCommandService.CreateForWorkoutRoutine(routineExercises[i]);
+            }
 
-            return _commandRepository.CreateWithInput(routine);
+            return newRoutineId;
         }
 
         public int CreateWorkoutFromRoutine(int routineId)
@@ -104,7 +110,8 @@ namespace SaveApp.App.Workout.Services.WorkoutRoutineService
             return createdWorkoutId;
         }
 
-        public WorkoutRoutine CopyRoutine(int routineId) {
+        public WorkoutRoutine CopyRoutine(int routineId)
+        {
             return _commandRepository.CopyRoutine(routineId);
         }
 

@@ -3,6 +3,7 @@ using SaveApp.App.Workout.Models;
 using SaveApp.App.Workout.Repositories.ExerciseSetRepository;
 using SaveApp.App.Workout.Repositories.WorkoutRepository;
 using SaveApp.App.Workout.Services.ExerciseSetService;
+using SaveApp.App.Workout.Services.WorkoutRoutineService;
 
 namespace SaveApp.App.Workout.Services.WorkoutService
 {

@@ -43,7 +43,7 @@ namespace SaveApp.App.Workout.Repositories.WorkoutRoutineRepository
             .Include("WorkoutRoutineExercises.Exercise")
             .Where(o => o.User!.Id == GetUserId())
             .Where(o => o.Id == workoutRoutineId)
-            .Single();
+            .SingleOrDefault();
 
             return _mapper.Map<WorkoutRoutine>(entity);
          }

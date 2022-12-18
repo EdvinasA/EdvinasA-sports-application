@@ -25,9 +25,10 @@ using SaveApp.App.Workout.Services.StatisticsService;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddDbContext<ExerciseContext>(
-    options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"))
-);
+builder.Services.AddDbContext<ExerciseContext>(options =>
+    {
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
+    });
 builder.Services
     .AddControllers()
     .AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
@@ -93,7 +94,7 @@ builder.Services.AddScoped<IWorkoutRoutineCommandService, WorkoutRoutineCommandS
 builder.Services.AddTransient<IWorkoutRoutineCommandRepository, WorkoutRoutineCommandRepository>();
 
 builder.Services.AddScoped<IWorkoutRoutineExerciseCommandService, WorkoutRoutineExerciseCommandService>();
-builder.Services.AddTransient<IWorkoutRoutineExerciseCommandRepository, WorkoutRoutineExerciseCommandRepository>();
+builder.Services.AddScoped<IWorkoutRoutineExerciseCommandRepository, WorkoutRoutineExerciseCommandRepository>();
 
 builder.Services.AddScoped<IWorkoutRoutineQueryService, WorkoutRoutineQueryService>();
 builder.Services.AddTransient<IWorkoutRoutineQueryRepository, WorkoutRoutineQueryRepository>();

@@ -5,5 +5,6 @@ namespace SaveApp.App.Workout.Models
         public int RoutineId { get; set; }
         public int ExerciseId { get; set; }
         public int RowNumber { get; set; }
+        public int NumberOfSets { get; set; } = 1;
     }
 }
