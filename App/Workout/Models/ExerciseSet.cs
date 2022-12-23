@@ -1,4 +1,5 @@
 using System.Numerics;
+using Newtonsoft.Json;
 
 namespace SaveApp.App.Workout.Models
 {
@@ -9,6 +10,10 @@ namespace SaveApp.App.Workout.Models
         public int? Reps { get; set; }
         public String? Notes { get; set; }
         public ExerciseSetPreviousValues? ExerciseSetPreviousValues { get; set; }
-        
+
+        public override string ToString()
+        {
+            return JsonConvert.SerializeObject(this);
+        }
     }
 }

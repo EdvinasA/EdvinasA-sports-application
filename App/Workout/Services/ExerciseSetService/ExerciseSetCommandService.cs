@@ -39,8 +39,6 @@ namespace SaveApp.App.Workout.Services.ExerciseSetService
 
             if (
                 workoutExercise != null
-                && input.IndexOfSet != 0
-                && workoutExercise != null
                 && workoutExercise.ExerciseSets != null
                 && input.IndexOfSet <= workoutExercise.ExerciseSets.Count - 1
             )

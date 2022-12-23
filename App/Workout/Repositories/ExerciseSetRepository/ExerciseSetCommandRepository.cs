@@ -10,16 +10,19 @@ namespace SaveApp.App.Workout.Repositories.ExerciseSetRepository
     public class ExerciseSetCommandRepository : IExerciseSetCommandRepository
     {
         private readonly ExerciseContext _context;
+        private readonly ILogger _logger;
         private readonly IMapper _mapper;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
         public ExerciseSetCommandRepository(
             ExerciseContext context,
+            ILogger<string> logger,
             IMapper mapper,
             IHttpContextAccessor httpContextAccessor
         )
         {
             _context = context;
+            _logger = logger;
             _mapper = mapper;
             _httpContextAccessor = httpContextAccessor;
         }
@@ -31,6 +34,7 @@ namespace SaveApp.App.Workout.Repositories.ExerciseSetRepository
 
         public ExerciseSet Create(ExerciseSet input, int exerciseId, int workoutExerciseId)
         {
+            _logger.LogInformation(input.ToString());
             ExerciseSetEntity entity = _mapper.Map<ExerciseSetEntity>(input);
             entity.ExerciseEntity = _context.Exercise?.Find(exerciseId);
             entity.WorkoutExerciseEntity = _context.WorkoutExercise?.Find(workoutExerciseId);

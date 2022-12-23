@@ -49,7 +49,7 @@ namespace SaveApp.App.Workout.Services.WorkoutService
                 WorkoutExercise workoutExerciseFromDb =
                     _queryRepository.GetLatestWorkoutExerciseById(
                         (int)workoutExercise.Id,
-                        workoutExercise.Exercise.Id
+                        workoutExercise.Exercise!.Id
                     );
 
                 if (workoutExerciseFromDb == null)

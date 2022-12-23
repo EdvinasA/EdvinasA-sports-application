@@ -39,7 +39,7 @@ namespace SaveApp.App.Workout.Repositories.WorkoutRoutineExerciseRepository
                     Exercise = _context.Exercise!.Find(input.ExerciseId),
                     Notes = string.Empty,
                     RowNumber = input.RowNumber,
-                    NumberOfSets = 1,
+                    NumberOfSets = input.NumberOfSets,
                     User = _context.User!.Find(GetUserId()),
                     WorkoutRoutineEntity = _context.WorkoutRoutine!.Find(input.RoutineId)
                 };

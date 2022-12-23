@@ -54,7 +54,7 @@ namespace SaveApp.App.Workout.Services.WorkoutService
             set.Weight = 0.0;
             set.Reps = 0;
             set.ExerciseId = exercise.Exercise.Id;
-            set.WorkoutExerciseId = (int)addedExercise.Id;
+            set.WorkoutExerciseId = (int)addedExercise.Id!;
 
             ExerciseSet createdSet = _exerciseSetCommandService.Create(set);
 
@@ -86,7 +86,7 @@ namespace SaveApp.App.Workout.Services.WorkoutService
         public int RepeatWorkout(int workoutId)
         {
             WorkoutDetails details = _queryRepository.GetWorkout(workoutId);
-            List<WorkoutExercise> workoutExercises = details.Exercises;
+            List<WorkoutExercise> workoutExercises = details.Exercises!;
             details.Id = null;
             details.Exercises = new List<WorkoutExercise>();
             details.EndTime = null;
@@ -97,28 +97,30 @@ namespace SaveApp.App.Workout.Services.WorkoutService
                 _mapper.Map<WorkoutDetailsCreateInput>(details)
             );
 
-            foreach (var workoutExercise in workoutExercises)
+            foreach (var workoutExercise in workoutExercises!)
             {
                 WorkoutExercise createdWorkoutExercise = _commandRepository.AddExerciseToWorkout(
                     new AddExerciseToWorkoutInput
                     {
-                        Exercise = workoutExercise.Exercise,
+                        Exercise = workoutExercise.Exercise!,
                         RowNumber = workoutExercise.RowNumber,
                         WorkoutId = returnedWorkoutId
                     }
                 );
 
-                foreach (var set in workoutExercise.ExerciseSets)
+                List<ExerciseSet> sortedList = workoutExercise.ExerciseSets!;
+                sortedList.Sort((o1, o2) => o1.Id.CompareTo(o2.Id));
+
+                foreach (var set in sortedList)
                 {
-                    _logger.LogInformation(returnedWorkoutId.ToString());
                     _exerciseSetCommandService.Create(
                         new ExerciseSetCreateInput
                         {
                             Weight = set.Weight,
                             Reps = set.Reps,
                             Notes = set.Notes,
-                            ExerciseId = workoutExercise.Exercise.Id,
-                            WorkoutExerciseId = (int)createdWorkoutExercise.Id,
+                            ExerciseId = workoutExercise.Exercise!.Id,
+                            WorkoutExerciseId = (int)createdWorkoutExercise.Id!,
                             IndexOfSet = 0,
                         }
                     );

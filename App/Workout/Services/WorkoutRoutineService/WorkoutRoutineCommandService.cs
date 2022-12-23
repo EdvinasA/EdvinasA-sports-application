@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Logging;
 using SaveApp.App.Workout.Models;
 using SaveApp.App.Workout.Repositories.WorkoutRoutineRepository;
 using SaveApp.App.Workout.Services.ExerciseSetService;
@@ -14,6 +15,7 @@ namespace SaveApp.App.Workout.Services.WorkoutRoutineService
         private readonly IExerciseSetCommandService _exerciseSetCommandService;
         private readonly IWorkoutQueryService _workoutQueryService;
         private readonly IWorkoutRoutineQueryService _queryService;
+        private readonly ILogger _logger;
 
         public WorkoutRoutineCommandService(
             IWorkoutRoutineCommandRepository commandRepository,
@@ -21,7 +23,8 @@ namespace SaveApp.App.Workout.Services.WorkoutRoutineService
             IWorkoutCommandService workoutCommandService,
             IExerciseSetCommandService exerciseSetCommandService,
             IWorkoutQueryService workoutQueryService,
-            IWorkoutRoutineQueryService queryService
+            IWorkoutRoutineQueryService queryService,
+            ILogger<string> logger
         )
         {
             _commandRepository = commandRepository;
@@ -30,6 +33,7 @@ namespace SaveApp.App.Workout.Services.WorkoutRoutineService
             _exerciseSetCommandService = exerciseSetCommandService;
             _queryService = queryService;
             _workoutCommandService = workoutCommandService;
+            _logger = logger;
         }
 
         public int Create()
@@ -47,13 +51,14 @@ namespace SaveApp.App.Workout.Services.WorkoutRoutineService
 
             List<AddExerciseToRoutineInput> routineExercises = workout.Exercises!
                 .Select(
-                    o =>
-                        new AddExerciseToRoutineInput
+                    o => {
+                        return new AddExerciseToRoutineInput
                         {
                             RoutineId = newRoutineId,
                             ExerciseId = o.Exercise!.Id,
-                            NumberOfSets = o.ExerciseSets != null ? o.ExerciseSets.Count : 1
-                        }
+                            NumberOfSets = o.ExerciseSets == null || o.ExerciseSets.Count == 0 ? 1 : o.ExerciseSets.Count
+                        };
+                    }
                 )
                 .ToList();
 

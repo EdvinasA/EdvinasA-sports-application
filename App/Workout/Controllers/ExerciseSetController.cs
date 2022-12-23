@@ -11,10 +11,12 @@ namespace SaveApp.App.Workout.Controllers;
 public class ExerciseSetController
 {
     private readonly IExerciseSetCommandService _commandService;
+    private readonly IExerciseSetQueryService _queryService;
 
-    public ExerciseSetController(IExerciseSetCommandService commandService)
+    public ExerciseSetController(IExerciseSetCommandService commandService, IExerciseSetQueryService queryService)
     {
         _commandService = commandService;
+        _queryService = queryService;
     }
 
     [HttpPost]
@@ -39,5 +41,11 @@ public class ExerciseSetController
     public void UpdateSet(ExerciseSet exerciseSet)
     {
         _commandService.Update(exerciseSet);
+    }
+
+    [HttpGet]
+    public List<ExerciseSet> GetHitoryOfExerciseSets(int workoutExerciseId, int exerciseId)
+    {
+        return _queryService.GetHitoryOfExerciseSets(workoutExerciseId, exerciseId);
     }
 }

@@ -61,6 +61,7 @@ builder.Host.ConfigureLogging(logging =>
 {
     logging.ClearProviders();
     logging.AddConsole();
+    logging.AddFilter("Microsoft.EntityFrameworkCore.Database.Command", LogLevel.Warning);
 });
 
 builder.Services.AddTransient<IWorkoutCommandRepository, WorkoutCommandRepository>();
